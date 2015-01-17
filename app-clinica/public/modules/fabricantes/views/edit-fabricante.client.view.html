@@ -1,0 +1,19 @@
+<section data-ng-controller="FabricantesController" data-ng-init="findOne()">
+    <div class="page-header">
+        <h1>Edición Fabricante</h1>
+    </div>
+    <div class="col-md-12">
+        <form class="form-horizontal" data-ng-submit="update()" novalidate>
+            <fieldset>
+                <ng-include src="'/modules/fabricantes/views/form-fields-fabricante.client.view.html'"></ng-include>
+
+                <div class="form-group">
+                    <input type="submit" value="Update" class="btn btn-default">
+                </div>
+				<div data-ng-show="error" class="text-danger">
+					<strong data-ng-bind="error"></strong>
+				</div>
+            </fieldset>
+        </form>
+    </div>
+</section>
