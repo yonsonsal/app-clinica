@@ -15,7 +15,12 @@ module.exports = {
 			css: [
 				'public/lib/bootstrap/dist/css/bootstrap.css',
 				'public/lib/bootstrap/dist/css/bootstrap-theme.css',
-                'public/lib/angular-ui-select/dist/select.css'
+                'public/lib/angular-ui-select/dist/select.css',
+                'public/modules/theme/css/style.css',
+                'public/modules/theme/css/style-responsive.css',
+                'public/modules/theme/css/table-responsive.css',
+                'public/modules/theme/css/to-do.css',
+                'public/modules/theme/font-awesome/css/font-awesome.css'
 			],
 			js: [
 				'public/lib/angular/angular.js',
@@ -27,7 +32,16 @@ module.exports = {
 				'public/lib/angular-ui-router/release/angular-ui-router.js',
 				'public/lib/angular-ui-utils/ui-utils.js',
 				'public/lib/angular-bootstrap/ui-bootstrap-tpls.js',
-                'public/lib/angular-ui-select/dist/select.js'
+                'public/lib/angular-ui-select/dist/select.js',
+                'public/lib/jquery/dist/jquery.js',
+                'public/lib/bootstrap/dist/js/bootstrap.js',
+                'public/modules/theme/js/jquery-ui-1.9.2.custom.min.js',
+                'public/modules/theme/js/jquery.ui.touch-punch.min.js',
+                'public/modules/theme/js/jquery.dcjqaccordion.2.7.js',
+                'public/modules/theme/js/jquery.scrollTo.min.js',
+                'public/modules/theme/js/jquery.nicescroll.js',
+                'public/modules/theme/js/common-scripts.js'
+
 			]
 		},
 		css: [

@@ -44,25 +44,27 @@
 </head>
 
 <body class="ng-cloak">
-	<header data-ng-include="'/modules/core/views/header.client.view.html'" class="navbar navbar-fixed-top navbar-inverse"></header>
-	<section class="content">
-		<section class="container">
-			{% block content %}{% endblock %}
-		</section>
-	</section>
+    <section id="container" >
+        <header data-ng-include="'/modules/core/views/header.client.view.html'" class="header black-bg"></header>
+        <aside data-ng-include="'/modules/core/views/left.client.view.html'"></aside>
+        <section id="main-content">
+            {% block content %}{% endblock %}
+        </section>
+    </section>
 
 	<!--Embedding The User Object-->
 	<script type="text/javascript">
 		var user = {{ user | json | safe }};
 	</script>
 
-	<!--Application JavaScript Files-->
+   	<!--Application JavaScript Files-->
 	{% for jsFile in jsFiles %}<script type="text/javascript" src="{{jsFile}}"></script>{% endfor %} 
 
 	{% if process.env.NODE_ENV === 'development' %}
 	<!--Livereload script rendered -->
 	<script type="text/javascript" src="http://{{request.hostname}}:35729/livereload.js"></script>
 	{% endif %}
+
 </body>
 
 </html>
