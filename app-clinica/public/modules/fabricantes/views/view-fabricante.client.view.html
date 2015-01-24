@@ -3,46 +3,38 @@
     <div class="row">
         <div class="col-md-12">
             <div class="content-panel">
-                <div class="pull-right">
+                <div class="pull-right" style="margin-right: 10px">
                     <!--data-ng-show="((authentication.user) && (authentication.user._id == tipoproducto.user._id))"-->
-                    <a class="btn btn-primary" href="/#!/fabricantes/{{fabricantes._id}}/edit">
+                    <a class="btn btn-primary" href="/#!/fabricantes/{{fabricante._id}}/edit">
                         <i class="glyphicon glyphicon-edit"></i>
                     </a>
                     <a class="btn btn-primary" data-ng-click="remove();">
                         <i class="glyphicon glyphicon-trash"></i>
                     </a>
                 </div>
-                <span data-ng-bind="fabricante.nombre"></span>
-                <span data-ng-bind="fabricante.origen"></span>
-                <span data-ng-bind="fabricante.created | date:'medium'"></span>
-                <span data-ng-bind="fabricante.user.displayName"></span>
-                <!--span data-ng-bind="tipoproducto.nombre | date:'mediumDate'"></span>
-                <span data-ng-bind="tipoproducto.descripcion | date:'mediumDate'"></span>
-                <span data-ng-bind="tipoproducto.created | date:'mediumDate'"></span>
-                <span data-ng-bind="tipoproducto.user.displayName"></span-->
+                <table class="table table-hover">
+                    <h4><i class="fa fa-angle-right"></i>{{fabricante.nombre}}</h4>
+                    <hr>
+                    <tbody>
+                    <tr>
+                        <td>Origen</td>
+                        <td><strong>{{fabricante.origen}}</strong></td>
+                    </tr>
+                    <tr>
+                        <td>Observaciones</td>
+                        <td><strong>{{fabricante.observaciones}}</strong></td>
+                    </tr>
+                    <tr>
+                        <td>Creado</td>
+                        <td><strong>{{fabricante.created | date:'medium'}}</strong></td>
+                    </tr>
+                    <tr>
+                        <td>Usuario</td>
+                        <td><strong>{{fabricante.user.displayName}}</strong></td>
+                    </tr>
+                    </tbody>
+                </table>
             </div><! --/content-panel -->
         </div><!-- /col-md-12 -->
     </div>
 </section>
-
-<!--section data-ng-controller="FabricantesController" data-ng-init="findOne()">
-	<div class="page-header">
-		<h1 data-ng-bind="fabricante.nombre"></h1>
-	</div>
-	<div class="pull-right" data-ng-show="((authentication.user) && (authentication.user._id == fabricante.user._id))">
-		<a class="btn btn-primary" href="/#!/fabricantes/{{fabricante._id}}/edit">
-			<i class="glyphicon glyphicon-edit"></i>
-		</a>
-		<a class="btn btn-primary" data-ng-click="remove();">
-			<i class="glyphicon glyphicon-trash"></i>
-		</a>
-	</div>
-	<small>
-		<em class="text-muted">
-			Posted on
-			<span data-ng-bind="fabricante.created | date:'mediumDate'"></span>
-			by
-			<span data-ng-bind="fabricante.user.displayName"></span>
-		</em>
-	</small>
-</section-->

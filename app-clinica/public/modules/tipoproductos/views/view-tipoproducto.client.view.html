@@ -3,7 +3,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="content-panel">
-                <div class="pull-right">
+                <div class="pull-right" style="margin-right: 10px">
                     <!--data-ng-show="((authentication.user) && (authentication.user._id == tipoproducto.user._id))"-->
                     <a class="btn btn-primary" href="/#!/tipoproductos/{{tipoproducto._id}}/edit">
                         <i class="glyphicon glyphicon-edit"></i>
@@ -12,10 +12,24 @@
                         <i class="glyphicon glyphicon-trash"></i>
                     </a>
                 </div>
-                <span data-ng-bind="tipoproducto.nombre | date:'mediumDate'"></span>
-                <span data-ng-bind="tipoproducto.descripcion | date:'mediumDate'"></span>
-                <span data-ng-bind="tipoproducto.created | date:'mediumDate'"></span>
-                <span data-ng-bind="tipoproducto.user.displayName"></span>
+                <table class="table table-hover">
+                    <h4><i class="fa fa-angle-right"></i>{{tipoproducto.nombre}}</h4>
+                    <hr>
+                    <tbody>
+                    <tr>
+                        <td>Descripcion</td>
+                        <td><strong>{{tipoproducto.descripcion}}</strong></td>
+                    </tr>
+                    <tr>
+                        <td>Creado</td>
+                        <td><strong>{{tipoproducto.created | date:'medium'}}</strong></td>
+                    </tr>
+                    <tr>
+                        <td>Usuario</td>
+                        <td><strong>{{tipoproducto.user.displayName}}</strong></td>
+                    </tr>
+                    </tbody>
+                </table>
             </div><! --/content-panel -->
         </div><!-- /col-md-12 -->
     </div>

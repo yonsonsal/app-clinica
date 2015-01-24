@@ -13,15 +13,17 @@
                         <th>Origen</th>
                         <th>Fecha de Creacion</th>
                         <th>Usuario</th>
+                        <th>Opciones</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr data-ng-repeat="fabricante in fabricantes" data-ng-href="#!/fabricantes/{{fabricante._id}}">
-                        <td data-ng-href="#!/fabricantes/{{fabricante._id}}">{{fabricante._id}}</td>
+                        <td>{{$index+1}}</td>
                         <td data-ng-bind="fabricante.nombre"></td>
                         <td data-ng-bind="fabricante.origen"></td>
                         <td data-ng-bind="fabricante.created | date:'medium'"></td>
                         <td data-ng-bind="fabricante.user.displayName"></td>
+                        <td> <a href="#!/fabricantes/{{fabricante._id}}"><span class="glyphicon glyphicon-floppy-open"></span></a></td>
                     </tr>
                     </tbody>
                 </table>

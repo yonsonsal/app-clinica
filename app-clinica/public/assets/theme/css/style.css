@@ -2241,3 +2241,15 @@ label {
 }
 
 
+/* Added by Nadia */
+.row {
+    margin: 0;
+}
+
+#sidebar > ul > li > ul.sub > li > a {
+    background-color: transparent;
+}
+
+#sidebar > ul > li > ul.sub > li > a.active {
+    color: #68dff0;
+}

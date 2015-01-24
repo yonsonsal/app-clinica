@@ -1,76 +1,87 @@
 <div ng-hide="newProductTypeStateBoolean || newFabricanteStateBoolean">
-    <div class="form-group">
-        <label class="control-label" for="nombre">Nombre</label>
-        <div class="controls">
-            <input type="text" data-ng-model="producto.nombre" id="nombre" class="form-control" placeholder="nombre" required>
+    <div class="row">
+        <div class="form-group col-xs-12 col-sm-8 col-md-6 col-lg-4">
+            <label class="control-label" for="nombre">Nombre</label>
+            <div class="controls">
+                <input type="text" data-ng-model="producto.nombre" id="nombre" class="form-control" placeholder="nombre" required>
+            </div>
         </div>
     </div>
 
-    <div class="form-group">
 
-        <label class="control-label" for="tipo-producto">Tipo de Producto</label>
-        <div class="input-group">
+    <div class="row">
+        <div class="form-group col-xs-12 col-sm-8 col-md-6 col-lg-4">
 
-            <ui-select ng-model="tipoproducto.selected" theme="bootstrap">
-                <ui-select-match placeholder="Tipo de Producto">{{$select.selected.nombre}}</ui-select-match>
-                <ui-select-choices repeat="item in tipoProductos | filter: $select.search">
-                    <span ng-bind-html="item.nombre | highlight: $select.search"></span>
-                    <small ng-bind-html="item.descripcion | highlight: $select.search"></small>
-                </ui-select-choices>
-            </ui-select>
+            <label class="control-label" for="tipo-producto">Tipo de Producto</label>
+            <div class="input-group">
+
+                <ui-select ng-model="tipoproducto.selected" theme="bootstrap">
+                    <ui-select-match placeholder="Tipo de Producto">{{$select.selected.nombre}}</ui-select-match>
+                    <ui-select-choices repeat="item in tipoProductos | filter: $select.search">
+                        <span ng-bind-html="item.nombre | highlight: $select.search"></span>
+                        <small ng-bind-html="item.descripcion | highlight: $select.search"></small>
+                    </ui-select-choices>
+                </ui-select>
+
+                    <span class="input-group-btn">
+                      <button ng-click="newTypeProductState()" class="btn btn-default" tooltip="Nuevo Tipo de Producto">
+                          <span class="glyphicon glyphicon-plus"></span>
+                      </button>
+                    </span>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="form-group col-xs-12 col-sm-8 col-md-6 col-lg-4">
+
+            <label class="control-label" for="fabricante">Fabricante</label>
+            <div class="input-group">
+
+                <ui-select ng-model="fabricante.selected" theme="bootstrap">
+                    <ui-select-match placeholder="Fabricante">{{$select.selected.nombre}} ({{$select.selected.origen}})</ui-select-match>
+                    <ui-select-choices repeat="item in fabricantes | filter: $select.search">
+                        <span ng-bind-html="item.nombre | highlight: $select.search"></span>
+                        <small ng-bind-html="item.origen | highlight: $select.search"></small>
+                        <small ng-bind-html="item.observaciones | highlight: $select.search"></small>
+                    </ui-select-choices>
+                </ui-select>
 
                 <span class="input-group-btn">
-                  <button ng-click="newTypeProductState()" class="btn btn-default" tooltip="Nuevo Tipo de Producto">
+                  <button ng-click="newFabricanteState()" class="btn btn-default" tooltip="Nuevo Fabricante">
                       <span class="glyphicon glyphicon-plus"></span>
                   </button>
                 </span>
 
+            </div>
         </div>
     </div>
 
-    <div class="form-group">
-
-        <label class="control-label" for="fabricante">Fabricante</label>
-        <div class="input-group">
-
-            <ui-select ng-model="fabricante.selected" theme="bootstrap">
-                <ui-select-match placeholder="Fabricante">{{$select.selected.nombre}} ({{$select.selected.origen}})</ui-select-match>
-                <ui-select-choices repeat="item in fabricantes | filter: $select.search">
-                    <span ng-bind-html="item.nombre | highlight: $select.search"></span>
-                    <small ng-bind-html="item.origen | highlight: $select.search"></small>
-                    <small ng-bind-html="item.observaciones | highlight: $select.search"></small>
-                </ui-select-choices>
-            </ui-select>
-
-            <span class="input-group-btn">
-              <button ng-click="newFabricanteState()" class="btn btn-default" tooltip="Nuevo Fabricante">
-                  <span class="glyphicon glyphicon-plus"></span>
-              </button>
-            </span>
-
+    <div class="row">
+        <div class="form-group col-xs-12 col-sm-8 col-md-6 col-lg-4">
+            <label class="control-label" for="tamanio">Tamaño</label>
+            <div class="controls">
+                <input type="text" data-ng-model="producto.tamanio" id="tamanio" class="form-control" placeholder="Tamaño" required>
+            </div>
         </div>
     </div>
 
-    <div class="form-group">
-        <label class="control-label" for="tamanio">Tamaño</label>
-        <div class="controls">
-            <input type="text" data-ng-model="producto.tamanio" id="tamanio" class="form-control" placeholder="Tamaño" required>
-        </div>
-    </div>
+    <div class="row">
+        <div class="form-group col-xs-12 col-sm-8 col-md-6 col-lg-4">
 
-    <div class="form-group">
+            <div class="controls">
+                <label class="control-label" for="fraccionable">Fraccionable</label>
+                <input type="checkbox" ng-model="producto.fraccionable" name="fraccionable" id="fraccionable">
 
-        <div class="controls">
-            <label class="control-label" for="fraccionable">Fraccionable</label>
-            <input type="checkbox" ng-model="producto.fraccionable" name="fraccionable" id="fraccionable">
+                <label class="control-label" for="consumible">Consumible</label>
+                <input type="checkbox" data-ng-model="producto.consumible" name="consumible" id="consumible">
 
-            <label class="control-label" for="consumible">Consumible</label>
-            <input type="checkbox" data-ng-model="producto.consumible" name="consumible" id="consumible">
-
-        </div>
-        <div class="controls">
-            <label class="control-label" for="stock-minimo">Stock Mínimo</label>
-            <input type="number" data-ng-model="producto.stockMinimo" id="stock-minimo" class="form-control" placeholder="Stock Mínimo" required>
+            </div>
+            <div class="controls">
+                <label class="control-label" for="stock-minimo">Stock Mínimo</label>
+                <input type="number" data-ng-model="producto.stockMinimo" id="stock-minimo" class="form-control" placeholder="Stock Mínimo" required>
+            </div>
         </div>
     </div>
 
