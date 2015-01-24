@@ -1,4 +1,31 @@
-<section data-ng-controller="FabricantesController" data-ng-init="findOne()">
+<section class="wrapper site-min-height" data-ng-controller="FabricantesController" data-ng-init="findOne()">
+    <h3><i class="fa fa-angle-right"></i>Fabricante: <strong>{{fabricante.nombre}}</strong></h3>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="content-panel">
+                <div class="pull-right">
+                    <!--data-ng-show="((authentication.user) && (authentication.user._id == tipoproducto.user._id))"-->
+                    <a class="btn btn-primary" href="/#!/fabricantes/{{fabricantes._id}}/edit">
+                        <i class="glyphicon glyphicon-edit"></i>
+                    </a>
+                    <a class="btn btn-primary" data-ng-click="remove();">
+                        <i class="glyphicon glyphicon-trash"></i>
+                    </a>
+                </div>
+                <span data-ng-bind="fabricante.nombre"></span>
+                <span data-ng-bind="fabricante.origen"></span>
+                <span data-ng-bind="fabricante.created | date:'medium'"></span>
+                <span data-ng-bind="fabricante.user.displayName"></span>
+                <!--span data-ng-bind="tipoproducto.nombre | date:'mediumDate'"></span>
+                <span data-ng-bind="tipoproducto.descripcion | date:'mediumDate'"></span>
+                <span data-ng-bind="tipoproducto.created | date:'mediumDate'"></span>
+                <span data-ng-bind="tipoproducto.user.displayName"></span-->
+            </div><! --/content-panel -->
+        </div><!-- /col-md-12 -->
+    </div>
+</section>
+
+<!--section data-ng-controller="FabricantesController" data-ng-init="findOne()">
 	<div class="page-header">
 		<h1 data-ng-bind="fabricante.nombre"></h1>
 	</div>
@@ -18,4 +45,4 @@
 			<span data-ng-bind="fabricante.user.displayName"></span>
 		</em>
 	</small>
-</section>
+</section-->

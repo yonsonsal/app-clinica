@@ -1,4 +1,36 @@
-<section data-ng-controller="TipoproductosController" data-ng-init="find()">
+<section class="wrapper site-min-height" data-ng-controller="TipoproductosController" data-ng-init="find()">
+    <h3><i class="fa fa-angle-right"></i>Tipo de Productos</h3>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="content-panel">
+                <table class="table table-hover">
+                    <h4><i class="fa fa-angle-right"></i>Tipo de Productos</h4>
+                    <hr>
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Nombre</th>
+                        <th>Descripcion</th>
+                        <th>Fecha de Creacion</th>
+                        <th>Usuario</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr data-ng-repeat="tipoproducto in tipoproductos" data-ng-href="#!/tipoproductos/{{tipoproducto._id}}">
+                        <td>{{$index+1}}</td>
+                        <td data-ng-bind="tipoproducto.nombre"></td>
+                        <td data-ng-bind="tipoproducto.descripcion"></td>
+                        <td data-ng-bind="tipoproducto.created | date:'medium'"></td>
+                        <td data-ng-bind="tipoproducto.user.displayName"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div><! --/content-panel -->
+        </div><!-- /col-md-12 -->
+    </div>
+</section>
+
+<!--section data-ng-controller="TipoproductosController" data-ng-init="find()">
     <div class="page-header">
         <h1>Tipoproductos</h1>
     </div>
@@ -16,4 +48,4 @@
     <div class="alert alert-warning text-center" data-ng-hide="!tipoproductos.$resolved || tipoproductos.length">
     	No Tipoproductos yet, why don't you <a href="/#!/tipoproductos/create">create one</a>?
     </div>
-</section>
+</section-->

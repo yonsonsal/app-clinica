@@ -5,26 +5,19 @@
         <!--p class="centered"><a href="profile.html"><img src="assets/img/ui-sam.jpg" class="img-circle" width="60"></a></p-->
         <h5 class="centered">Marcel Newman</h5>
 
-        <!--li class="mt">
-            <a href="index.html">
-                <i class="fa fa-dashboard"></i>
-                <span>Dashboard</span>
-            </a>
-        </li-->
-
         <li class="sub-menu" data-ng-repeat="item in menu.items | orderBy: 'position'" ng-switch="item.menuItemType"
             ui-route="{{item.uiRoute}}" ng-class="{active: ($uiRoute)}">
             <a ng-switch-when="dropdown" href="javascript:;" >
                 <i class="fa fa-desktop"></i>
                 <span data-ng-bind="item.title"></span>
             </a>
-            <ul ng-switch-when="dropdown" class="sub" data-ng-repeat="subitem in item.items | orderBy: 'position'">
+            <ul class="sub" data-ng-repeat="subitem in item.items | orderBy: 'position'">
                 <li><a href="/#!/{{subitem.link}}" data-ng-bind="subitem.title"></a></li>
             </ul>
 
-            <ul ng-switch-default class="sub">
-                <li><a href="/#!/{{item.link}}" data-ng-bind="item.title"></a></li>
-            </ul>
+            <!--ul ng-switch-default class="sub">
+                <li><a href="/#!/{{item.link}}" data-ng-bind="subitem.title"></a></li>
+            </ul-->
         </li>
 
         <!--li class="sub-menu">
