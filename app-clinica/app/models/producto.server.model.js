@@ -37,6 +37,11 @@ var ProductoSchema = new Schema({
         required: 'El campo stock mínimo es obligatorio.',
         trim: true
     },
+    stockActual:{
+        type: Number,
+        default: 0,
+        trim: true
+    },
     fraccionable:{
         type: Boolean,
         default: false,
