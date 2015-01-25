@@ -1,20 +1,20 @@
-<section data-ng-controller="PersonasController" data-ng-init="findOne()">
-    <div class="page-header">
-        <h1>Edit Persona</h1>
-    </div>
-    <div class="col-md-12">
-        <form class="form-horizontal" data-ng-submit="update()" novalidate>
-            <fieldset>
-                <div class="form-group">
-                    <ng-include src="'/modules/personas/views/form-fields-persona.client.view.html'"></ng-include>
-                </div>
-                <div class="form-group">
-                    <input type="submit" value="Guardar" class="btn btn-default">
-                </div>
-				<div data-ng-show="error" class="text-danger">
-					<strong data-ng-bind="error"></strong>
-				</div>
-            </fieldset>
-        </form>
+<section class="wrapper site-min-height" data-ng-controller="PersonasController" data-ng-init="findOne()">
+    <h3><i class="fa fa-angle-right"></i>Editar Persona</h3>
+    <div class="row">
+        <div class="col-md-12">
+            <form class="form-horizontal" data-ng-submit="update()" novalidate>
+                <fieldset>
+                    <div class="form-group">
+                        <ng-include src="'/modules/personas/views/form-fields-persona.client.view.html'"></ng-include>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Guardar" class="btn btn-default">
+                    </div>
+                    <div data-ng-show="error" class="text-danger">
+                        <strong data-ng-bind="error"></strong>
+                    </div>
+                </fieldset>
+            </form>
+        </div>
     </div>
 </section>

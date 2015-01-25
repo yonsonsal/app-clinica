@@ -1,21 +1,60 @@
-<section data-ng-controller="ProductosController" data-ng-init="findOne()">
-	<div class="page-header">
-		<h1 data-ng-bind="producto.name"></h1>
-	</div>
-	<div class="pull-right" data-ng-show="((authentication.user) && (authentication.user._id == producto.user._id))">
-		<a class="btn btn-primary" href="/#!/productos/{{producto._id}}/edit">
-			<i class="glyphicon glyphicon-edit"></i>
-		</a>
-		<a class="btn btn-primary" data-ng-click="remove();">
-			<i class="glyphicon glyphicon-trash"></i>
-		</a>
-	</div>
-	<small>
-		<em class="text-muted">
-			Posted on
-			<span data-ng-bind="producto.created | date:'mediumDate'"></span>
-			by
-			<span data-ng-bind="producto.user.displayName"></span>
-		</em>
-	</small>
+<section class="wrapper site-min-height" data-ng-controller="ProductosController" data-ng-init="findOne()">
+    <h3><i class="fa fa-angle-right"></i>Producto: <strong>{{producto.nombre}}</strong></h3>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="content-panel">
+                <div class="pull-right" style="margin-right: 10px">
+                    <!--data-ng-show="((authentication.user) && (authentication.user._id == tipoproducto.user._id))"-->
+                    <a class="btn btn-primary" href="/#!/productos/{{producto._id}}/edit">
+                        <i class="glyphicon glyphicon-edit"></i>
+                    </a>
+                    <a class="btn btn-primary" data-ng-click="remove();">
+                        <i class="glyphicon glyphicon-trash"></i>
+                    </a>
+                </div>
+                <table class="table table-hover">
+                    <h4><i class="fa fa-angle-right"></i>{{producto.nombre}}</h4>
+                    <hr>
+                    <tbody>
+                    <tr>
+                        <td>Fabricante</td>
+                        <td><strong>{{producto.fabricante.nombre}}</strong>
+                            <a href="/#!/fabricantes/{{producto.fabricante}}">
+                                <i class="glyphicon glyphicon-zoom-in"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Tipo Producto</td>
+                        <td><strong>{{producto.tipoproducto.nombre}}</strong>
+                            <a href="/#!/tipoproductos/{{producto.tipoProducto}}">
+                                <i class="glyphicon glyphicon-zoom-in"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Tamaño</td>
+                        <td><strong>{{producto.tamanio}}</strong></td>
+                    </tr>
+                    <tr>
+                        <td>Fraccionable</td>
+                        <td><strong>{{producto.fraccionable}}</strong></td>
+                    </tr>
+                    <tr>
+                        <td>Consumible</td>
+                        <td><strong>{{producto.consumible}}</strong></td>
+                    </tr>
+                    <tr>
+                        <td>Stock minimo</td>
+                        <td><strong>{{producto.stockMinimo}}</strong></td>
+                    </tr>
+                    <tr>
+                        <td>Descripcion</td>
+                        <td><strong>{{producto.descripcion}}</strong></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div><! --/content-panel -->
+        </div><!-- /col-md-12 -->
+    </div>
 </section>

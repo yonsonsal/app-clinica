@@ -9,8 +9,8 @@
         <ul class="nav navbar-nav navbar-right" data-ng-hide="authentication.user">
             <div class="top-menu">
                 <ul class="nav pull-right top-menu">
-                    <li ui-route="/signin" ng-class="{active: $uiRoute}">
-                        <a href="/#!/signin">Entrar</a>
+                    <li ui-route="/signin">
+                        <a class="logout" href="/#!/signin">Entrar</a>
                     </li>
                 </ul>
             </div>
@@ -19,7 +19,7 @@
             <div class="top-menu">
                 <ul class="nav pull-right top-menu">
                     <li>
-                        <a class="logout" href="/auth/signout">(Salir)</a>
+                        <a class="logout" href="/auth/signout">Salir</a>
                     </li>
                 </ul>
             </div>

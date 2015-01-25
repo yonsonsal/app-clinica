@@ -1,9 +1,9 @@
 <section class="wrapper site-min-height" data-ng-controller="ProveedoresController" data-ng-init="findOne()">
-    <h3><i class="fa fa-angle-right"></i>Tipo de Productos: <strong>{{proveedor.nombre}}</strong></h3>
+    <h3><i class="fa fa-angle-right"></i>Proveedores: <strong>{{proveedor.nombre}}</strong></h3>
     <div class="row">
         <div class="col-md-12">
             <div class="content-panel">
-                <div class="pull-right">
+                <div class="pull-right" style="margin-right: 10px">
                     <!--data-ng-show="((authentication.user) && (authentication.user._id == tipoproducto.user._id))"-->
                     <a class="btn btn-primary" href="/#!/proveedores/{{proveedor._id}}/edit">
                         <i class="glyphicon glyphicon-edit"></i>
@@ -12,33 +12,29 @@
                         <i class="glyphicon glyphicon-trash"></i>
                     </a>
                 </div>
-                <span data-ng-bind="tipoproducto.nombre | date:'mediumDate'"></span>
-                <span data-ng-bind="tipoproducto.descripcion | date:'mediumDate'"></span>
-                <span data-ng-bind="tipoproducto.created | date:'mediumDate'"></span>
-                <span data-ng-bind="tipoproducto.user.displayName"></span>
+                <table class="table table-hover">
+                    <h4><i class="fa fa-angle-right"></i>{{proveedor.nombre}}</h4>
+                    <hr>
+                    <tbody>
+                    <tr>
+                        <td>Razon Social</td>
+                        <td><strong>{{proveedor.razonSocial}}</strong></td>
+                    </tr>
+                    <tr>
+                        <td>RUT</td>
+                        <td><strong>{{proveedor.rut}}</strong></td>
+                    </tr>
+                    <tr>
+                        <td>Direccion</td>
+                        <td><strong>{{proveedor.direccion}}</strong></td>
+                    </tr>
+                    <tr>
+                        <td>Telefono</td>
+                        <td><strong>{{proveedor.telefono}}</strong></td>
+                    </tr>
+                    </tbody>
+                </table>
             </div><! --/content-panel -->
         </div><!-- /col-md-12 -->
     </div>
 </section>
-
-<!--section data-ng-controller="ProveedoresController" data-ng-init="findOne()">
-	<div class="page-header">
-		<h1 data-ng-bind="proveedor.nombre"></h1>
-	</div>
-	<div class="pull-right" data-ng-show="((authentication.user) && (authentication.user._id == proveedor.user._id))">
-		<a class="btn btn-primary" href="/#!/proveedores/{{proveedor._id}}/edit">
-			<i class="glyphicon glyphicon-edit"></i>
-		</a>
-		<a class="btn btn-primary" data-ng-click="remove();">
-			<i class="glyphicon glyphicon-trash"></i>
-		</a>
-	</div>
-	<small>
-		<em class="text-muted">
-			Ingresado el
-			<span data-ng-bind="proveedor.created | date:'mediumDate'"></span>
-			por
-			<span data-ng-bind="proveedor.user.displayName"></span>
-		</em>
-	</small>
-</section-->
