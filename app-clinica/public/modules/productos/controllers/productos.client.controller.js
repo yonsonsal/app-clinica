@@ -6,18 +6,23 @@ angular.module('productos').controller('ProductosController', ['$scope', '$state
 		$scope.authentication = Authentication;
 
 
-        $scope.formTitle = "Nuevo Producto";
+        $scope.formTitle =  'Nuevo Producto';
 
         $scope.newTypeProductState = function(){
-            $scope.formTitle = "Nuevo Tipo de Producto";
+            $scope.formTitle =  'Nuevo Tipo de Producto';
             $scope.newProductTypeStateBoolean = true;
             $scope.newFabricanteStateBoolean = false;
-        }
+        };
         $scope.newFabricanteState = function() {
-            $scope.formTitle = "Nuevo Fabricante";
+            $scope.formTitle = 'Nuevo Fabricante';
             $scope.newFabricanteStateBoolean = true;
             $scope.newProductTypeStateBoolean = false;
-        }
+        };
+        $scope.newProductState = function() {
+            $scope.formTitle = 'Nuevo Producto';
+            $scope.newProductTypeStateBoolean = false;
+            $scope.newFabricanteStateBoolean = false;
+        };
         //tipo de producto
         $scope.tipoproducto = {};
         $scope.tipoProductos = Tipoproductos.query();
@@ -32,10 +37,11 @@ angular.module('productos').controller('ProductosController', ['$scope', '$state
                 // Clear form fields
                 $scope.newProductTypeStateBoolean = false;
                 $scope.tipoProductos.push(response);
+                $scope.newProductState();
             }, function(errorResponse) {
                 $scope.error = errorResponse.data.message;
             });
-        }
+        };
 
         //fabricante
         $scope.fabricante = {};
@@ -48,16 +54,15 @@ angular.module('productos').controller('ProductosController', ['$scope', '$state
                 $scope.fabricante.selected = response;
                 $scope.newFabricanteStateBoolean = false;
                 $scope.fabricantes.push(response);
+                $scope.newProductState();
             }, function (errorResponse){
                 $scope.error = errorResponse.data.message;
             });
-        }
+        };
 
         $scope.cancel = function() {
-            $scope.newProductTypeStateBoolean = false;
-            $scope.newFabricanteStateBoolean = false;
-            $scope.formTitle = "Nuevo Producto";
-        }
+            $scope.newProductState();
+        };
         $scope.create = function(){
 
             if ($scope.newProductTypeStateBoolean) {
@@ -68,13 +73,14 @@ angular.module('productos').controller('ProductosController', ['$scope', '$state
             } else {
                 $scope.createProducto();
             }
-        }
+        };
 		// Create new Producto
         $scope.producto = {};
 		$scope.createProducto = function() {
 
 			// Create new Producto object
-            $scope.producto.tipoProducto = $scope.tipoProducto.selected;
+            $scope.producto.tipoProducto = $scope.tipoproducto.selected._id;
+            $scope.producto.fabricante = $scope.fabricante.selected._id;
 			var producto = new Productos ($scope.producto);
 
 			// Redirect after save
