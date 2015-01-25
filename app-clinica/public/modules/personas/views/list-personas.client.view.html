@@ -1,0 +1,19 @@
+<section data-ng-controller="PersonasController" data-ng-init="find()">
+    <div class="page-header">
+        <h1>Personas</h1>
+    </div>
+    <div class="list-group">
+        <a data-ng-repeat="persona in personas" data-ng-href="#!/personas/{{persona._id}}" class="list-group-item">
+			<small class="list-group-item-text">
+				Posted on
+				<span data-ng-bind="persona.created | date:'medium'"></span>
+				by
+				<span data-ng-bind="persona.user.displayName"></span>
+			</small>
+			<h4 class="list-group-item-heading" data-ng-bind="persona.name"></h4>
+        </a>
+    </div>
+    <div class="alert alert-warning text-center" data-ng-hide="!personas.$resolved || personas.length">
+    	No Personas yet, why don't you <a href="/#!/personas/create">create one</a>?
+    </div>
+</section>
