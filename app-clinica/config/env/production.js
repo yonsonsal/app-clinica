@@ -6,7 +6,7 @@ module.exports = {
 		lib: {
 			css: [
 				'public/lib/bootstrap/dist/css/bootstrap.min.css',
-				'public/lib/bootstrap/dist/css/bootstrap-theme.min.css',
+				'public/lib/bootstrap/dist/css/bootstrap-theme.min.css'
 			],
 			js: [
 				'public/lib/angular/angular.min.js',
@@ -17,7 +17,13 @@ module.exports = {
 				'public/lib/angular-sanitize/angular-sanitize.js', 
 				'public/lib/angular-ui-router/release/angular-ui-router.min.js',
 				'public/lib/angular-ui-utils/ui-utils.min.js',
-				'public/lib/angular-bootstrap/ui-bootstrap-tpls.min.js'
+				'public/lib/angular-bootstrap/ui-bootstrap-tpls.min.js',
+                'public/assets/theme/js/jquery-ui-1.9.2.custom.min.js',
+                'public/assets/theme/js/jquery.ui.touch-punch.min.js',
+                'public/assets/theme/js/jquery.dcjqaccordion.2.7.js',
+                'public/assets/theme/js/jquery.scrollTo.min.js',
+                'public/assets/theme/js/jquery.nicescroll.js',
+                'public/assets/theme/js/common-scripts.js'
 			]
 		},
 		css: 'public/dist/application.min.css',
