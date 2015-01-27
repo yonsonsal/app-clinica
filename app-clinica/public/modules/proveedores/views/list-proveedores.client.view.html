@@ -1,19 +1,35 @@
-<section data-ng-controller="ProveedoresController" data-ng-init="find()">
-    <div class="page-header">
-        <h1>Proveedores</h1>
-    </div>
-    <div class="list-group">
-        <a data-ng-repeat="proveedore in proveedores" data-ng-href="#!/proveedores/{{proveedore._id}}" class="list-group-item">
-			<small class="list-group-item-text">
-				Posted on
-				<span data-ng-bind="proveedore.created | date:'medium'"></span>
-				by
-				<span data-ng-bind="proveedore.user.displayName"></span>
-			</small>
-			<h4 class="list-group-item-heading" data-ng-bind="proveedore.nombre"></h4>
-        </a>
-    </div>
-    <div class="alert alert-warning text-center" data-ng-hide="!proveedores.$resolved || proveedores.length">
-    	No Proveedores yet, why don't you <a href="/#!/proveedores/create">create one</a>?
+<section class="wrapper site-min-height" data-ng-controller="ProveedoresController" data-ng-init="find()">
+    <h3><i class="fa fa-angle-right"></i>Proveedores</h3>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="content-panel">
+                <table class="table table-hover">
+                    <h4><i class="fa fa-angle-right"></i>Lista de Proveedores</h4>
+                    <hr>
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Nombre</th>
+                        <th>Razon Social</th>
+                        <th>RUT</th>
+                        <th>Direccion</th>
+                        <th>Telefono</th>
+                        <th>Opciones</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr data-ng-repeat="proveedore in proveedores">
+                        <td>{{$index+1}}</td>
+                        <td data-ng-bind="proveedore.nombre"></td>
+                        <td data-ng-bind="proveedore.razonSocial"></td>
+                        <td data-ng-bind="proveedore.rut"></td>
+                        <td data-ng-bind="proveedore.direccion"></td>
+                        <td data-ng-bind="proveedore.telefono"></td>
+                        <td> <a href="#!/proveedores/{{proveedore._id}}"><span class="glyphicon glyphicon-floppy-open"></span></a></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div><! --/content-panel -->
+        </div><!-- /col-md-12 -->
     </div>
 </section>

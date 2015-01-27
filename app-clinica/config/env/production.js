@@ -6,7 +6,12 @@ module.exports = {
 		lib: {
 			css: [
 				'public/lib/bootstrap/dist/css/bootstrap.min.css',
-				'public/lib/bootstrap/dist/css/bootstrap-theme.min.css'
+				'public/lib/bootstrap/dist/css/bootstrap-theme.min.css',
+                'public/assets/theme/css/style.css',
+                'public/assets/theme/css/style-responsive.css',
+                'public/assets/theme/css/table-responsive.css',
+                'public/assets/theme/css/to-do.css',
+                'public/assets/theme/font-awesome/css/font-awesome.css'
 			],
 			js: [
 				'public/lib/angular/angular.min.js',
@@ -18,6 +23,8 @@ module.exports = {
 				'public/lib/angular-ui-router/release/angular-ui-router.min.js',
 				'public/lib/angular-ui-utils/ui-utils.min.js',
 				'public/lib/angular-bootstrap/ui-bootstrap-tpls.min.js',
+                'public/lib/jquery/dist/jquery.js',
+                'public/lib/bootstrap/dist/js/bootstrap.js',
                 'public/assets/theme/js/jquery-ui-1.9.2.custom.min.js',
                 'public/assets/theme/js/jquery.ui.touch-punch.min.js',
                 'public/assets/theme/js/jquery.dcjqaccordion.2.7.js',

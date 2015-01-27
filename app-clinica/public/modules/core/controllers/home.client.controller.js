@@ -1,10 +1,15 @@
 'use strict';
 
 
-angular.module('core').controller('HomeController', ['$scope', 'Authentication',
-	function($scope, Authentication) {
+angular.module('core').controller('HomeController', ['$scope', 'Authentication', '$location',
+	function($scope, Authentication, $location) {
 		// This provides Authentication context.
 		$scope.authentication = Authentication;
+
+        if ($scope.authentication.user === ""){
+             $location.path('signin');
+        }
+        $('.fa-bars').click();
 	}
 ])
 
@@ -12,9 +17,32 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
         return {
             restrict: 'A',
             link: function () {
+
+                function adaptContainerWidth() {
+                    if ($('#sidebar').hasClass("ng-hide")) {
+                        $('#main-content').css({
+                            'margin-left': '0px'
+                        });
+                        $('#sidebar').css({
+                            'margin-left': '-210px'
+                        });
+                        $('#sidebar > ul').hide();
+                        $("#container").addClass("sidebar-closed");
+                    } else {
+                        $('#main-content').css({
+                            'margin-left': '210px'
+                        });
+                        $('#sidebar > ul').show();
+                        $('#sidebar').css({
+                            'margin-left': '0'
+                        });
+                        $("#container").removeClass("sidebar-closed");
+                    }
+                }
+
                 $timeout(function() {
                     $('.fa-bars').click(function () {
-                        if ($('#sidebar > ul').is(":visible") === true) {
+                        if ($('#sidebar > ul').is(":visible") === true || $('#sidebar').hasClass("ng-hide")) {
                             $('#main-content').css({
                                 'margin-left': '0px'
                             });
@@ -47,6 +75,7 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
                                 $('#container').removeClass('sidebar-close');
                                 $('#sidebar > ul').show();
                             }
+                            adaptContainerWidth ();
                         }
                         $(window).on('load', responsiveView);
                         $(window).on('resize', responsiveView);
@@ -73,6 +102,8 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
                             classExpand: 'dcjq-current-parent'
                         });
                     });
+
+                    adaptContainerWidth ();
                 });
 
             }
