@@ -1,0 +1,19 @@
+<section data-ng-controller="ConsumosController" data-ng-init="find()">
+    <div class="page-header">
+        <h1>Consumos</h1>
+    </div>
+    <div class="list-group">
+        <a data-ng-repeat="consumo in consumos" data-ng-href="#!/consumos/{{consumo._id}}" class="list-group-item">
+			<small class="list-group-item-text">
+				Posted on
+				<span data-ng-bind="consumo.created | date:'medium'"></span>
+				by
+				<span data-ng-bind="consumo.user.displayName"></span>
+			</small>
+			<h4 class="list-group-item-heading" data-ng-bind="consumo.name"></h4>
+        </a>
+    </div>
+    <div class="alert alert-warning text-center" data-ng-hide="!consumos.$resolved || consumos.length">
+    	No Consumos yet, why don't you <a href="/#!/consumos/create">create one</a>?
+    </div>
+</section>
