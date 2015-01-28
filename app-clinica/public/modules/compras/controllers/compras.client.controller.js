@@ -68,7 +68,34 @@ angular.module('compras').controller('ComprasController', ['$scope', '$statePara
 			}
 		};
 
+        $scope.createProduct = function(){
+
+            // Create new Producto object
+            $scope.producto.tipoProducto = $scope.tipoproducto.selected._id;
+            $scope.producto.fabricante = $scope.fabricante.selected._id;
+            var producto = new Productos ($scope.producto);
+
+            // Redirect after save
+            producto.$save(function(response) {
+                // Clear form fields
+                $scope.producto = Productos.get({
+                    productoId: response._id
+                }, function(resp) {
+                    $scope.productos.push(resp);
+                    $scope.newArticulo.producto = response;
+                    $scope.producto = {};
+                    $scope.newProductoState = false;
+                });
+
+            }, function(errorResponse) {
+                $scope.error = errorResponse.data.message;
+            });
+        }
         //Productos
+        $scope.newProductoState = false;
+        $scope.newProducto = function(){
+            $scope.newProductoState = true;
+        }
         $scope.productos = Productos.query(function(productos){
             $scope.productos = productos;
         });

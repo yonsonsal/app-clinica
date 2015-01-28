@@ -21,6 +21,7 @@ exports.create = function(req, res) {
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
+
 			res.jsonp(producto);
 		}
 	});
@@ -73,7 +74,8 @@ exports.delete = function(req, res) {
  * List of Productos
  */
 exports.list = function(req, res) { 
-	Producto.find().sort('-created') .populate('user', 'displayName')
+	Producto.find().sort('-created')
+        .populate('user', 'displayName')
         .populate('tipoProducto')
         .populate('fabricante').exec(function(err, productos) {
 		if (err) {
@@ -94,8 +96,12 @@ exports.productoByID = function(req, res, next, id) {
         .populate('user', 'displayName')
         .populate('tipoProducto')
         .populate('fabricante').exec(function(err, producto) {
-                if (err) return next(err);
-                if (! producto) return next(new Error('Failed to load Producto ' + id));
+                if (err) {
+                    return next(err)
+                };
+                if (! producto) {
+                    return next(new Error('Failed to load Producto ' + id))
+                };
                 req.producto = producto ;
                 next();
 	});

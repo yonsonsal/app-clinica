@@ -23,6 +23,11 @@ var ArticuloSchema = new Schema({
         type: Number,
         required: 'El precio del artículo es requerido'
     },
+    cantidad:{
+        type: Number,
+        required: 'La cantidad es requerida',
+        default: 1,
+    },
     fechaVencimiento:{
         type: Date
     },
