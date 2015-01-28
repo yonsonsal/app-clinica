@@ -38,11 +38,13 @@
                     </tr>
                     <tr>
                         <td>Fraccionable</td>
-                        <td><strong>{{producto.fraccionable}}</strong></td>
+                        <td ng-show="producto.fraccionable"><strong>Si</strong></td>
+                        <td ng-show="!producto.fraccionable"><strong>No</strong></td>
                     </tr>
                     <tr>
                         <td>Consumible</td>
-                        <td><strong>{{producto.consumible}}</strong></td>
+                        <td ng-show="producto.consumible"><strong>Si</strong></td>
+                        <td ng-show="!producto.consumible"><strong>No</strong></td>
                     </tr>
                     <tr>
                         <td>Stock minimo</td>
