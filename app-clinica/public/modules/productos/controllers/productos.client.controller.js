@@ -25,7 +25,10 @@ angular.module('productos').controller('ProductosController', ['$scope', '$state
         };
         //tipo de producto
         $scope.tipoproducto = {};
-        $scope.tipoProductos = Tipoproductos.query();
+        $scope.tipoProductos = Tipoproductos.query(function(response){
+            $scope.tipoProductos = response;
+        });
+        $scope.tipoProductos = [];
         $scope.newFabricanteStateBoolean = false;
         $scope.createTipoProducto = function(){
 
@@ -45,7 +48,10 @@ angular.module('productos').controller('ProductosController', ['$scope', '$state
 
         //fabricante
         $scope.fabricante = {};
-        $scope.fabricantes = Fabricantes.query();
+        $scope.fabricantes = Fabricantes.query(function(response){
+            console.log(response);
+            $scope.fabricantes = response;
+        });
 
         $scope.newFabricante = function() {
 
@@ -113,25 +119,39 @@ angular.module('productos').controller('ProductosController', ['$scope', '$state
 
 		// Update existing Producto
 		$scope.update = function() {
-			var producto = $scope.producto;
+            if ($scope.newProductTypeStateBoolean) {
 
-			producto.$update(function() {
-				$location.path('productos/' + producto._id);
-			}, function(errorResponse) {
-				$scope.error = errorResponse.data.message;
-			});
+                $scope.createTipoProducto();
+            }else if( $scope.newFabricanteStateBoolean){
+                $scope.newFabricante();
+            } else {
+                var producto = $scope.producto;
+                $scope.producto.tipoProducto = $scope.tipoproducto.selected._id;
+                $scope.producto.fabricante = $scope.fabricante.selected._id;
+                producto.$update(function() {
+                    $location.path('productos/' + producto._id);
+                }, function(errorResponse) {
+                    $scope.error = errorResponse.data.message;
+                });
+            }
 		};
 
 		// Find a list of Productos
 		$scope.find = function() {
+
 			$scope.productos = Productos.query();
 		};
 
 		// Find existing Producto
 		$scope.findOne = function() {
+
 			$scope.producto = Productos.get({ 
 				productoId: $stateParams.productoId
-			});
+			}, function(){
+                $scope.fabricante.selected = $scope.producto.fabricante;
+                $scope.tipoproducto.selected = $scope.producto.tipoProducto;
+            });
+
 		};
 	}
 ]);

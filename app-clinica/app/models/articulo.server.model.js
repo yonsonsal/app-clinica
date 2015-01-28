@@ -10,19 +10,30 @@ var mongoose = require('mongoose'),
  * Articulo Schema
  */
 var ArticuloSchema = new Schema({
-	name: {
-		type: String,
-		default: '',
-		required: 'Please fill Articulo name',
-		trim: true
+	producto: {
+        type: Schema.ObjectId,
+        ref: 'Producto'
 	},
+    moneda:{
+        type: String,
+        default: 'UYU',
+        required: 'La moneda es requerida'
+    },
+    precio:{
+        type: Number,
+        required: 'El precio del artículo es requerido'
+    },
+    cantidad:{
+        type: Number,
+        required: 'La cantidad es requerida',
+        default: 1,
+    },
+    fechaVencimiento:{
+        type: Date
+    },
 	created: {
 		type: Date,
 		default: Date.now
-	},
-	user: {
-		type: Schema.ObjectId,
-		ref: 'User'
 	}
 });
 

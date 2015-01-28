@@ -4,6 +4,7 @@
         <div class="col-md-12">
             <div class="content-panel">
                 <div class="pull-right" style="margin-right: 10px">
+
                     <!--data-ng-show="((authentication.user) && (authentication.user._id == tipoproducto.user._id))"-->
                     <a class="btn btn-primary" href="/#!/productos/{{producto._id}}/edit">
                         <i class="glyphicon glyphicon-edit"></i>
@@ -17,17 +18,18 @@
                     <hr>
                     <tbody>
                     <tr>
+                        {{producto.tipoProducto}}
                         <td>Fabricante</td>
                         <td><strong>{{producto.fabricante.nombre}}</strong>
-                            <a href="/#!/fabricantes/{{producto.fabricante}}">
+                            <a href="/#!/fabricantes/{{producto.fabricante._id}}">
                                 <i class="glyphicon glyphicon-zoom-in"></i>
                             </a>
                         </td>
                     </tr>
                     <tr>
                         <td>Tipo Producto</td>
-                        <td><strong>{{producto.tipoproducto.nombre}}</strong>
-                            <a href="/#!/tipoproductos/{{producto.tipoProducto}}">
+                        <td><strong>{{producto.tipoProducto.nombre}} ({{producto.tipoProducto.descripcion}})</strong>
+                            <a href="/#!/tipoproductos/{{producto.tipoProducto._id}}">
                                 <i class="glyphicon glyphicon-zoom-in"></i>
                             </a>
                         </td>
