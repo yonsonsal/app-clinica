@@ -12,7 +12,9 @@
                         <th>Nombre</th>
                         <th>Fabricante</th>
                         <th>Tipo de Producto</th>
+                        <th>Stock Actual - Stock Mínimo</th>
                         <th>Fecha de Creacion</th>
+
                         <th>Usuario</th>
                         <th>Opciones</th>
                     </tr>
@@ -22,9 +24,11 @@
                         <td>{{$index+1}}</td>
                         <td data-ng-bind="producto.nombre"></td>
                         <td data-ng-bind="producto.fabricante.nombre"></td>
-                        <td data-ng-bind="producto.tipoproducto.nombre"></td>
-                        <td data-ng-bind="producto.created | date:'medium'"></td>
+                        <td data-ng-bind="producto.tipoProducto.nombre"></td>
+                        <td>{{producto.stockActual}}-{{producto.stockMinimo}}</td>
                         <td data-ng-bind="producto.user.displayName"></td>
+                        <td data-ng-bind="producto.created | date:'medium'"></td>
+
                         <td> <a href="#!/productos/{{producto._id}}"><span class="glyphicon glyphicon-floppy-open"></span></a></td>
                     </tr>
                     </tbody>

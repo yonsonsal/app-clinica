@@ -1,12 +1,18 @@
 'use strict';
 
 // Compras controller
-angular.module('compras').controller('ComprasController', ['$scope', '$stateParams', '$location', 'Authentication', 'Compras', 'Articulos',
-	function($scope, $stateParams, $location, Authentication, Compras, Articulos {
+angular.module('compras').controller('ComprasController', ['$scope', '$stateParams', '$location', 'Authentication', 'Compras', 'Articulos', 'Productos', 'Proveedores',
+	function($scope, $stateParams, $location, Authentication, Compras, Articulos, Productos, Proveedores) {
 		$scope.authentication = Authentication;
 
+        //proveedores
+
+        $scope.proveedores = Proveedores.query(function(proveedores) {
+            $scope.proveedores = proveedores;
+        });
 		// Nueva Compra
         $scope.compra = {}
+        $scope.compra.articulos = [];
 		$scope.create = function() {
 			// Create new Compra object
 
@@ -15,10 +21,17 @@ angular.module('compras').controller('ComprasController', ['$scope', '$statePara
             angular.forEach($scope.articulos, function(art){
 
                 var articulo = new Articulos(art);
-                articulo.$save(function(response) {
+                if(!art._id) {
+                    articulo.$save(function (response) {
 
-                    articulosIds.push(response._id);
-                });
+                        articulosIds.push(response._id);
+                    });
+                } else {
+                    articulo.$update(function (response) {
+
+                        articulosIds.push(response._id);
+                    });
+                }
             });
             $scope.compra.articulos = articulosIds;
 
@@ -55,7 +68,12 @@ angular.module('compras').controller('ComprasController', ['$scope', '$statePara
 			}
 		};
 
-		// Update existing Compra
+        //Productos
+        $scope.productos = Productos.query(function(productos){
+            $scope.productos = productos;
+        });
+
+        // Update existing Compra
 		$scope.update = function() {
 			var compra = $scope.compra;
 
@@ -77,5 +95,14 @@ angular.module('compras').controller('ComprasController', ['$scope', '$statePara
 				compraId: $stateParams.compraId
 			});
 		};
+        //Articulos
+        $scope.newArticulo = {};
+        $scope.saveNewArticulo = function() {
+            $scope.compra.articulos.push($scope.newArticulo);
+            $scope.newArticulo = {};
+        }
+        $scope.deleteArticulo = function(index){
+            $scope.compra.articulos.splice(index, 1);
+        }
 	}
 ]);

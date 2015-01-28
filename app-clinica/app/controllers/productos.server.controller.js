@@ -73,7 +73,9 @@ exports.delete = function(req, res) {
  * List of Productos
  */
 exports.list = function(req, res) { 
-	Producto.find().sort('-created').populate('user', 'displayName').exec(function(err, productos) {
+	Producto.find().sort('-created') .populate('user', 'displayName')
+        .populate('tipoProducto')
+        .populate('fabricante').exec(function(err, productos) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
@@ -88,11 +90,14 @@ exports.list = function(req, res) {
  * Producto middleware
  */
 exports.productoByID = function(req, res, next, id) { 
-	Producto.findById(id).populate('user', 'displayName').exec(function(err, producto) {
-		if (err) return next(err);
-		if (! producto) return next(new Error('Failed to load Producto ' + id));
-		req.producto = producto ;
-		next();
+	Producto.findById(id)
+        .populate('user', 'displayName')
+        .populate('tipoProducto')
+        .populate('fabricante').exec(function(err, producto) {
+                if (err) return next(err);
+                if (! producto) return next(new Error('Failed to load Producto ' + id));
+                req.producto = producto ;
+                next();
 	});
 };
 
