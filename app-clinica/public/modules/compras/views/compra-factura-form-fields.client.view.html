@@ -1,5 +1,5 @@
 <div class="row mt">
-    <section id="compra-factura-tables" class="table-responsive">
+    <section id="compra-factura-tables">
         <table class="table table-bordered table-striped table-condensed cf">
             <thead class="cf">
                 <tr>
@@ -30,7 +30,10 @@
                         </div>
                     </td>
                     <td class="numeric" data-title="Pago" class="col-xs-12 col-sm-1 col-md-1 col-lg-1">
-                        <input class="form-control" id="pago" type="checkbox" ng-model="pago">
+                        <!--input class="form-control" id="pago" type="checkbox" ng-model="pago"-->
+                        <div class="text-center">
+                            <input type="checkbox" checked="" data-toggle="switch" ng-model="pago" />
+                        </div>
                     </td>
                 </tr>
             </tbody>

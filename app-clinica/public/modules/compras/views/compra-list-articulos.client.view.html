@@ -41,7 +41,7 @@
                     <input class="form-control" type="number" ng-model="newArticulo.precio">
                 </td>
                 <td class="numeric" data-title="Opciones" class="col-xs-4 col-sm-1 col-md-1 col-lg-1">
-                    <div ng-click="saveNewArticulo()" class="btn btn-default" tooltip="Guardar artículo">
+                    <div ng-click="saveNewArticulo()" class="btn btn-default" tooltip="Guardar artículo" ng-disabled="!isValidNewArticulo">
                         <span class="glyphicon glyphicon-plus"></span>
                     </div>
                 </td>
@@ -55,7 +55,7 @@
                 <td class="numeric" data-title="Cantidad" data-ng-bind="articulo.cantidad"></td>
                 <td class="numeric" data-title="Precio" data-ng-bind="articulo.precio"></td>
                 <td class="numeric" data-title="Opciones">
-                    <div class="form-control" class="btn btn-default" value="-"ng-click="deleteArticulo($index)"></div>
+                    <div ng-click="deleteArticulo($index)"><i class="glyphicon glyphicon-trash"></i></div>
                 </td>
             </tr>
             </tbody>

@@ -1,19 +1,39 @@
-<section data-ng-controller="ComprasController" data-ng-init="find()">
-    <div class="page-header">
-        <h1>Compras</h1>
-    </div>
-    <div class="list-group">
-        <a data-ng-repeat="compra in compras" data-ng-href="#!/compras/{{compra._id}}" class="list-group-item">
-			<small class="list-group-item-text">
-				Posted on
-				<span data-ng-bind="compra.created | date:'medium'"></span>
-				by
-				<span data-ng-bind="compra.user.displayName"></span>
-			</small>
-			<h4 class="list-group-item-heading" data-ng-bind="compra.name"></h4>
-        </a>
-    </div>
-    <div class="alert alert-warning text-center" data-ng-hide="!compras.$resolved || compras.length">
-    	No Compras yet, why don't you <a href="/#!/compras/create">create one</a>?
+<section class="wrapper site-min-height" data-ng-controller="ComprasController" data-ng-init="find()">
+    <h3><i class="fa fa-angle-right"></i>Lista de Compras</h3>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="content-panel">
+                <section id="compra-factura-tables">
+                    <table class="table table-bordered table-striped table-condensed cf">
+                        <thead class="cf">
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Proveedor</th>
+                            <th>Pago</th>
+                            <th>Monto</th>
+                            <th>Opciones</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="compra in compras">
+                            <td data-title="Fecha" class="col-xs-12 col-sm-5 col-md-5 col-lg-5">
+                                {{compra.fecha | date:'medium'}}
+                            </td>
+                            <td data-title="Proveedor" class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                                {{compra.proveedor.nombre}}
+                            </td>
+                            <td data-title="Pago" class="col-xs-12 col-sm-1 col-md-1 col-lg-1">
+                                {{compra.pago}}
+                            </td>
+                            <td data-title="Monto" class="col-xs-12 col-sm-1 col-md-1 col-lg-1">
+                                {{compra.monto}}
+                            </td>
+                            <td> <a href="#!/compras/{{compra._id}}"><span class="glyphicon glyphicon-floppy-open"></span></a></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </section>
+            </div><! --/content-panel -->
+        </div><!-- /col-md-12 -->
     </div>
 </section>

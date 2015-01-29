@@ -73,7 +73,7 @@ exports.delete = function(req, res) {
  * List of Compras
  */
 exports.list = function(req, res) { 
-	Compra.find().sort('-created')
+	Compra.find().sort('-fecha')
         .populate('user', 'displayName')
         .populate('articulos')
         .populate('articulos.producto')
@@ -96,7 +96,11 @@ exports.list = function(req, res) {
  * Compra middleware
  */
 exports.compraByID = function(req, res, next, id) { 
-	Compra.findById(id).populate('user', 'displayName').exec(function(err, compra) {
+	Compra.findById(id)
+        .populate('user', 'displayName')
+        .populate('articulos')
+        .populate('proveedor')
+        .exec(function(err, compra) {
 		if (err) return next(err);
 		if (! compra) return next(new Error('Failed to load Compra ' + id));
 		req.compra = compra ;

@@ -79,7 +79,10 @@ exports.delete = function(req, res) {
  * List of Articulos
  */
 exports.list = function(req, res) { 
-	Articulo.find().sort('-created').populate('user', 'displayName').exec(function(err, articulos) {
+	Articulo.find().sort('-created')
+        .populate('user', 'displayName')
+        .populate('producto')
+        .exec(function(err, articulos) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
@@ -94,7 +97,10 @@ exports.list = function(req, res) {
  * Articulo middleware
  */
 exports.articuloByID = function(req, res, next, id) { 
-	Articulo.findById(id).populate('user', 'displayName').exec(function(err, articulo) {
+	Articulo.findById(id)
+        .populate('user', 'displayName')
+        .populate('producto')
+        .exec(function(err, articulo) {
 		if (err) return next(err);
 		if (! articulo) return next(new Error('Failed to load Articulo ' + id));
 		req.articulo = articulo ;

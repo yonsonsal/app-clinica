@@ -1,4 +1,65 @@
-<section data-ng-controller="ComprasController" data-ng-init="findOne()">
+<section class="wrapper site-min-height" data-ng-controller="ComprasController" data-ng-init="findOne()">
+    <h3><i class="fa fa-angle-right"></i>Compra: <strong>{{compra.proveedor.nombre}}</strong></h3>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="content-panel">
+                <div class="pull-right" style="margin-right: 10px">
+                    <!--data-ng-show="((authentication.user) && (authentication.user._id == tipoproducto.user._id))"-->
+                    <a class="btn btn-primary" href="/#!/compras/{{compra._id}}/edit">
+                        <i class="glyphicon glyphicon-edit"></i>
+                    </a>
+                    <a class="btn btn-primary" data-ng-click="remove();">
+                        <i class="glyphicon glyphicon-trash"></i>
+                    </a>
+                </div>
+                <table class="table table-hover">
+                    <h4><i class="fa fa-angle-right"></i>{{compra.proveedor.nombre}}</h4>
+                    <hr>
+                    <tbody>
+                    <tr>
+                        <td>Fecha</td>
+                        <td><strong>{{compra.fecha | date:'medium'}}</strong></td>
+                    </tr>
+                    <tr>
+                        <td>Pago</td>
+                        <td><strong>{{compra.pago}}</strong></td>
+                    </tr>
+                    <tr>
+                        <td>Monto</td>
+                        <td><strong>{{compra.monto}}</strong></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div><! --/content-panel -->
+        </div><!-- /col-md-12 -->
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="content-panel">
+                <table class="table table-hover">
+                    <thead>
+                        <th>Articulo</th>
+                        <th>Vencimiento</th>
+                        <th>Cantidad</th>
+                        <th>Precio Unitario</th>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="articulo in compra.articulos">
+                        <td>{{articulo.producto.nombre}}</td>
+                        <td>{{articulo.fechaVencimiento | date:'medium'}}</td>
+                        <td>{{articulo.cantidad}}</td>
+                        <td>{{articulo.precio}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div><! --/content-panel -->
+        </div><!-- /col-md-12 -->
+    </div>
+</section>
+
+
+<!--section data-ng-controller="ComprasController" data-ng-init="findOne()">
 	<div class="page-header">
 		<h1 data-ng-bind="compra.name"></h1>
 	</div>
@@ -18,4 +79,4 @@
 			<span data-ng-bind="compra.user.displayName"></span>
 		</em>
 	</small>
-</section>
+</section-->
