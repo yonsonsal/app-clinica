@@ -6,6 +6,7 @@
 var mongoose = require('mongoose'),
 	errorHandler = require('./errors.server.controller'),
 	Articulo = mongoose.model('Articulo'),
+    Producto = mongoose.model('Producto'),
 	_ = require('lodash');
 
 /**
@@ -21,6 +22,11 @@ exports.create = function(req, res) {
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
+            Producto.update({_id:articulo.producto},
+                             {$inc: { stockActual: articulo.cantidad }},
+                             {upsert: false}, function(err){
+
+                            });
 			res.jsonp(articulo);
 		}
 	});

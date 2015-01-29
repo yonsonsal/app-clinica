@@ -1,8 +1,8 @@
 'use strict';
 
 // Compras controller
-angular.module('compras').controller('ComprasController', ['$scope', '$stateParams', '$location', 'Authentication', 'Compras', 'Articulos', 'Productos', 'Proveedores',
-	function($scope, $stateParams, $location, Authentication, Compras, Articulos, Productos, Proveedores) {
+angular.module('compras').controller('ComprasController', ['$scope', '$stateParams', '$location', 'Authentication', 'Compras', 'Articulos', 'Productos', 'Proveedores','$q',
+	function($scope, $stateParams, $location, Authentication, Compras, Articulos, Productos, Proveedores, $q) {
 		$scope.authentication = Authentication;
 
         //proveedores
@@ -13,39 +13,85 @@ angular.module('compras').controller('ComprasController', ['$scope', '$statePara
 		// Nueva Compra
         $scope.compra = {}
         $scope.compra.articulos = [];
-		$scope.create = function() {
+        $scope.compra.proveedor = {};
+        $scope.proveedor = {};
+
+        function saveArticulo(art) {
+
+            var d = $q.defer();
+            art.producto = art.producto._id;
+            var articulo = new Articulos(art);
+            var result = {};
+            if (!art._id) {
+               result = articulo.$save();
+                d.resolve(result);
+            } else {
+               result =  articulo.$update();
+                d.resolve(result);
+            }
+
+            return d.promise;
+        };
+
+		$scope.createCompra = function() {
 			// Create new Compra object
 
             //Articulos
             var articulosIds = [];
-            angular.forEach($scope.articulos, function(art){
+            var promises = [];
+            angular.forEach($scope.compra.articulos, function(art){
 
-                var articulo = new Articulos(art);
-                if(!art._id) {
-                    articulo.$save(function (response) {
 
-                        articulosIds.push(response._id);
-                    });
-                } else {
-                    articulo.$update(function (response) {
+                promises.push(saveArticulo(art));
 
-                        articulosIds.push(response._id);
-                    });
+                /*
+                if(!angular.isDefined(art.producto)) {
+                    $scope.error = 'Seleccione un producto';
+                }else {
+                    art.producto = art.producto._id;
+                    var articulo = new Articulos(art);
+                    if (!art._id) {
+                        articulo.$save(function (response) {
+
+                            articulosIds.push(response._id);
+                        }, function (err) {
+                            console.log(err);
+                        });
+                    } else {
+                        articulo.$update(function (response) {
+
+                            articulosIds.push(response._id);
+                        });
+                    }
                 }
+                */
             });
-            $scope.compra.articulos = articulosIds;
+            $q.all(promises).then(function(response){
 
-			var compra = new Compras ($scope.compra);
+                articulosIds = [];
+                var monto = 0;
+                angular.forEach(response, function(articulo){
+                    monto += articulo.cantidad * articulo.precio;
+                    articulosIds.push(articulo._id);
+                })
+                $scope.compra.monto = monto;
+                $scope.compra.articulos = articulosIds;
 
-			// Redirect after save
-            compra.$save(function(response) {
-				$location.path('compras/' + response._id);
+                $scope.isValidNewArticulo = false;
+                $scope.compra.proveedor = $scope.proveedor.selected._id;
 
-				// Clear form fields
-				$scope.name = '';
-			}, function(errorResponse) {
-				$scope.error = errorResponse.data.message;
-			});
+                var compra = new Compras ($scope.compra);
+
+                // Redirect after save
+                compra.$save(function(response) {
+                    //$location.path('compras/' + response._id);
+
+                    // Clear form fields
+                    //$scope.compra = {};
+                }, function(errorResponse) {
+                    $scope.error = errorResponse.data.message;
+                });
+            })
 		};
 
         // Articulos
@@ -113,7 +159,10 @@ angular.module('compras').controller('ComprasController', ['$scope', '$statePara
 
 		// Find a list of Compras
 		$scope.find = function() {
-			$scope.compras = Compras.query();
+			$scope.compras = Compras.query(function(result){
+                $scope.compras = result;
+                console.log(result);
+            });
 		};
 
 		// Find existing Compra
@@ -123,13 +172,33 @@ angular.module('compras').controller('ComprasController', ['$scope', '$statePara
 			});
 		};
         //Articulos
-        $scope.newArticulo = {};
+        $scope.newArticulo = {'cantidad':1};
         $scope.saveNewArticulo = function() {
             $scope.compra.articulos.push($scope.newArticulo);
             $scope.newArticulo = {};
-        }
+        };
         $scope.deleteArticulo = function(index){
             $scope.compra.articulos.splice(index, 1);
+        };
+        $scope.$watch('newArticulo', function(value){
+
+            $scope.isValidNewArticulo = false;
+            if (!angular.isDefined(value.producto)) {
+                $scope.error = 'Seleccioná un producto en el Nuevo artículo.';
+            }else if (!angular.isDefined(value.cantidad)) {
+                $scope.error = 'Ingrese la cantidad de articulos.';
+            }else if (!angular.isDefined(value.precio)) {
+                $scope.error = 'Ingrese el precio.';
+            }else if (!angular.isDefined(value.fechaVencimiento)) {
+                $scope.error = 'Ingrese el precio.';
+            } else{
+                $scope.isValidNewArticulo = true;
+            }
+
+        }, true);
+
+        $scope.showError = function(){
+            console.log('showError');
         }
 	}
 ]);

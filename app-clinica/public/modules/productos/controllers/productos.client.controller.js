@@ -49,8 +49,7 @@ angular.module('productos').controller('ProductosController', ['$scope', '$state
         //fabricante
         $scope.fabricante = {};
         $scope.fabricantes = Fabricantes.query(function(response){
-            console.log(response);
-            $scope.fabricantes = response;
+             $scope.fabricantes = response;
         });
 
         $scope.newFabricante = function() {
