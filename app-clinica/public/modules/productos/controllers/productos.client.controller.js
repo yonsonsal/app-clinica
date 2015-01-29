@@ -1,8 +1,8 @@
 'use strict';
 
 // Productos controller
-angular.module('productos').controller('ProductosController', ['$scope', '$stateParams', '$location', 'Authentication', 'Productos', 'Tipoproductos', 'Fabricantes',
-	function($scope, $stateParams, $location, Authentication, Productos, Tipoproductos, Fabricantes) {
+angular.module('productos').controller('ProductosController', ['$scope', '$stateParams', '$location', 'Authentication', 'Productos', 'Tipoproductos', 'Fabricantes', 'Producto',
+	function($scope, $stateParams, $location, Authentication, Productos, Tipoproductos, Fabricantes, Producto) {
 		$scope.authentication = Authentication;
 
 
@@ -84,12 +84,14 @@ angular.module('productos').controller('ProductosController', ['$scope', '$state
 		$scope.createProducto = function() {
 
 			// Create new Producto object
+
             $scope.producto.tipoProducto = $scope.tipoproducto.selected._id;
             $scope.producto.fabricante = $scope.fabricante.selected._id;
 			var producto = new Productos ($scope.producto);
 
 			// Redirect after save
 			producto.$save(function(response) {
+
 				$location.path('productos/' + response._id);
 
 				// Clear form fields
@@ -98,6 +100,29 @@ angular.module('productos').controller('ProductosController', ['$scope', '$state
 				$scope.error = errorResponse.data.message;
 			});
 		};
+
+        $scope.createProductoFromArticulo = function() {
+
+            // Create new Producto object
+
+            $scope.producto.tipoProducto = $scope.tipoproducto.selected._id;
+            $scope.producto.fabricante = $scope.fabricante.selected._id;
+            var producto = new Productos ($scope.producto);
+
+            // Redirect after save
+            producto.$save(function(response) {
+                Producto.setNewProducto(response);
+                $scope.$parent.comprasFromProductoState();
+                //$location.path('productos/' + response._id);
+
+                // Clear form fields
+                $scope.producto = {};
+                $scope.tipoproducto.selected = null;
+                $scope.fabricante.selected = null;
+            }, function(errorResponse) {
+                $scope.error = errorResponse.data.message;
+            });
+        };
 
 		// Remove existing Producto
 		$scope.remove = function(producto) {

@@ -1,8 +1,8 @@
 'use strict';
 
 // Compras controller
-angular.module('compras').controller('ComprasController', ['$scope', '$stateParams', '$location', 'Authentication', 'Compras', 'Articulos', 'Productos', 'Proveedores','$q',
-	function($scope, $stateParams, $location, Authentication, Compras, Articulos, Productos, Proveedores, $q) {
+angular.module('compras').controller('ComprasController', ['$scope', '$stateParams', '$location', 'Authentication', 'Compras', 'Articulos', 'Productos', 'Proveedores','$q', 'Producto',
+	function($scope, $stateParams, $location, Authentication, Compras, Articulos, Productos, Proveedores, $q, Producto) {
 		$scope.authentication = Authentication;
 
         //proveedores
@@ -114,9 +114,11 @@ angular.module('compras').controller('ComprasController', ['$scope', '$statePara
 			}
 		};
 
+        $scope.newProductoToSet = Producto.getNewProducto();
         $scope.createProduct = function(){
 
             // Create new Producto object
+            $scope.newProducto;
             $scope.producto.tipoProducto = $scope.tipoproducto.selected._id;
             $scope.producto.fabricante = $scope.fabricante.selected._id;
             var producto = new Productos ($scope.producto);
@@ -136,17 +138,22 @@ angular.module('compras').controller('ComprasController', ['$scope', '$statePara
             }, function(errorResponse) {
                 $scope.error = errorResponse.data.message;
             });
-        };
+        }
+
         //Productos
         $scope.newProductoState = false;
         $scope.newProducto = function(){
             $scope.newProductoState = true;
-        };
-
-        $scope.cancelProducto = function() {
+        }
+        $scope.comprasState = function() {
             $scope.newProductoState = false;
-        };
+        }
+        $scope.comprasFromProductoState = function() {
+            $scope.newProductoState = false;
+            $scope.newArticulo.producto =  Producto.getNewProducto();
+            $scope.productos.push(Producto.getNewProducto());
 
+        }
         $scope.productos = Productos.query(function(productos){
             $scope.productos = productos;
         });
@@ -166,7 +173,6 @@ angular.module('compras').controller('ComprasController', ['$scope', '$statePara
 		$scope.find = function() {
 			$scope.compras = Compras.query(function(result){
                 $scope.compras = result;
-                console.log(result);
             });
 		};
 
