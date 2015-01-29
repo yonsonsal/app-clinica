@@ -90,12 +90,17 @@ angular.module('compras').controller('ComprasController', ['$scope', '$statePara
             }, function(errorResponse) {
                 $scope.error = errorResponse.data.message;
             });
-        }
+        };
         //Productos
         $scope.newProductoState = false;
         $scope.newProducto = function(){
             $scope.newProductoState = true;
-        }
+        };
+
+        $scope.cancelProducto = function() {
+            $scope.newProductoState = false;
+        };
+
         $scope.productos = Productos.query(function(productos){
             $scope.productos = productos;
         });

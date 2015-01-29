@@ -1,86 +1,10 @@
-<div class="form-panel">
-    <form class="form-inline" role="form">
+<ng-include src="'modules/compras/views/compra-factura-form-fields.client.view.html'"></ng-include>
 
-        <div class="form-group">
-            <label class="control-label" for="factura">Factura</label>
-            <input class="form-control" id="factura" placeholder="Nro. Factura" type="text" ng-model="factura">
-        </div>
-        <div class="form-group">
-            <label class="control-label" for="proveedor">Proveedor</label>
-            <div class="input-group">
-
-                <ui-select ng-model="proveedor.selected" theme="bootstrap">
-                    <ui-select-match placeholder="Proveedor">{{$select.selected.nombre}}</ui-select-match>
-                    <ui-select-choices repeat="item in proveedores | filter: $select.search">
-                        <span ng-bind-html="item.nombre | highlight: $select.search"></span>
-                        <small ng-bind-html="item.descripcion | highlight: $select.search"></small>
-                    </ui-select-choices>
-                </ui-select>
-
-                    <span class="input-group-btn">
-                      <button ng-click="newProvedorState()" class="btn btn-default" tooltip="Nuevo Proveedor">
-                          <span class="glyphicon glyphicon-plus"></span>
-                      </button>
-                    </span>
-
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label class="control-label" for="pago">Pago</label>
-            <input class="form-control" id="pago" type="checkbox" ng-model="pago">
-
-        </div>
-    </form>
+<div ng-hide="newProductoState">
+    <ng-include src="'modules/compras/views/compra-list-articulos.client.view.html'"></ng-include>
 </div>
 
-<div class="col-lg-12" ng-repeat="articulo in compra.articulos" >
-    {{articulo}}
-    <span>{{articulo.producto}}</span>
-    <span>{{articulo.cantidad}}</span>
-    <span>{{articulo.precio}}</span>
-    <span>{{articulo.fechaVencimiento}}</span>
-    <input class="form-control" class="btn btn-default" value="-" type="button" ng-click="deleteArticulo($index)">
-</div>
-
-<div class="form-panel" ng-hide="newProductoState">
-    <form role="form">
-        <div class="form-group">
-             <ui-select ng-model="newArticulo.producto" theme="bootstrap">
-                <ui-select-match placeholder="Producto">{{$select.selected.nombre}}</ui-select-match>
-                <ui-select-choices repeat="item in productos | filter: $select.search">
-                    <span ng-bind-html="item.nombre | highlight: $select.search"></span>
-                    <small ng-bind-html="item.descripcion | highlight: $select.search"></small>
-                </ui-select-choices>
-            </ui-select>
-
-             <span class="input-group-btn">
-                  <button ng-click="newProducto()" class="btn btn-default" tooltip="Nuevo Producto">
-                      <span class="glyphicon glyphicon-plus"></span>
-                  </button>
-             </span>
-        </div>
-        <div class="form-group">
-            <input class="form-control" placeholder="cantidad" type="number" ng-model="newArticulo.cantidad">
-        </div>
-        <div class="form-group">
-            <input class="form-control" placeholder="precio" type="text" ng-model="newArticulo.precio">
-        </div>
-
-        <div class="form-group">
-            <input class="form-control" placeholder="Fecha de Vencimiento" type="text" ng-model="newArticulo.fechaVencimiento">
-        </div>
-        <div class="form-group">
-
-              <span class="input-group-btn">
-                      <button ng-click="saveNewArticulo()" class="btn btn-default" tooltip="Guardar artículo">
-                          <span class="glyphicon glyphicon-plus"></span>
-                      </button>
-                    </span>
-        </div>
-    </form>
-</div><!-- /form-panel -->
-<section class="wrapper site-min-height" data-ng-controller="ProductosController" ng-show="newProductoState">
+<section data-ng-controller="ProductosController" ng-show="newProductoState">
     <h3><i class="fa fa-angle-right"></i>{{formTitle}}</h3>
     <div class="row">
         <div class="col-md-12">
@@ -88,9 +12,10 @@
                 <fieldset>
                     <ng-include src="'/modules/productos/views/form-fields-producto.client.view.html'"></ng-include>
                     <div class="form-group">
-                        <input type="submit" class="btn btn-default" ng-click="createProduct()" value="Guardar" ng-hide="newProductTypeStateBoolean || newFabricanteStateBoolean">
-                        <input type="submit" class="btn btn-default" ng-click="create()" value="Guardar" ng-show="newProductTypeStateBoolean || newFabricanteStateBoolean">
-                        <input type="button" class="btn btn-default" value="Cancelar" ng-click="cancel()" ng-show="newProductTypeStateBoolean || newFabricanteStateBoolean">
+                        <input type="button" class="btn btn-default" ng-click="createProduct()" value="Guardar" ng-hide="newProductTypeStateBoolean || newFabricanteStateBoolean">
+                        <input type="button" class="btn btn-default" ng-click="cancelProducto()" value="Cancelar" ng-hide="newProductTypeStateBoolean || newFabricanteStateBoolean">
+                        <input type="button" class="btn btn-default" ng-click="create()" value="Guardar" ng-show="newProductTypeStateBoolean || newFabricanteStateBoolean">
+                         <input type="button" class="btn btn-default" value="Cancelar" ng-click="cancel()" ng-show="newProductTypeStateBoolean || newFabricanteStateBoolean">
                     </div>
                     <div data-ng-show="error" class="text-danger">
                         <strong data-ng-bind="error"></strong>

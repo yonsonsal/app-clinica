@@ -46,41 +46,41 @@
 
 @media only screen and (max-width: 800px) {
     /* Force table to not be like tables anymore */
-    #no-more-tables table,
-    #no-more-tables thead,
-    #no-more-tables tbody,
-    #no-more-tables th,
-    #no-more-tables td,
-    #no-more-tables tr {
+    #compra-factura-tables table, #compra-articulos-table table,
+    #compra-factura-tables thead, #compra-articulos-table thead,
+    #compra-factura-tables tbody, #compra-articulos-table tbody,
+    #compra-factura-tables th, #compra-articulos-table th,
+    #compra-factura-tables td, #compra-articulos-table td,
+    #compra-factura-tables tr, #compra-articulos-table tr {
         display: block;
     }
 
     /* Hide table headers (but not display: none;, for accessibility) */
-    #no-more-tables thead tr {
+    #compra-factura-tables thead tr, #compra-articulos-table thead tr {
         position: absolute;
         top: -9999px;
         left: -9999px;
     }
 
-    #no-more-tables tr { border: 1px solid #ccc; }
+    #compra-factura-tables tr, #compra-articulos-table tr { border: 1px solid #ccc; }
 
-    #no-more-tables td {
+    #compra-factura-tables td, #compra-articulos-table td {
         /* Behave like a "row" */
         border: none;
         border-bottom: 1px solid #eee;
         position: relative;
-        padding-left: 50%;
+        padding-left: 35%;
         white-space: normal;
         text-align:left;
     }
 
-    #no-more-tables td:before {
+    #compra-factura-tables td:before, #compra-articulos-table td:before {
         /* Now like a table header */
         position: absolute;
         /* Top/left values mimic padding */
         top: 6px;
         left: 6px;
-        width: 45%;
+        width: 35%;
         padding-right: 10px;
         white-space: nowrap;
         text-align:left;
@@ -90,5 +90,5 @@
     /*
     Label the data
     */
-    #no-more-tables td:before { content: attr(data-title); }
+    #compra-factura-tables td:before, #compra-articulos-table td:before { content: attr(data-title); }
 }
