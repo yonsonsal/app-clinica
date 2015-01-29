@@ -26,7 +26,7 @@ var ArticuloSchema = new Schema({
     cantidad:{
         type: Number,
         required: 'La cantidad es requerida',
-        default: 1,
+        default: 1
     },
     fechaVencimiento:{
         type: Date

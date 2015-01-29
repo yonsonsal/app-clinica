@@ -24,6 +24,10 @@ var CompraSchema = new Schema({
         default: true,
         require:'Pago es requerido'
     },
+    monto:{
+        type: Number,
+        require:'Monto es requerido'
+    },
 	fecha: {
 		type: Date,
 		default: Date.now

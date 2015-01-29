@@ -73,12 +73,20 @@ exports.delete = function(req, res) {
  * List of Compras
  */
 exports.list = function(req, res) { 
-	Compra.find().sort('-created').populate('user', 'displayName').exec(function(err, compras) {
+	Compra.find().sort('-created')
+        .populate('user', 'displayName')
+        .populate('articulos')
+        .populate('articulos.producto')
+        .populate('proveedor').exec(function(err, compras) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
+            /*compras.articulos.forEach(function(articulo){
+                    articulo.name ='pepe';
+
+            });*/
 			res.jsonp(compras);
 		}
 	});
