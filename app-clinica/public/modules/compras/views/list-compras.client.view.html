@@ -1,14 +1,16 @@
 <section class="wrapper site-min-height" data-ng-controller="ComprasController" data-ng-init="find()">
-    <h3><i class="fa fa-angle-right"></i>Lista de Compras</h3>
-    <div class="row">
-        <div class="col-md-12">
+    <h3><i class="fa fa-angle-right"></i> Compras</h3>
+    <div class="row mt">
+        <div class="col-lg-12">
             <div class="content-panel">
-                <section id="compra-factura-tables">
+                <h4><i class="fa fa-angle-right"></i> Lista de compras</h4>
+                <section id="table-responsive-one">
                     <table class="table table-bordered table-striped table-condensed cf">
                         <thead class="cf">
                         <tr>
                             <th>Fecha</th>
                             <th>Proveedor</th>
+                            <th>Factura</th>
                             <th>Pago</th>
                             <th>Monto</th>
                             <th>Opciones</th>
@@ -16,24 +18,32 @@
                         </thead>
                         <tbody>
                         <tr ng-repeat="compra in compras">
-                            <td data-title="Fecha" class="col-xs-12 col-sm-5 col-md-5 col-lg-5">
-                                {{compra.fecha | date:'medium'}}
+                            <td data-title="Fecha" class="col-xs-12 col-sm-1 col-md-1 col-lg-1">
+                                {{compra.fecha | date:'dd/MM/yyyy'}}
                             </td>
                             <td data-title="Proveedor" class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
                                 {{compra.proveedor.nombre}}
                             </td>
-                            <td data-title="Pago" class="col-xs-12 col-sm-1 col-md-1 col-lg-1">
-                                {{compra.pago}}
+                            <td data-title="Factura" class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                                {{compra.factura}}
+                            </td>
+                            <td data-title="Pago" class="col-xs-12 col-sm-1 col-md-1 col-lg-1 center-text">
+                                <div ng-show="compra.pago">
+                                    <i class="fa fa-check-square"></i> Si
+                                </div>
+                                <div ng-show="!compra.pago">
+                                    <i class="fa fa-square"></i> No
+                                </div>
                             </td>
                             <td data-title="Monto" class="col-xs-12 col-sm-1 col-md-1 col-lg-1">
                                 {{compra.monto}}
                             </td>
-                            <td> <a href="#!/compras/{{compra._id}}"><span class="glyphicon glyphicon-floppy-open"></span></a></td>
+                            <td class="opciones"><a href="#!/compras/{{compra._id}}" tooltip="Ver detalle"><span class="glyphicon glyphicon-floppy-open"></span></a></td>
                         </tr>
                         </tbody>
                     </table>
                 </section>
-            </div><! --/content-panel -->
-        </div><!-- /col-md-12 -->
-    </div>
-</section>
+            </div><!-- /content-panel -->
+        </div><!-- /col-lg-12 -->
+    </div><!-- /row -->
+</section><!-- /section -->

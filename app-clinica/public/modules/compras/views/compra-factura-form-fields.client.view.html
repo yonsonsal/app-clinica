@@ -1,42 +1,43 @@
 <div class="row mt">
-    <section id="compra-factura-tables">
+    <section id="table-responsive-one">
         <table class="table table-bordered table-striped table-condensed cf">
             <thead class="cf">
-                <tr>
-                    <th>Nro. de Factura</th>
-                    <th>Proveedor</th>
-                    <th class="numeric">Pago</th>
-                </tr>
+            <tr>
+                <th>Factura</th>
+                <th>Proveedor</th>
+                <th>Pago</th>
+            </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td data-title="Nro. de Factura" class="col-xs-12 col-sm-5 col-md-5 col-lg-5">
-                        <input class="form-control" id="factura" type="text" ng-model="factura">
-                    </td>
-                    <td data-title="Proveedor" class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-                       <div class="input-group">
-                            <ui-select ng-model="proveedor.selected" theme="bootstrap">
-                                <ui-select-match placeholder="Proveedor">{{$select.selected.nombre}}</ui-select-match>
-                                <ui-select-choices repeat="item in proveedores | filter: $select.search">
-                                    <span ng-bind-html="item.nombre | highlight: $select.search"></span>
-                                    <small ng-bind-html="item.descripcion | highlight: $select.search"></small>
-                                </ui-select-choices>
-                            </ui-select>
-                            <span class="input-group-btn">
-                                <div ng-click="newProvedorState()" class="btn btn-default" tooltip="Nuevo Proveedor">
-                                    <span class="glyphicon glyphicon-plus"></span>
-                                </div>
-                            </span>
-                        </div>
-                    </td>
-                    <td class="numeric" data-title="Pago" class="col-xs-12 col-sm-1 col-md-1 col-lg-1">
-                        <!--input class="form-control" id="pago" type="checkbox" ng-model="pago"-->
-                        <div class="text-center">
-                            <input type="checkbox" checked="" data-toggle="switch" ng-model="pago" />
-                        </div>
-                    </td>
-                </tr>
+            <tr>
+                <td data-title="Factura" class="col-xs-12 col-sm-5 col-md-5 col-lg-5">
+                    <input class="form-control" id="factura" type="text" ng-model="compra.factura"/>
+                </td>
+                <td data-title="Proveedor" class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                   <div class="input-group">
+                        <ui-select ng-model="proveedor.selected" theme="bootstrap">
+                            <ui-select-match placeholder="Proveedor">{{$select.selected.nombre}}</ui-select-match>
+                            <ui-select-choices repeat="item in proveedores | filter: $select.search">
+                                <span ng-bind-html="item.nombre | highlight: $select.search"></span>
+                                <small ng-bind-html="item.descripcion | highlight: $select.search"></small>
+                            </ui-select-choices>
+                        </ui-select>
+                        <span class="input-group-btn">
+                            <div ng-click="newProvedorState()" class="btn btn-default" tooltip="Nuevo Proveedor">
+                                <span class="glyphicon glyphicon-plus"></span>
+                            </div>
+                        </span>
+                    </div>
+                </td>
+                <td class="numeric" data-title="Pago" class="col-xs-12 col-sm-1 col-md-1 col-lg-1">
+                    <div ng-click="changePago()">
+                        <input switch type="checkbox" data-toggle="switch"/>
+                    </div>
+                </td>
+            </tr>
             </tbody>
         </table>
     </section>
 </div><!-- /row -->
+
+

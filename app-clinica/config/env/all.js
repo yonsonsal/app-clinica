@@ -41,7 +41,8 @@ module.exports = {
                 'public/assets/theme/js/jquery.scrollTo.min.js',
                 'public/assets/theme/js/jquery.nicescroll.js',
                 'public/assets/theme/js/common-scripts.js',
-                'public/assets/theme/js/bootstrap-switch.js'
+                'public/assets/theme/js/bootstrap-switch.js',
+                'public/assets/theme/js/form-component.js'
 			]
 		},
 		css: [

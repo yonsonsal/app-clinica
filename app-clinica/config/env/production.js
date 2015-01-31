@@ -31,7 +31,8 @@ module.exports = {
                 'public/assets/theme/js/jquery.dcjqaccordion.2.7.js',
                 'public/assets/theme/js/jquery.scrollTo.min.js',
                 'public/assets/theme/js/jquery.nicescroll.js',
-                'public/assets/theme/js/common-scripts.js'
+                'public/assets/theme/js/common-scripts.js',
+                'public/assets/theme/js/bootstrap-switch.js'
 			]
 		},
 		css: 'public/dist/application.min.css',

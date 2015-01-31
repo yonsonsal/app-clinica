@@ -104,6 +104,7 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
                     });
 
                     adaptContainerWidth ();
+
                 });
 
             }

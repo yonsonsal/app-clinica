@@ -18,11 +18,18 @@
                     <tbody>
                     <tr>
                         <td>Fecha</td>
-                        <td><strong>{{compra.fecha | date:'medium'}}</strong></td>
+                        <td><strong>{{compra.fecha | date:'dd/MM/yyyy'}}</strong></td>
                     </tr>
                     <tr>
                         <td>Pago</td>
-                        <td><strong>{{compra.pago}}</strong></td>
+                        <td>
+                            <div ng-show="compra.pago">
+                                <i class="fa fa-check-square"></i> Si
+                            </div>
+                            <div ng-show="!compra.pago">
+                                <i class="fa fa-square"></i> No
+                            </div>
+                        </td>
                     </tr>
                     <tr>
                         <td>Monto</td>
@@ -47,7 +54,7 @@
                     <tbody>
                     <tr ng-repeat="articulo in compra.articulos">
                         <td>{{articulo.producto.nombre}}</td>
-                        <td>{{articulo.fechaVencimiento | date:'medium'}}</td>
+                        <td>{{articulo.fechaVencimiento | date:'dd/MM/yyyy'}}</td>
                         <td>{{articulo.cantidad}}</td>
                         <td>{{articulo.precio}}</td>
                     </tr>
@@ -57,26 +64,3 @@
         </div><!-- /col-md-12 -->
     </div>
 </section>
-
-
-<!--section data-ng-controller="ComprasController" data-ng-init="findOne()">
-	<div class="page-header">
-		<h1 data-ng-bind="compra.name"></h1>
-	</div>
-	<div class="pull-right" data-ng-show="((authentication.user) && (authentication.user._id == compra.user._id))">
-		<a class="btn btn-primary" href="/#!/compras/{{compra._id}}/edit">
-			<i class="glyphicon glyphicon-edit"></i>
-		</a>
-		<a class="btn btn-primary" data-ng-click="remove();">
-			<i class="glyphicon glyphicon-trash"></i>
-		</a>
-	</div>
-	<small>
-		<em class="text-muted">
-			Posted on
-			<span data-ng-bind="compra.created | date:'mediumDate'"></span>
-			by
-			<span data-ng-bind="compra.user.displayName"></span>
-		</em>
-	</small>
-</section-->
