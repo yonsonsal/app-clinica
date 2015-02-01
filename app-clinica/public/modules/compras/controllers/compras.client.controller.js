@@ -7,9 +7,7 @@ angular.module('compras').controller('ComprasController', ['$scope', '$statePara
 
         //proveedores
 
-        $scope.proveedores = Proveedores.query(function(proveedores) {
-            $scope.proveedores = proveedores;
-        });
+
         // Nueva Compra
         $scope.compra = {};
         $scope.compra.articulos = [];
@@ -33,6 +31,15 @@ angular.module('compras').controller('ComprasController', ['$scope', '$statePara
             return d.promise;
         };
 
+        $scope.createCompraInit = function() {
+            $scope.proveedores = Proveedores.query(function(proveedores) {
+                $scope.proveedores = proveedores;
+
+            });
+            $scope.productos = Productos.query(function(productos){
+                $scope.productos = productos;
+            });
+        }
         $scope.createCompra = function() {
             // Create new Compra object
 
@@ -132,9 +139,7 @@ angular.module('compras').controller('ComprasController', ['$scope', '$statePara
             $scope.productos.push(Producto.getNewProducto());
 
         }
-        $scope.productos = Productos.query(function(productos){
-            $scope.productos = productos;
-        });
+
 
         // Update existing Compra
         $scope.update = function() {

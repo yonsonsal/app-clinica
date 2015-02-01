@@ -6,6 +6,7 @@
 var mongoose = require('mongoose'),
 	errorHandler = require('./errors.server.controller'),
 	Compra = mongoose.model('Compra'),
+    Producto = mongoose.model('Producto'),
 	_ = require('lodash');
 
 /**
@@ -87,6 +88,7 @@ exports.list = function(req, res) {
                     articulo.name ='pepe';
 
             });*/
+            console.log(compras[0].articulos[0]);
 			res.jsonp(compras);
 		}
 	});
@@ -97,14 +99,29 @@ exports.list = function(req, res) {
  */
 exports.compraByID = function(req, res, next, id) { 
 	Compra.findById(id)
+        .lean()
         .populate('user', 'displayName')
         .populate('articulos')
         .populate('proveedor')
         .exec(function(err, compra) {
-		if (err) return next(err);
-		if (! compra) return next(new Error('Failed to load Compra ' + id));
-		req.compra = compra ;
-		next();
+            if (err){
+                return next(err)
+            }
+            if (! compra) {
+                return next(new Error('Failed to load Compra ' + id))
+            }
+
+            var options = {
+                path: 'articulos.producto',
+                model: 'Producto'
+            }
+            Compra.populate(compra, options, function(err, compraAux){
+
+                req.compra = compraAux ;
+                next();
+              //  res.jsonp(compraAux);
+            });
+
 	});
 };
 
