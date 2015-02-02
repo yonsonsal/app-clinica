@@ -1,20 +1,25 @@
-<section data-ng-controller="ConsumosController" data-ng-init="findOne()">
-	<div class="page-header">
-		<h1 data-ng-bind="consumo.name"></h1>
-	</div>
-	<div class="pull-right" data-ng-show="((authentication.user) && (authentication.user._id == consumo.user._id))">
-		<a class="btn btn-primary" href="/#!/consumos/{{consumo._id}}/edit">
-			<i class="glyphicon glyphicon-edit"></i>
-		</a>
-		<a class="btn btn-primary" data-ng-click="remove();">
-			<i class="glyphicon glyphicon-trash"></i>
-		</a>
-	</div>
+<section class="wrapper site-min-height" data-ng-controller="ConsumosController" data-ng-init="findOne()">
+    <h3><i class="fa fa-angle-right"></i>Consumos: <strong></strong></h3>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="content-panel">
+                <div class="pull-right" style="margin-right: 10px">
+                    <!--data-ng-show="((authentication.user) && (authentication.user._id == consumo.user._id))"-->
+                    <a class="btn btn-success" href="/#!/consumos/{{consumo._id}}/edit">
+                        <i class="glyphicon glyphicon-edit"></i>
+                    </a>
+                    <a class="btn btn-danger" data-ng-click="remove();">
+                        <i class="glyphicon glyphicon-trash"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
 	<small>
 		<em class="text-muted">
-			Posted on
+		    Creado en
 			<span data-ng-bind="consumo.created | date:'mediumDate'"></span>
-			by
+			por
 			<span data-ng-bind="consumo.user.displayName"></span>
 		</em>
 	</small>
