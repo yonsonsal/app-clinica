@@ -7,12 +7,19 @@ angular.module('compras').controller('ComprasController', ['$scope', '$statePara
 
         //proveedores
 
-
+        $scope.proveedores = Proveedores.query(function(proveedores) {
+            $scope.proveedores = proveedores;
+        });
         // Nueva Compra
         $scope.compra = {};
         $scope.compra.articulos = [];
         $scope.compra.proveedor = {};
         $scope.proveedor = {};
+        $scope.compra.pago = false;
+
+        $scope.changePago = function () {
+            $scope.compra.pago = !$scope.compra.pago;
+        };
 
         function saveArticulo(art) {
 
@@ -58,7 +65,7 @@ angular.module('compras').controller('ComprasController', ['$scope', '$statePara
                 angular.forEach(response, function(articulo){
                     monto += articulo.cantidad * articulo.precio;
                     articulosIds.push(articulo._id);
-                })
+                });
                 $scope.compra.monto = monto;
                 $scope.compra.articulos = articulosIds;
 
@@ -123,23 +130,25 @@ angular.module('compras').controller('ComprasController', ['$scope', '$statePara
             }, function(errorResponse) {
                 $scope.error = errorResponse.data.message;
             });
-        }
+        };
 
         //Productos
         $scope.newProductoState = false;
         $scope.newProducto = function(){
             $scope.newProductoState = true;
-        }
+        };
         $scope.comprasState = function() {
             $scope.newProductoState = false;
-        }
+        };
         $scope.comprasFromProductoState = function() {
             $scope.newProductoState = false;
             $scope.newArticulo.producto =  Producto.getNewProducto();
             $scope.productos.push(Producto.getNewProducto());
 
-        }
-
+        };
+        $scope.productos = Productos.query(function(productos){
+            $scope.productos = productos;
+        });
 
         // Update existing Compra
         $scope.update = function() {
@@ -168,8 +177,10 @@ angular.module('compras').controller('ComprasController', ['$scope', '$statePara
         //Articulos
         $scope.newArticulo = {'cantidad':1};
         $scope.saveNewArticulo = function() {
-            $scope.compra.articulos.push($scope.newArticulo);
-            $scope.newArticulo = {};
+            if ($scope.isValidNewArticulo) {
+                $scope.compra.articulos.push($scope.newArticulo);
+                $scope.newArticulo = {};
+            }
         };
         $scope.deleteArticulo = function(index){
             $scope.compra.articulos.splice(index, 1);
@@ -195,4 +206,14 @@ angular.module('compras').controller('ComprasController', ['$scope', '$statePara
             console.log('showError');
         }
     }
-]);
+])
+    .directive('switch', ['$timeout', function ($timeout){
+        return {
+            restrict: 'A',
+            link: function () {
+                $timeout(function() {
+                    $("[data-toggle='switch']").wrap('<div class="switch" />').parent().bootstrapSwitch({'onLabel': 'Si', 'offLabel': 'No'});
+                });
+            }
+        }
+    }]);

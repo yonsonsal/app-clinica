@@ -1,53 +1,30 @@
 <section class="wrapper site-min-height" data-ng-controller="TipoproductosController" data-ng-init="find()">
     <h3><i class="fa fa-angle-right"></i>Tipo de Productos</h3>
-    <div class="row">
-        <div class="col-md-12">
+    <div class="row mt">
+        <div class="col-lg-12">
             <div class="content-panel">
-                <table class="table table-hover">
-                    <h4><i class="fa fa-angle-right"></i>Tipo de Productos</h4>
-                    <hr>
-                    <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Nombre</th>
-                        <th>Descripcion</th>
-                        <th>Fecha de Creacion</th>
-                        <th>Usuario</th>
-                        <th>Opciones</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr data-ng-repeat="tipoproducto in tipoproductos">
-                        <td>{{$index+1}}</td>
-                        <td data-ng-bind="tipoproducto.nombre"></td>
-                        <td data-ng-bind="tipoproducto.descripcion"></td>
-                        <td data-ng-bind="tipoproducto.created | date:'medium'"></td>
-                        <td data-ng-bind="tipoproducto.user.displayName"></td>
-                        <td> <a href="#!/tipoproductos/{{tipoproducto._id}}"><span class="glyphicon glyphicon-floppy-open"></span></a></td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div><! --/content-panel -->
-        </div><!-- /col-md-12 -->
+                <h4><i class="fa fa-angle-right"></i>Tipos de Productos</h4>
+                <section id="table-list">
+                    <table class="table table-bordered table-striped table-condensed cf">
+                        <thead class="cf">
+                            <tr>
+                                <th>#</th>
+                                <th>Nombre</th>
+                                <th>Descripcion</th>
+                                <th>Opciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr data-ng-repeat="tipoproducto in tipoproductos">
+                                <td>{{$index+1}}</td>
+                                <td data-ng-bind="tipoproducto.nombre"></td>
+                                <td data-ng-bind="tipoproducto.descripcion"></td>
+                                <td> <a href="#!/tipoproductos/{{tipoproducto._id}}"><span tooltip="Ver detalles" class="glyphicon glyphicon-floppy-open"></span></a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+            </div>
+        </div>
     </div>
 </section>
-
-<!--section data-ng-controller="TipoproductosController" data-ng-init="find()">
-    <div class="page-header">
-        <h1>Tipoproductos</h1>
-    </div>
-    <div class="list-group">
-        <a data-ng-repeat="tipoproducto in tipoproductos" data-ng-href="#!/tipoproductos/{{tipoproducto._id}}" class="list-group-item">
-			<small class="list-group-item-text">
-				Posted on
-				<span data-ng-bind="tipoproducto.created | date:'medium'"></span>
-				by
-				<span data-ng-bind="tipoproducto.user.displayName"></span>
-			</small>
-			<h4 class="list-group-item-heading" data-ng-bind="tipoproducto.name"></h4>
-        </a>
-    </div>
-    <div class="alert alert-warning text-center" data-ng-hide="!tipoproductos.$resolved || tipoproductos.length">
-    	No Tipoproductos yet, why don't you <a href="/#!/tipoproductos/create">create one</a>?
-    </div>
-</section-->

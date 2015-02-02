@@ -1,5 +1,5 @@
 <div class="row mt">
-    <section id="compra-articulos-table">
+    <section id="table-responsive-two">
         <table class="table table-bordered table-striped table-condensed cf">
             <thead class="cf">
             <tr>
@@ -31,7 +31,7 @@
                     </span>
                     </div>
                 </td>
-                <td class="numeric" data-title="Vencimiento" class="col-xs-4 col-sm-1 col-md-1 col-lg-1">
+                <td class="date" data-title="Vencimiento" class="col-xs-4 col-sm-1 col-md-1 col-lg-1">
                     <input class="form-control" type="date" ng-model="newArticulo.fechaVencimiento">
                 </td>
                 <td class="numeric" data-title="Cantidad" class="col-xs-4 col-sm-1 col-md-1 col-lg-1">
@@ -41,8 +41,8 @@
                     <input class="form-control" type="number" ng-model="newArticulo.precio">
                 </td>
                 <td class="numeric" data-title="Opciones" class="col-xs-4 col-sm-1 col-md-1 col-lg-1">
-                    <div ng-click="saveNewArticulo()" class="btn btn-default" tooltip="Guardar artículo" ng-disabled="!isValidNewArticulo">
-                        <span class="glyphicon glyphicon-plus"></span>
+                    <div ng-click="saveNewArticulo()" tooltip="Guardar artículo" ng-class="{'disabled-save-articulo': !isValidNewArticulo}" ng-disabled="!isValidNewArticulo" class="fa-icon save-articulo">
+                        <i class="fa fa-check-circle"></i>
                     </div>
                 </td>
             </tr>
@@ -55,7 +55,9 @@
                 <td class="numeric" data-title="Cantidad" data-ng-bind="articulo.cantidad"></td>
                 <td class="numeric" data-title="Precio" data-ng-bind="articulo.precio"></td>
                 <td class="numeric" data-title="Opciones">
-                    <div ng-click="deleteArticulo($index)"><i class="glyphicon glyphicon-trash"></i></div>
+                    <div ng-click="deleteArticulo($index)" class="fa-icon delete-articulo" tooltip="Borrar articulo">
+                        <i class="fa fa-times-circle"></i>
+                    </div>
                 </td>
             </tr>
             </tbody>

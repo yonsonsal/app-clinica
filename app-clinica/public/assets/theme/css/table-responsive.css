@@ -46,25 +46,25 @@
 
 @media only screen and (max-width: 800px) {
     /* Force table to not be like tables anymore */
-    #compra-factura-tables table, #compra-articulos-table table,
-    #compra-factura-tables thead, #compra-articulos-table thead,
-    #compra-factura-tables tbody, #compra-articulos-table tbody,
-    #compra-factura-tables th, #compra-articulos-table th,
-    #compra-factura-tables td, #compra-articulos-table td,
-    #compra-factura-tables tr, #compra-articulos-table tr {
+    #table-responsive-one table, #table-responsive-two table,
+    #table-responsive-one thead, #table-responsive-two thead,
+    #table-responsive-one tbody, #table-responsive-two tbody,
+    #table-responsive-one th, #table-responsive-two th,
+    #table-responsive-one td, #table-responsive-two td,
+    #table-responsive-one tr, #table-responsive-two tr {
         display: block;
     }
 
     /* Hide table headers (but not display: none;, for accessibility) */
-    #compra-factura-tables thead tr, #compra-articulos-table thead tr {
+    #table-responsive-one thead tr, #table-responsive-two thead tr {
         position: absolute;
         top: -9999px;
         left: -9999px;
     }
 
-    #compra-factura-tables tr, #compra-articulos-table tr { border: 1px solid #ccc; }
+    #table-responsive-one tr, #table-responsive-two tr { border: 1px solid #ccc; }
 
-    #compra-factura-tables td, #compra-articulos-table td {
+    #table-responsive-one td, #table-responsive-two td {
         /* Behave like a "row" */
         border: none;
         border-bottom: 1px solid #eee;
@@ -74,7 +74,7 @@
         text-align:left;
     }
 
-    #compra-factura-tables td:before, #compra-articulos-table td:before {
+    #table-responsive-one td:before, #table-responsive-two td:before {
         /* Now like a table header */
         position: absolute;
         /* Top/left values mimic padding */
@@ -90,5 +90,5 @@
     /*
     Label the data
     */
-    #compra-factura-tables td:before, #compra-articulos-table td:before { content: attr(data-title); }
+    #table-responsive-one td:before, #table-responsive-two td:before { content: attr(data-title); }
 }
