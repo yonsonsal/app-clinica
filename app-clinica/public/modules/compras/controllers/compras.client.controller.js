@@ -210,9 +210,9 @@ angular.module('compras').controller('ComprasController', ['$scope', '$statePara
     .directive('switch', ['$timeout', function ($timeout){
         return {
             restrict: 'A',
-            link: function () {
+            link: function (scope, element, attr) {
                 $timeout(function() {
-                    $("[data-toggle='switch']").wrap('<div class="switch" />').parent().bootstrapSwitch({'onLabel': 'Si', 'offLabel': 'No'});
+                    $(element).wrap('<div class="switch" />').parent().bootstrapSwitch();
                 });
             }
         }

@@ -1,38 +1,35 @@
 <section class="wrapper site-min-height" data-ng-controller="ProductosController" data-ng-init="find()">
     <h3><i class="fa fa-angle-right"></i>Productos</h3>
-    <div class="row">
-        <div class="col-md-12">
+    <div class="row mt">
+        <div class="col-lg-12">
             <div class="content-panel">
-                <table class="table table-hover">
-                    <h4><i class="fa fa-angle-right"></i>Productos</h4>
-                    <hr>
-                    <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Nombre</th>
-                        <th>Fabricante</th>
-                        <th>Tipo de Producto</th>
-                        <th>Stock Actual - Stock Mínimo</th>
-                        <th>Fecha de Creacion</th>
-
-                        <th>Usuario</th>
-                        <th>Opciones</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr data-ng-repeat="producto in productos">
-                        <td>{{$index+1}}</td>
-                        <td data-ng-bind="producto.nombre"></td>
-                        <td data-ng-bind="producto.fabricante.nombre"></td>
-                        <td data-ng-bind="producto.tipoProducto.nombre"></td>
-                        <td>{{producto.stockActual}}-{{producto.stockMinimo}}</td>
-                        <td data-ng-bind="producto.user.displayName"></td>
-                        <td data-ng-bind="producto.created | date:'medium'"></td>
-
-                        <td> <a href="#!/productos/{{producto._id}}"><span class="glyphicon glyphicon-floppy-open"></span></a></td>
-                    </tr>
-                    </tbody>
-                </table>
+                <h4><i class="fa fa-angle-right"></i> Lista de Productos</h4>
+                <section id="table-responsive-one">
+                    <table class="table table-bordered table-striped table-condensed cf">
+                        <thead class="cf">
+                        <tr>
+                            <th>#</th>
+                            <th>Nombre</th>
+                            <th>Fabricante</th>
+                            <th>Tipo de Producto</th>
+                            <th>Stock Actual</th>
+                            <th>Stock M&iacute;nimo</th>
+                            <th>Opciones</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr data-ng-repeat="producto in productos">
+                            <td data-title="#">{{$index+1}}</td>
+                            <td data-title="Nombre" data-ng-bind="producto.nombre"></td>
+                            <td data-title="Fabricante" data-ng-bind="producto.fabricante.nombre"></td>
+                            <td data-title="Tipo de Producto" data-ng-bind="producto.tipoProducto.nombre"></td>
+                            <td data-title="Stock Actual">{{producto.stockActual}}</td>
+                            <td data-title="Stock M&iacute;nimo">{{producto.stockMinimo}}</td>
+                            <td data-title="Opciones"> <a href="#!/productos/{{producto._id}}"><span class="glyphicon glyphicon-floppy-open"></span></a></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </section>
             </div><! --/content-panel -->
         </div><!-- /col-md-12 -->
     </div>

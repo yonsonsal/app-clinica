@@ -5,10 +5,10 @@
             <div class="content-panel">
                 <div class="pull-right" style="margin-right: 10px">
                     <!--data-ng-show="((authentication.user) && (authentication.user._id == tipoproducto.user._id))"-->
-                    <a class="btn btn-primary" href="/#!/personas/{{persona._id}}/edit">
+                    <a class="btn btn-primary" href="/#!/personas/{{persona._id}}/edit" tooltip="Editar">
                         <i class="glyphicon glyphicon-edit"></i>
                     </a>
-                    <a class="btn btn-primary" data-ng-click="remove();">
+                    <a class="btn btn-danger" data-ng-click="remove();" tooltip="Eliminar">
                         <i class="glyphicon glyphicon-trash"></i>
                     </a>
                 </div>
@@ -17,7 +17,7 @@
                     <hr>
                     <tbody>
                     <tr>
-                        <td>Direccion</td>
+                        <td>Direcci&oacute;n</td>
                         <td><strong>{{persona.direccion}}</strong></td>
                     </tr>
                     <tr>
@@ -25,11 +25,11 @@
                         <td><strong>{{persona.email}}</strong></td>
                     </tr>
                     <tr>
-                        <td>Telefono</td>
+                        <td>Tel&eacute;fono</td>
                         <td><strong>{{persona.telefono}}</strong></td>
                     </tr>
                     <tr>
-                        <td>Cedula</td>
+                        <td>Documento</td>
                         <td><strong>{{persona.documento}}</strong></td>
                     </tr>
                     </tbody>

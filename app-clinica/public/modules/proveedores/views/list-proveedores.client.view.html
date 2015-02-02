@@ -1,34 +1,35 @@
 <section class="wrapper site-min-height" data-ng-controller="ProveedoresController" data-ng-init="find()">
     <h3><i class="fa fa-angle-right"></i>Proveedores</h3>
-    <div class="row">
-        <div class="col-md-12">
+    <div class="row mt">
+        <div class="col-lg-12">
             <div class="content-panel">
-                <table class="table table-hover">
-                    <h4><i class="fa fa-angle-right"></i>Lista de Proveedores</h4>
-                    <hr>
-                    <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Nombre</th>
-                        <th>Razon Social</th>
-                        <th>RUT</th>
-                        <th>Direccion</th>
-                        <th>Telefono</th>
-                        <th>Opciones</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr data-ng-repeat="proveedore in proveedores">
-                        <td>{{$index+1}}</td>
-                        <td data-ng-bind="proveedore.nombre"></td>
-                        <td data-ng-bind="proveedore.razonSocial"></td>
-                        <td data-ng-bind="proveedore.rut"></td>
-                        <td data-ng-bind="proveedore.direccion"></td>
-                        <td data-ng-bind="proveedore.telefono"></td>
-                        <td> <a href="#!/proveedores/{{proveedore._id}}"><span class="glyphicon glyphicon-floppy-open"></span></a></td>
-                    </tr>
-                    </tbody>
-                </table>
+                <h4><i class="fa fa-angle-right"></i> Lista de Proveedores</h4>
+                <section id="table-responsive-one">
+                    <table class="table table-bordered table-striped table-condensed cf">
+                        <thead class="cf">
+                        <tr>
+                            <th>#</th>
+                            <th>Nombre</th>
+                            <th>Raz&oacute;n Social</th>
+                            <th>RUT</th>
+                            <th>Direcci&oacute;n</th>
+                            <th>Tel&eacute;fono</th>
+                            <th>Opciones</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr data-ng-repeat="proveedore in proveedores">
+                            <td data-title="#">{{$index+1}}</td>
+                            <td data-title="Nombre" data-ng-bind="proveedore.nombre"></td>
+                            <td data-title="Raz&oacute;n Social" data-ng-bind="proveedore.razonSocial"></td>
+                            <td data-title="RUT" data-ng-bind="proveedore.rut"></td>
+                            <td data-title="Direcci&oacute;n" data-ng-bind="proveedore.direccion"></td>
+                            <td data-title="Tel&eacute;fono" data-ng-bind="proveedore.telefono"></td>
+                            <td data-title="Opciones"> <a href="#!/proveedores/{{proveedore._id}}"><span class="glyphicon glyphicon-floppy-open"></span></a></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </section>
             </div><! --/content-panel -->
         </div><!-- /col-md-12 -->
     </div>

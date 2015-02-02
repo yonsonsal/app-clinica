@@ -1,33 +1,32 @@
 <section class="wrapper site-min-height" data-ng-controller="FabricantesController" data-ng-init="find()">
-    <h3><i class="fa fa-angle-right"></i>Fabricantes</h3>
-    <div class="row">
-        <div class="col-md-12">
+    <h3><i class="fa fa-angle-right"></i> Fabricantes</h3>
+    <div class="row mt">
+        <div class="col-lg-12">
             <div class="content-panel">
-                <table class="table table-hover">
-                    <h4><i class="fa fa-angle-right"></i>Lista de Fabricantes</h4>
-                    <hr>
-                    <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Nombre</th>
-                        <th>Origen</th>
-                        <th>Fecha de Creacion</th>
-                        <th>Usuario</th>
-                        <th>Opciones</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr data-ng-repeat="fabricante in fabricantes" data-ng-href="#!/fabricantes/{{fabricante._id}}">
-                        <td>{{$index+1}}</td>
-                        <td data-ng-bind="fabricante.nombre"></td>
-                        <td data-ng-bind="fabricante.origen"></td>
-                        <td data-ng-bind="fabricante.created | date:'medium'"></td>
-                        <td data-ng-bind="fabricante.user.displayName"></td>
-                        <td> <a href="#!/fabricantes/{{fabricante._id}}"><span class="glyphicon glyphicon-floppy-open"></span></a></td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div><! --/content-panel -->
-        </div><!-- /col-md-12 -->
+                <h4><i class="fa fa-angle-right"></i> Lista de Fabricantes</h4>
+                <section id="table-responsive-one">
+                    <table class="table table-bordered table-striped table-condensed cf">
+                        <thead class="cf">
+                        <tr>
+                            <th>#</th>
+                            <th>Nombre</th>
+                            <th>Origen</th>
+                            <th>Observaciones</th>
+                            <th>Opciones</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr data-ng-repeat="fabricante in fabricantes" data-ng-href="#!/fabricantes/{{fabricante._id}}">
+                            <td data-title="#">{{$index+1}}</td>
+                            <td data-title="Nombre" data-ng-bind="fabricante.nombre"></td>
+                            <td data-title="Origen" data-ng-bind="fabricante.origen"></td>
+                            <td data-title="Observaciones" data-ng-bind="fabricante.observaciones"></td>
+                            <td data-title="Opciones"><a href="#!/fabricantes/{{fabricante._id}}"><span class="glyphicon glyphicon-floppy-open"></span></a></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </section><!-- /section -->
+            </div><!-- /content-panel -->
+        </div><!-- /col-lg-12 -->
     </div>
 </section>

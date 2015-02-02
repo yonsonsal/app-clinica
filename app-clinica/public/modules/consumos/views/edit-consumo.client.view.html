@@ -1,9 +1,8 @@
-<section data-ng-controller="ConsumosController" data-ng-init="findOne()">
-    <div class="page-header">
-        <h1>Edit Consumo</h1>
-    </div>
-    <div class="col-md-12">
-        <form class="form-horizontal" data-ng-submit="update()" novalidate>
+<<section class="wrapper site-min-height" data-ng-controller="ConsumosController">
+    <h3><i class="fa fa-angle-right"></i>Editar Consumo</h3>
+    <div class="row">
+        <div class="col-md-12">
+            <form class="form-horizontal" data-ng-submit="update()" novalidate>
             <fieldset>
                 <div class="form-group">
                     <label class="control-label" for="name">Name</label>
@@ -12,12 +11,9 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <input type="submit" value="Update" class="btn btn-default">
+                    <input type="submit" value="Guardar" class="btn btn-success">
                 </div>
-				<div data-ng-show="error" class="text-danger">
-					<strong data-ng-bind="error"></strong>
-				</div>
-            </fieldset>
+	        </fieldset>
         </form>
     </div>
 </section>

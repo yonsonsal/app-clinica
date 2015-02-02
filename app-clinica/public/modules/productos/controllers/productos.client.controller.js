@@ -177,5 +177,17 @@ angular.module('productos').controller('ProductosController', ['$scope', '$state
             });
 
 		};
+
+        $scope.producto.fraccionable = false;
+
+        $scope.changeFraccionable = function () {
+            $scope.producto.fraccionable = !$scope.producto.fraccionable;
+        };
+
+        $scope.producto.consumible = false;
+
+        $scope.changeConsumible = function () {
+            $scope.producto.consumible = !$scope.producto.consumible;
+        };
 	}
 ]);
