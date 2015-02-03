@@ -68,12 +68,12 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
                             var wSize = $(window).width();
                             if (wSize <= 768) {
                                 $('#container').addClass('sidebar-close');
-                                $('#sidebar > ul').hide();
+                                $('#sidebar').hide();
                             }
 
                             if (wSize > 768) {
                                 $('#container').removeClass('sidebar-close');
-                                $('#sidebar > ul').show();
+                                $('#sidebar').show();
                             }
                             adaptContainerWidth ();
                         }
