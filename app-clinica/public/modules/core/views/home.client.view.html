@@ -1,8 +1,63 @@
 <section class="wrapper site-min-height" data-ng-controller="HomeController">
-        <h3><i class="fa fa-angle-right"></i> Blank Page</h3>
-        <div class="row mt">
-            <div class="col-lg-12">
-                <p>Place your content here.</p>
+    <h3><i class="fa fa-angle-right"></i> Dashboard Stock</h3>
+    <div class="row mt">
+        <div class="col-lg-12">
+            <div class="row mt">
+                <div ng-repeat="alert in alertList | orderBy: 'order'" class="col-md-3 col-sm-3 mb">
+                    <div class="white-panel pn {{alert.status}}">
+                        <div class="white-header {{alert.status}}">
+                            <h4>{{alert.id}} - {{alert.name}}</h4>
+                        </div>
+                        <div class="row gocenter">
+                            <h3>{{alert.stockMinimo}}</h3>
+                            <h3>{{alert.stockActual}}</h3>
+                        </div>
+                    </div><!-- --/grey-panel ---->
+                </div><!-- /col-md-4-->
             </div>
         </div>
+    </div>
 </section>
+
+        <style>
+            .white-panel .white-header {
+                margin-bottom: 0px;
+            }
+
+            .good {
+                background: -webkit-linear-gradient(rgba(169, 216, 110, 0.76), rgba(176, 216, 118, 0.51));
+                background: -o-linear-gradient(rgba(169, 216, 110, 0.76), rgba(176, 216, 118, 0.51));
+                background: -moz-linear-gradient(rgba(169, 216, 110, 0.76), rgba(176, 216, 118, 0.51));
+                background: linear-gradient(rgba(169, 216, 110, 0.76), rgba(176, 216, 118, 0.51));
+                color: gray;
+            }
+            .warning {
+                background: -webkit-linear-gradient(rgba(252, 179, 34, 0.76), rgba(252, 179, 34, 0.51));
+                background: -o-linear-gradient(rgba(252, 179, 34, 0.76), rgba(252, 179, 34, 0.51));
+                background: -moz-linear-gradient(rgba(252, 179, 34, 0.76), rgba(252, 179, 34, 0.51));
+                background: linear-gradient(rgba(252, 179, 34, 0.76), rgba(252, 179, 34, 0.51));
+                color: gray;
+            }
+            .danger {
+                background: -webkit-linear-gradient(rgba(255, 108, 96, 0.75), rgba(255, 108, 96, 0.51));
+                background: -o-linear-gradient(rgba(255, 108, 96, 0.75), rgba(255, 108, 96, 0.51));
+                background: -moz-linear-gradient(rgba(255, 108, 96, 0.75), rgba(255, 108, 96, 0.51));
+                background: linear-gradient(rgba(255, 108, 96, 0.75), rgba(255, 108, 96, 0.51));
+                color: gray;
+            }
+            .white-header.good {
+                background: #a9d86e;
+                color: white;
+            }
+            .white-header.warning {
+                background: #FCB322;
+                color: white;
+            }
+            .white-header.danger{
+                background: #ff6c60;
+                color: white;
+            }
+            .pn {
+                height: auto;
+            }
+        </style>

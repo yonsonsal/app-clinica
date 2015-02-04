@@ -3,7 +3,7 @@
     <ul class="sidebar-menu" id="nav-accordion" >
 
         <!--p class="centered"><img src="assets/img/ui-sam.jpg" class="img-circle" width="60"></a></p-->
-        <a href="profile.html"><h5 class="centered">{{authentication.user.displayName}} </h5></a>
+        <a href="/#!/settings/profile"><h5 class="centered">{{authentication.user.displayName}} </h5></a>
 
         <li class="sub-menu" data-ng-repeat="item in menu.items | orderBy: 'position'" ng-switch="item.menuItemType"
             ui-route="{{item.uiRoute}}">
