@@ -100,7 +100,8 @@ exports.consumoByID = function(req, res, next, id) {
  * Consumo authorization middleware
  */
 exports.hasAuthorization = function(req, res, next) {
-	if (req.consumo.user.id !== req.user.id) {
+    console.log(req.user);
+	if (req.consumo.user.id) {
 		return res.status(403).send('User is not authorized');
 	}
 	next();

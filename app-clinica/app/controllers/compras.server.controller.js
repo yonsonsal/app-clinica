@@ -119,7 +119,6 @@ exports.compraByID = function(req, res, next, id) {
 
                 req.compra = compraAux ;
                 next();
-              //  res.jsonp(compraAux);
             });
 
 	});
@@ -129,7 +128,7 @@ exports.compraByID = function(req, res, next, id) {
  * Compra authorization middleware
  */
 exports.hasAuthorization = function(req, res, next) {
-	if (req.compra.user.id !== req.user.id) {
+	if (req.compra.user.id) {
 		return res.status(403).send('User is not authorized');
 	}
 	next();
