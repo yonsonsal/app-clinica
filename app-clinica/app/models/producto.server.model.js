@@ -62,6 +62,11 @@ var ProductoSchema = new Schema({
         default: '',
         trim: true
     },
+    activo:{
+        type: Boolean,
+        default: true,
+        trim: true
+    },
 	created: {
 		type: Date,
 		default: Date.now

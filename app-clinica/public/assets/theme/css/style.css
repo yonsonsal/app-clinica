@@ -2286,3 +2286,48 @@ font-size: 20px;
 .opciones {
     text-align: center;
 }
+.white-panel .white-header {
+    margin-bottom: 0;
+    max-height: 45px;
+    overflow: hidden;
+    color: white;
+}
+
+.good {
+    background: -webkit-linear-gradient(rgba(169, 216, 110, 0.76), rgba(176, 216, 118, 0.51));
+    background: -o-linear-gradient(rgba(169, 216, 110, 0.76), rgba(176, 216, 118, 0.51));
+    background: -moz-linear-gradient(rgba(169, 216, 110, 0.76), rgba(176, 216, 118, 0.51));
+    background: linear-gradient(rgba(169, 216, 110, 0.76), rgba(176, 216, 118, 0.51));
+    color: gray;
+}
+.warning {
+    background: -webkit-linear-gradient(rgba(252, 179, 34, 0.76), rgba(252, 179, 34, 0.51));
+    background: -o-linear-gradient(rgba(252, 179, 34, 0.76), rgba(252, 179, 34, 0.51));
+    background: -moz-linear-gradient(rgba(252, 179, 34, 0.76), rgba(252, 179, 34, 0.51));
+    background: linear-gradient(rgba(252, 179, 34, 0.76), rgba(252, 179, 34, 0.51));
+    color: gray;
+}
+.danger {
+    background: -webkit-linear-gradient(rgba(255, 108, 96, 0.75), rgba(255, 108, 96, 0.51));
+    background: -o-linear-gradient(rgba(255, 108, 96, 0.75), rgba(255, 108, 96, 0.51));
+    background: -moz-linear-gradient(rgba(255, 108, 96, 0.75), rgba(255, 108, 96, 0.51));
+    background: linear-gradient(rgba(255, 108, 96, 0.75), rgba(255, 108, 96, 0.51));
+    color: gray;
+}
+
+.white-header.good {
+    background: #a9d86e;
+}
+.white-header.warning {
+    background: #FCB322;
+}
+.white-header.danger{
+    background: #ff6c60;
+}
+.pn {
+    height: auto;
+}
+
+.card-body {
+    padding: 5px 10px;
+}

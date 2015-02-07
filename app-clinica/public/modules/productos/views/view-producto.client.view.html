@@ -55,6 +55,11 @@
                         <td>Descripcion</td>
                         <td><strong>{{producto.descripcion}}</strong></td>
                     </tr>
+                    <tr>
+                        <td>Activo</td>
+                        <td ng-show="producto.activo"><strong>Si</strong></td>
+                        <td ng-show="!producto.activo"><strong>No</strong></td>
+                    </tr>
                     </tbody>
                 </table>
             </div><! --/content-panel -->

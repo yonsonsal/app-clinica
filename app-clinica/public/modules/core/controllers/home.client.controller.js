@@ -1,92 +1,38 @@
 'use strict';
 
 
-angular.module('core').controller('HomeController', ['$scope', 'Authentication', '$location',
-    function($scope, Authentication, $location) {
+angular.module('core').controller('HomeController', ['$scope', 'Authentication', '$location', 'Productos',
+    function($scope, Authentication, $location, Productos) {
         // This provides Authentication context.
         $scope.authentication = Authentication;
 
         if ($scope.authentication.user === ""){
             $location.path('signin');
         }
+
         $('.fa-bars').click();
 
-        $scope.alertList = [
-            {
-                'id': 12356,
-                'name': "producto 1",
-                'stockActual': 30,
-                'stockMinimo': 20,
-                'status': 'good',
-                'order': 3
-            },
-            {
-                'id': 434344,
-                'name': "producto 2",
-                'stockActual': 40,
-                'stockMinimo': 20,
-                'status': 'good',
-                'order': 3
-            },
-            {
-                'id': 12122,
-                'name': "producto 3",
-                'stockActual': 350,
-                'stockMinimo': 10,
-                'status': 'good',
-                'order': 3
+        $scope.productos = Productos.query(function(productos) {
+            $scope.productos = productos;
+
+            for(var i=0; i < $scope.productos.length; i++) {
+                $scope.productos[i].dashboard = {};
+                if ($scope.productos[i].stockActual > $scope.productos[i].stockMinimo){
+                    $scope.productos[i].status = 'good';
+                    $scope.productos[i].position = 3;
+                }else if ($scope.productos[i].stockActual == $scope.productos[i].stockMinimo){
+                    $scope.productos[i].status = 'warning';
+                    $scope.productos[i].position = 2;
+                }else {
+                    $scope.productos[i].status = 'danger';
+                    $scope.productos[i].position = 1;
+                }
             }
-            ,
-            {
-                'id': 545455,
-                'name': "producto 4",
-                'stockActual': 10,
-                'stockMinimo': 10,
-                'status': 'warning',
-                'order': 2
-            },
-            {
-                'id': 53884355,
-                'name': "producto 5",
-                'stockActual': 0,
-                'stockMinimo': 10,
-                'status': 'danger',
-                'order': 1
-            },
-            {
-                'id': 44689,
-                'name': "producto 6",
-                'stockActual': 15,
-                'stockMinimo': 10,
-                'status': 'warning',
-                'order': 2
-            }
-            ,
-            {
-                'id': 564456,
-                'name': "producto 7",
-                'stockActual': 10,
-                'stockMinimo': 10,
-                'status': 'warning',
-                'order': 2
-            },
-            {
-                'id': 123158,
-                'name': "producto 8",
-                'stockActual': 0,
-                'stockMinimo': 10,
-                'status': 'danger',
-                'order': 1
-            }
-            ,
-            {
-                'id': 123158,
-                'name': "producto 9",
-                'stockActual': 30,
-                'stockMinimo': 10,
-                'status': 'good',
-                'order': 3
-            }]
+        });
+
+        $scope.goToProductEdit = function(id) {
+            $location.path("/productos/"+id+"/edit");
+        }
     }
 ])
 
@@ -139,9 +85,9 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
                     });
 
                     // custom scrollbar
-                    $("#sidebar").niceScroll({styler:"fb",cursorcolor:"#4ECDC4", cursorwidth: '3', cursorborderradius: '10px', background: '#404040', spacebarenabled:false, cursorborder: ''});
+                    //$("#sidebar").niceScroll({styler:"fb",cursorcolor:"#4ECDC4", cursorwidth: '3', cursorborderradius: '10px', background: '#404040', spacebarenabled:false, cursorborder: ''});
 
-                    $("html").niceScroll({styler:"fb",cursorcolor:"#4ECDC4", cursorwidth: '6', cursorborderradius: '10px', background: '#404040', spacebarenabled:false,  cursorborder: '', zindex: '1000'});
+                    //$("html").niceScroll({styler:"fb",cursorcolor:"#4ECDC4", cursorwidth: '6', cursorborderradius: '10px', background: '#404040', spacebarenabled:false,  cursorborder: '', zindex: '1000'});
 
 
                     jQuery('#sidebar .sub-menu > a').click(function () {
