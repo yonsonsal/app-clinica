@@ -7,6 +7,9 @@ var mongoose = require('mongoose'),
 	errorHandler = require('./errors.server.controller'),
 	Articulo = mongoose.model('Articulo'),
     Producto = mongoose.model('Producto'),
+    Fabricante = mongoose.model('Fabricante'),
+    Proveedore = mongoose.model('Proveedore'),
+    Tipoproducto = mongoose.model('Tipoproducto'),
 	_ = require('lodash');
 
 /**
@@ -79,16 +82,36 @@ exports.delete = function(req, res) {
  * List of Articulos
  */
 exports.list = function(req, res) { 
-	Articulo.find().sort('-created')
+	Articulo.find()
+       // .where('producto != null')
+        .sort('-created')
         .populate('user', 'displayName')
         .populate('producto')
+
+        //.where('producto.stockActual').gt(0)
         .exec(function(err, articulos) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
 			});
 		} else {
-			res.jsonp(articulos);
+
+            var options = {
+                path: 'producto.fabricante',
+                model: 'Fabricante'
+            }
+            Articulo.populate(articulos, options, function (err, articulosAux) {
+
+                var optTipoProducto = {
+                    path: 'producto.tipoProducto',
+                    model: 'Tipoproducto'
+                };
+                Articulo.populate(articulosAux, optTipoProducto, function(err, articulos){
+
+                    res.jsonp(articulos);
+                });
+            });
+
 		}
 	});
 };

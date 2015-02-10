@@ -73,14 +73,17 @@ exports.delete = function(req, res) {
  * List of Consumos
  */
 exports.list = function(req, res) { 
-	Consumo.find().sort('-created').populate('user', 'displayName').exec(function(err, consumos) {
-		if (err) {
-			return res.status(400).send({
-				message: errorHandler.getErrorMessage(err)
-			});
-		} else {
-			res.jsonp(consumos);
-		}
+	Consumo.find().sort('-fecha')
+                  .populate('user', 'displayName')
+                  .populate('persona')
+                  .exec(function(err, consumos) {
+                    if (err) {
+                        return res.status(400).send({
+                            message: errorHandler.getErrorMessage(err)
+                        });
+                    } else {
+                        res.jsonp(consumos);
+                    }
 	});
 };
 
@@ -88,12 +91,27 @@ exports.list = function(req, res) {
  * Consumo middleware
  */
 exports.consumoByID = function(req, res, next, id) { 
-	Consumo.findById(id).populate('user', 'displayName').exec(function(err, consumo) {
-		if (err) return next(err);
-		if (! consumo) return next(new Error('Failed to load Consumo ' + id));
-		req.consumo = consumo ;
-		next();
-	});
+	Consumo.findById(id)
+        .populate('user', 'displayName')
+        .populate('persona')
+        .populate('')
+        .exec(function(err, consumo) {
+            if (err){
+                return next(err)
+            };
+            if (! consumo) {
+                return next(new Error('Failed to load Consumo ' + id))
+            };
+            var options = {
+                path: 'articulos.producto',
+                model: 'Producto'
+            }
+            Consumo.populate(consumo, options, function(err, consumoAux){
+
+                req.consumo = consumoAux ;
+                next();
+            });
+         });
 };
 
 /**

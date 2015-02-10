@@ -14,6 +14,7 @@
                             <th>Tipo de Producto</th>
                             <th>Stock Actual</th>
                             <th>Stock M&iacute;nimo</th>
+                            <th>Precio Actual</th>
                             <th>Activo</th>
                             <th>Opciones</th>
                         </tr>
@@ -26,6 +27,7 @@
                             <td data-title="Tipo de Producto" data-ng-bind="producto.tipoProducto.nombre"></td>
                             <td data-title="Stock Actual">{{producto.stockActual}}</td>
                             <td data-title="Stock M&iacute;nimo">{{producto.stockMinimo}}</td>
+                            <td data-title="Precio">{{producto.moneda}} {{producto.precio}}</td>
                             <td data-title="Activo">{{producto.activo}}</td>
                             <td data-title="Opciones" class="opciones"> <a href="#!/productos/{{producto._id}}" tooltip="Ver detalle"><span class="glyphicon glyphicon-floppy-open"></span></a></td>
                         </tr>

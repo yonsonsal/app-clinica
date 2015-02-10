@@ -10,16 +10,21 @@ var mongoose = require('mongoose'),
  * Consumo Schema
  */
 var ConsumoSchema = new Schema({
-	name: {
-		type: String,
-		default: '',
-		required: 'Please fill Consumo name',
-		trim: true
+	persona: {
+		type: Schema.ObjectId,
+        ref: 'Persona',
+		required: 'Seleccione una persona'
 	},
-	created: {
+	fecha: {
 		type: Date,
 		default: Date.now
 	},
+    productos:[{ type : Schema.Types.Mixed }],
+    pago:{
+        type: Boolean,
+        default: true,
+        require:'Pago es requerido'
+    },
 	user: {
 		type: Schema.ObjectId,
 		ref: 'User'

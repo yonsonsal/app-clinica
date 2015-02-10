@@ -37,6 +37,16 @@ var ProductoSchema = new Schema({
         required: 'El campo stock mínimo es obligatorio.',
         trim: true
     },
+    moneda:{
+        type: String,
+        default: 'UYU',
+        required: 'La moneda es requerida'
+    },
+    precio:{
+        type: Number,
+        required: 'El precio del artículo es requerido'
+    },
+
     stockActual:{
         type: Number,
         default: 0,

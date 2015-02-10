@@ -91,12 +91,21 @@
             <input type="number" data-ng-model="producto.stockMinimo" id="stock-minimo" class="form-control" placeholder="Stock Mínimo" required>
         </div>
     </div>
-
     <div class="row">
         <div class="form-group col-xs-12 col-sm-8 col-md-6 col-lg-4">
             <label class="control-label">Activo</label>
             <div>
-                <input switch type="checkbox" data-toggle="switch" ng-checked="changeActivo()"/>
+                <label class="control-label" for="stock-minimo">{{producto.moneda}}</label>
+                <input type="number" data-ng-model="producto.precio" id="precio" class="form-control" placeholder="Precio" required>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-xs-12 col-sm-8 col-md-6 col-lg-4">
+            <label class="control-label">Activo</label>
+            <div>
+                {{producto.activo}}
+                <input switch type="checkbox" data-toggle="switch" ng-checked="producto.activo" ng-model="producto.activo" ng-click="changeActivo()"/>
             </div>
         </div>
     </div>

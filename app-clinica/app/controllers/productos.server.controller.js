@@ -73,18 +73,25 @@ exports.delete = function(req, res) {
 /**
  * List of Productos
  */
-exports.list = function(req, res) { 
-	Producto.find().sort('-created')
+exports.list = function(req, res) {
+    //console.log(req.params);
+	var query = Producto.find()
+        .sort('-created')
         .populate('user', 'displayName')
         .populate('tipoProducto')
-        .populate('fabricante').exec(function(err, productos) {
-		if (err) {
-			return res.status(400).send({
-				message: errorHandler.getErrorMessage(err)
-			});
-		} else {
-			res.jsonp(productos);
-		}
+        .populate('fabricante');
+
+    if(req.stockActual) {
+        query.where('stockAct');
+    }
+        query.exec(function(err, productos) {
+            if (err) {
+                return res.status(400).send({
+                    message: errorHandler.getErrorMessage(err)
+                });
+            } else {
+                res.jsonp(productos);
+            }
 	});
 };
 

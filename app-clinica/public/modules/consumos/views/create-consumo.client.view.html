@@ -1,23 +1,131 @@
-<section class="wrapper site-min-height" data-ng-controller="ConsumosController">
+<section class="wrapper site-min-height" data-ng-controller="ConsumosController" ng-init="initNewConsumo()">
     <h3><i class="fa fa-angle-right"></i>Nuevo Consumo</h3>
-    <div class="row">
-        <div class="col-md-12">
-            <form class="form-horizontal" data-ng-submit="create()" novalidate>
-            <fieldset>
-                <div class="form-group">
-                    <label class="control-label" for="name">Name</label>
-                    <div class="controls">
-                        <input type="text" data-ng-model="name" id="name" class="form-control" placeholder="Name" required>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <input type="submit" class="btn btn-default">
-                </div>
-				<div data-ng-show="error" class="text-danger">
-					<strong data-ng-bind="error"></strong>
-				</div>
-            </fieldset>
-            </form>
-        </div>
-    </div>
+        <div class="row mt">
+            <section id="table-responsive-one">
+                <table class="table table-bordered table-striped table-condensed cf">
+                    <thead class="cf">
+                    <tr>
+                        <th>Fecha</th>
+                        <th>Persona</th>
+                        <th>Pago</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+
+                        <td data-title="Fecha" class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                            <input class="form-control" id="fecha" type="date" ng-model="consumo.fecha"/>
+                        </td>
+                        <td data-title="Persona" class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                            <div class="input-group">
+                                <ui-select ng-model="persona.selected" theme="bootstrap">
+                                    <ui-select-match placeholder="Persona">{{$select.selected.nombre}}</ui-select-match>
+                                    <ui-select-choices repeat="item in persona | filter: $select.search">
+                                        <span ng-bind-html="item.nombre | highlight: $select.search"></span>
+                                        <small ng-bind-html="item.email | highlight: $select.search"></small>
+                                    </ui-select-choices>
+                                </ui-select>
+                        <span class="input-group-btn">
+                            <div ng-click="newPersonaState()" class="btn btn-default" tooltip="Nueva Persona">
+                                <span class="glyphicon glyphicon-plus"></span>
+                            </div>
+                        </span>
+                            </div>
+                        </td>
+                        <td class="numeric" data-title="Pago" class="col-xs-12 col-sm-1 col-md-1 col-lg-1">
+                            <div ng-click="changePago()">
+                                <input id="changePago" switch type="checkbox" data-toggle="switch"/>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+
+
+            </section>
+        </div><!-- /row -->
+    <div class="row mt">
+        <section id="table-responsive-two">
+            <table class="table table-bordered table-striped table-condensed cf">
+                <thead class="cf">
+                <tr>
+                    <th>#</th>
+                    <th>Producto</th>
+                    <th class="numeric">Cantidad</th>
+                    <th class="numeric">Precio Unitario</th>
+                    <th>Opciones</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td></td>
+                    <td data-title="Producto" class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                        <div class="input-group">
+                            <ui-select ng-model="newArticulo.producto" theme="bootstrap">
+                                <ui-select-match placeholder="Artículo">{{$select.selected.tipoProducto.nombre}}-{{$select.selected.fabricante.nombre}}-{{$select.selected.descripcion}}({{$select.selected.tamanio}})</ui-select-match>
+                                <ui-select-choices repeat="item in productos | filter: $select.search">
+                                    <span ng-bind-html="item.producto.nombre | highlight: $select.search"></span>
+                                    <span>{{item.tipoProducto.nombre}}-{{item.fabricante.nombre}}-{{item.descripcion}}({{item.tamanio}})</span>
+
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+                    </td>
+                    <td class="numeric" data-title="Cantidad" class="col-xs-4 col-sm-1 col-md-1 col-lg-1">
+
+                        <input class="form-control"
+                               type="number"
+                               name="cantidad"
+                               pattern="[0-9]+([\.|,][0-9]+)?" step="0.1"
+                               tooltip="El stock actual es {{ newArticulo.producto.stockActual}}"
+                               min="0"
+                               max="{{newArticulo.producto.stockActual}}"
+                               ng-model="newArticulo.cantidad"
+                               ng-disabled="!(newArticulo.producto)"
+                               ng-show="newArticulo.producto.fraccionable">
+                        <input class="form-control"
+                               type="number"
+                               name="cantidad"
+                               step="1"
+                               tooltip="El stock actual es {{ newArticulo.producto.stockActual}}"
+                               min="0"
+                               max="{{newArticulo.producto.stockActual}}"
+                               ng-model="newArticulo.cantidad"
+                               ng-disabled="!(newArticulo.producto)"
+                               ng-show="!newArticulo.producto.fraccionable">
+                    </td>
+                    <td class="numeric" data-title="Precio" class="col-xs-4 col-sm-1 col-md-1 col-lg-1">
+                        <span ng-show="newArticulo.cantidad > 0">{{newArticulo.producto.precio * newArticulo.cantidad | number : 2}}</span>
+                    </td>
+                    <td class="numeric" data-title="Opciones" class="col-xs-4 col-sm-1 col-md-1 col-lg-1">
+                        <div ng-click="saveNewArticulo()" tooltip="Guardar artículo" ng-class="{'disabled-save-articulo': !isValidNewArticulo}" ng-disabled="!isValidNewArticulo" class="fa-icon save-articulo">
+                            <i class="fa fa-check-circle"></i>
+                        </div>
+                    </td>
+                </tr>
+                <tr data-ng-repeat="producto in consumo.productos">
+
+                    <td>{{$index+1}}</td>
+                    <td data-title="Producto">
+                        {{producto.producto.nombre}} ({{producto.producto.tipoProducto.nombre}} - {{producto.producto.tamanio}})</td>
+                    </td>
+
+                    <td class="numeric" data-title="Cantidad" data-ng-bind="producto.cantidad"></td>
+                    <td class="numeric" data-title="Precio">
+                        <span ng-show="producto.cantidad > 0">{{producto.producto.precio * producto.cantidad | number : 2}}</span>
+                    </td>
+                    <td class="numeric" data-title="Opciones">
+                        <div ng-click="deleteProducto($index)" class="fa-icon delete-articulo" tooltip="Borrar producto">
+                            <i class="fa fa-times-circle"></i>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </section>
+    </div><!-- /row -->
+
 </section>
+
+<!-- /Articulos -->

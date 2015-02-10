@@ -57,18 +57,44 @@ exports.update = function(req, res) {
  * Delete an Compra
  */
 exports.delete = function(req, res) {
-	var compra = req.compra ;
+    var compra = req.compra;
 
-	compra.remove(function(err) {
-		if (err) {
-			return res.status(400).send({
-				message: errorHandler.getErrorMessage(err)
-			});
-		} else {
-			res.jsonp(compra);
-		}
-	});
-};
+    req.compra.articulos.forEach(function(articulo){
+
+        Producto.findById(articulo.producto).exec(
+            function(err, producto) {
+                console.log(producto);
+                producto.stockActual = producto.stockActual - articulo.cantidad;
+                producto.save(function(err){
+                    if (err) {
+                        return res.status(400).send({
+                            message: errorHandler.getErrorMessage(err)
+                        });
+                    }
+                });
+            }
+        );
+    });
+    var id = req.compra._id;
+    Compra.findById(id)
+        .exec(function (err, compra) {
+            if (err) {
+                return next(err)
+            }
+            if (!compra) {
+                return next(new Error('Failed to load Compra ' + id))
+            }
+            compra.remove(function (err) {
+                if (err) {
+                    return res.status(400).send({
+                        message: errorHandler.getErrorMessage(err)
+                    });
+                } else {
+                    res.jsonp(compra);
+                }
+            });
+        });
+}
 
 /**
  * List of Compras
@@ -88,7 +114,7 @@ exports.list = function(req, res) {
                     articulo.name ='pepe';
 
             });*/
-            console.log(compras[0].articulos[0]);
+
 			res.jsonp(compras);
 		}
 	});

@@ -15,7 +15,7 @@ angular.module('proveedores').controller('ProveedoresController', ['$scope', '$s
 
 			// Redirect after save
 			proveedore.$save(function(response) {
-				$location.path('proveedores/' + response._id);
+                $location.path('compras/create');
 
 				// Clear form fields
               //  $scope.proveedor = {};
@@ -24,6 +24,9 @@ angular.module('proveedores').controller('ProveedoresController', ['$scope', '$s
 			});
 		};
 
+        $scope.cancel = function() {
+            $location.path('compras/create');
+        }
 		// Remove existing Proveedore
 		$scope.remove = function(proveedore) {
 			if ( proveedore ) { 

@@ -16,7 +16,7 @@ angular.module('compras').controller('ComprasController', ['$scope', '$statePara
         $scope.compra.proveedor = {};
         $scope.proveedor = {};
         $scope.compra.pago = false;
-
+        $scope.proveedor.selected = '';
         $scope.changePago = function () {
             $scope.compra.pago = !$scope.compra.pago;
         };
@@ -37,6 +37,9 @@ angular.module('compras').controller('ComprasController', ['$scope', '$statePara
 
             return d.promise;
         };
+        $scope.newProveedorState = function() {
+            $location.path('proveedores/create');
+        }
 
         $scope.createCompraInit = function() {
             $scope.proveedores = Proveedores.query(function(proveedores) {
@@ -65,6 +68,15 @@ angular.module('compras').controller('ComprasController', ['$scope', '$statePara
                 angular.forEach(response, function(articulo){
                     monto += articulo.cantidad * articulo.precio;
                     articulosIds.push(articulo._id);
+
+                    Productos.get({
+                        productoId: articulo.producto
+                    }, function(prod, err) {
+
+                        prod.precio = articulo.precio;
+                        prod.moneda = articulo.moneda;
+                        prod.$update();
+                    });
                 });
                 $scope.compra.monto = monto;
                 $scope.compra.articulos = articulosIds;
@@ -219,6 +231,22 @@ angular.module('compras').controller('ComprasController', ['$scope', '$statePara
         $scope.showError = function(){
             console.log('showError');
         }
+        $scope.enableSave = false;
+        $scope.$watch('compra', function(){
+
+            var enableToSave = true;
+            if (!$scope.compra.factura) {
+                enableToSave = false;
+            }
+            if (!$scope.proveedor.selected._id) {
+                enableToSave = false;
+            }
+            if (!angular.isDefined($scope.compra.articulos) || !$scope.compra.articulos.length === 0) {
+                enableToSave = false;
+            }
+
+            $scope.enableSave = enableToSave;
+        }, true);
     }
 ])
     .directive('switch', ['$timeout', function ($timeout){
