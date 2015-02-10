@@ -224,9 +224,12 @@ angular.module('compras').controller('ComprasController', ['$scope', '$statePara
     .directive('switch', ['$timeout', function ($timeout){
         return {
             restrict: 'A',
+            scope: {
+                attrChecked: '='
+            },
             link: function (scope, element, attr) {
                 $timeout(function() {
-                    $(element).wrap('<div class="switch" />').parent().bootstrapSwitch();
+                    $(element).wrap('<div class="switch" />').parent().bootstrapSwitch({checked: scope.attrChecked});
                 });
             }
         }

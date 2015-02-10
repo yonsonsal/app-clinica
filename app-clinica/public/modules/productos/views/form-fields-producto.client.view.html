@@ -70,8 +70,17 @@
     <div class="row">
         <div class="form-group col-xs-12 col-sm-8 col-md-6 col-lg-4">
             <label class="control-label">Fraccionable</label>
-            <div ng-click="changeFraccionable()">
-                <input switch type="checkbox" data-toggle="switch"/>
+            <div class="animate-switch-container" ng-switch="producto.fraccionable">
+                <div class="animate-switch" ng-switch-when="true">
+                    <div ng-click="changeFraccionable()" class="btn btn-switch btn-switch-si">
+                        <label>Si</label><i class="fa fa-check-circle"></i>
+                    </div>
+                </div>
+                <div class="animate-switch" ng-switch-when="false">
+                    <div ng-click="changeFraccionable()" class="btn btn-switch btn-switch-no">
+                        <i class="fa fa-times-circle"></i><label>No</label>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -79,8 +88,17 @@
     <div class="row">
         <div class="form-group col-xs-12 col-sm-8 col-md-6 col-lg-4">
             <label class="control-label">Consumible</label>
-            <div ng-click="changeConsumible()">
-                <input switch type="checkbox" data-toggle="switch"/>
+            <div class="animate-switch-container" ng-switch="producto.consumible">
+                <div class="animate-switch" ng-switch-when="true">
+                    <div ng-click="changeConsumible()" class="btn btn-switch btn-switch-si">
+                        <label>Si</label><i class="fa fa-check-circle"></i>
+                    </div>
+                </div>
+                <div class="animate-switch" ng-switch-when="false">
+                    <div ng-click="changeConsumible()" class="btn btn-switch btn-switch-no">
+                        <i class="fa fa-times-circle"></i><label>No</label>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -95,9 +113,19 @@
     <div class="row">
         <div class="form-group col-xs-12 col-sm-8 col-md-6 col-lg-4">
             <label class="control-label">Activo</label>
-            <div>
-                <input switch type="checkbox" data-toggle="switch" ng-checked="changeActivo()"/>
+            <div class="animate-switch-container" ng-switch="producto.activo">
+                <div class="animate-switch" ng-switch-when="true">
+                    <div ng-click="changeActivo()" class="btn btn-switch btn-switch-si">
+                        <label>Si</label><i class="fa fa-check-circle"></i>
+                    </div>
+                </div>
+                <div class="animate-switch" ng-switch-when="false">
+                    <div ng-click="changeActivo()" class="btn btn-switch btn-switch-no">
+                        <i class="fa fa-times-circle"></i><label>No</label>
+                    </div>
+                </div>
             </div>
+
         </div>
     </div>
 </div>
