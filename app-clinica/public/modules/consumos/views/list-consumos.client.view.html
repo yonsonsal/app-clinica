@@ -1,9 +1,17 @@
 <section class="wrapper site-min-height" data-ng-controller="ConsumosController" data-ng-init="find()">
     <h3><i class="fa fa-angle-right"></i> Consumos</h3>
+
     <div class="row mt">
         <div class="col-lg-12">
             <div class="content-panel">
+                <div class="pull-right" style="margin-right: 10px">
+                    <!--data-ng-show="((authentication.user) && (authentication.user._id == consumo.user._id))"-->
+                    <a class="btn btn-primary" href="/#!/consumos/create" tooltip="Nuevo consumo">
+                        <i class="fa fa-ticket fa-lg"></i>
+                    </a>
+                </div>
                 <h4><i class="fa fa-angle-right"></i> Lista de Consumos</h4>
+
                 <section id="table-responsive-one">
                     <table class="table table-bordered table-striped table-condensed cf">
                         <thead class="cf">

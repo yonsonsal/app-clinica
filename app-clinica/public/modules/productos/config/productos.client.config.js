@@ -4,8 +4,9 @@
 angular.module('productos').run(['Menus',
 	function(Menus) {
 		// Set top bar menu items
-		Menus.addMenuItem('topbar', 'Productos', 'productos', 'dropdown', '/productos(/create)?');
-		Menus.addSubMenuItem('topbar', 'productos', 'Lista de Productos', 'productos');
-		Menus.addSubMenuItem('topbar', 'productos', 'Nuevo Producto', 'productos/create');
+        Menus.addMenuItem('topbar', 'Productos', 'productos', 'item');
+		//Menus.addMenuItem('topbar', 'Productos', 'productos', 'dropdown', '/productos(/create)?');
+		//Menus.addSubMenuItem('topbar', 'productos', 'Lista de Productos', 'productos');
+		//Menus.addSubMenuItem('topbar', 'productos', 'Nuevo Producto', 'productos/create');
 	}
 ]);
