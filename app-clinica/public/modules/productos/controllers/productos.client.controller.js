@@ -181,21 +181,18 @@ angular.module('productos').controller('ProductosController', ['$scope', '$state
 
         $scope.changeFraccionable = function () {
             $scope.producto.fraccionable = !$scope.producto.fraccionable;
-            return $scope.producto.fraccionable;
         };
 
         $scope.producto.consumible = false;
 
         $scope.changeConsumible = function () {
             $scope.producto.consumible = !$scope.producto.consumible;
-            return $scope.producto.consumible;
         };
 
         $scope.producto.activo = true;
 
         $scope.changeActivo = function () {
             $scope.producto.activo = !$scope.producto.activo;
-            return $scope.producto.activo;
         };
 	}
 ]);

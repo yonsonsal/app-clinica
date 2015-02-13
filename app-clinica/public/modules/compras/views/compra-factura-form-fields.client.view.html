@@ -29,9 +29,20 @@
                         </span>
                     </div>
                 </td>
+
+
                 <td class="numeric" data-title="Pago" class="col-xs-12 col-sm-1 col-md-1 col-lg-1">
-                    <div ng-click="changePago()">
-                        <input id="changePago" switch type="checkbox" data-toggle="switch"/>
+                    <div class="animate-switch-container" ng-switch="compra.pago">
+                        <div class="animate-switch" ng-switch-when="true">
+                            <div ng-click="changePago()" class="btn btn-switch btn-switch-si">
+                                <label>Si</label><i class="fa fa-check-circle"></i>
+                            </div>
+                        </div>
+                        <div class="animate-switch" ng-switch-when="false">
+                            <div ng-click="changePago()" class="btn btn-switch btn-switch-no">
+                                <i class="fa fa-times-circle"></i><label>No</label>
+                            </div>
+                        </div>
                     </div>
                 </td>
             </tr>
@@ -39,5 +50,9 @@
         </table>
     </section>
 </div><!-- /row -->
+
+        <div class="row">
+            {{compra.pago}}
+        </div>
 
 

@@ -2331,3 +2331,81 @@ font-size: 20px;
 .card-body {
     padding: 5px 10px;
 }
+
+.animate-switch-container {
+    position:relative;
+    overflow:hidden;
+    height: 30px;
+    width: 85px;
+}
+
+.animate-switch {
+    /*padding:10px;*/
+}
+
+.animate-switch.ng-animate {
+    -webkit-transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.2s;
+    transition:all cubic-bezier(0.250, 0.460, 0.450, 0.940) 0.2s;
+
+    position:absolute;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+}
+
+.animate-switch.ng-leave.ng-leave-active,
+.animate-switch.ng-enter {
+    /*top:-50px;*/
+    left: -50px
+}
+.animate-switch.ng-leave,
+.animate-switch.ng-enter.ng-enter-active {
+    /*top:0;*/
+    left: 0;
+}
+
+.btn-switch {
+    width: 85px;
+    background-color: lightgray;
+    height: 30px;
+    padding: 4px;
+}
+.btn-switch.btn {
+    border-radius: 25px;
+}
+
+.btn-switch > .fa {
+    font-size: 20px;
+    vertical-align: middle;
+}
+
+.btn-switch > .fa-check-circle {
+    color: #41cac0;
+    padding-left: 10px;
+}
+
+.btn-switch > .fa-times-circle {
+    color: #7f8c9a;
+    padding-right: 10px;
+}
+
+.btn-switch-si {
+    background-color: #2A3542;
+}
+
+.btn-switch-si > label{
+    color: #41cac0;
+    font-weight: bold;
+    padding: 0 10px;
+}
+
+.btn-switch-no {
+    background-color: #bdc3c7;
+}
+
+.btn-switch-no > label {
+    color: white;
+    font-weight: bold;
+    padding: 0 10px;
+}
