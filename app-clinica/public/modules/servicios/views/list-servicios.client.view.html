@@ -1,0 +1,41 @@
+<section class="wrapper site-min-height" data-ng-controller="ServiciosController" data-ng-init="find()">
+
+    <div class="row mt">
+        <div class="col-lg-12">
+            <div class="content-panel">
+                <div class="pull-right" style="margin-right: 10px">
+                    <!--data-ng-show="((authentication.user) && (authentication.user._id == consumo.user._id))"-->
+                    <a class="btn btn-primary" href="/#!/servicios/create" tooltip="Nuevo  Servicio">
+                        <i class="fa fa-plus fa-lg"></i>
+                    </a>
+                </div>
+                <h4><i class="fa fa-angle-right"></i> Lista de Productos</h4>
+                <section id="table-responsive-one">
+                    <table class="table table-bordered table-striped table-condensed cf">
+                        <thead class="cf">
+                        <tr>
+                            <th>#</th>
+                            <th>Descripción</th>
+                            <th>Precio Actual</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr data-ng-repeat="servicio in servicios">
+                            <td data-title="#">{{$index+1}}</td>
+                            <td data-title="Descripcion" data-ng-bind="servicio.descripcion"></td>
+                            <td data-title="Precio">{{servicio.moneda}} {{servicio.precio}}</td>
+                            <td><a class="btn btn-primary" href="/#!/servicios/{{servicio._id}}/edit">
+                                <i class="glyphicon glyphicon-edit"></i>
+                            </a>
+                                <a class="btn btn-primary" data-ng-click="remove(servicio);">
+                                    <i class="glyphicon glyphicon-trash"></i>
+                                </a></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </section>
+            </div><!-- /content-panel -->
+        </div><!-- /col-md-12 -->
+    </div>
+</section>

@@ -1,8 +1,8 @@
 'use strict';
 
 // Personas controller
-angular.module('personas').controller('PersonasController', ['$scope', '$stateParams', '$location', 'Authentication', 'Personas',
-	function($scope, $stateParams, $location, Authentication, Personas) {
+angular.module('personas').controller('PersonasController', ['$scope', '$stateParams', '$location', 'Authentication', 'Personas', 'Persona',
+	function($scope, $stateParams, $location, Authentication, Personas, Persona) {
 		$scope.authentication = Authentication;
 
 		// Create new Persona
@@ -13,7 +13,8 @@ angular.module('personas').controller('PersonasController', ['$scope', '$statePa
 
 			// Redirect after save
 			persona.$save(function(response) {
-				$location.path('personas/' + response._id);
+                Persona.setNewPersona(response);
+				$location.path('consumos/create');
 
 				// Clear form fields
                 $scope.persona = {};
@@ -21,6 +22,11 @@ angular.module('personas').controller('PersonasController', ['$scope', '$statePa
 				$scope.error = errorResponse.data.message;
 			});
 		};
+
+        $scope.getToConsumos = function(){
+            Persona.setNewPersona(null);
+            $location.path('consumos/create');
+        };
 
 		// Remove existing Persona
 		$scope.remove = function(persona) {
@@ -62,4 +68,23 @@ angular.module('personas').controller('PersonasController', ['$scope', '$statePa
 			});
 		};
 	}
-]);
+]).directive("percent", function($filter){
+    var p = function(viewValue){
+        var m = viewValue.match(/^(\d+)\/(\d+)/);
+        if (m != null)
+            return $filter('number')(parseInt(m[1])/parseInt(m[2]), 2);
+        return $filter('number')(parseFloat(viewValue)/100, 2);
+    };
+
+    var f = function(modelValue){
+        return $filter('number')(parseFloat(modelValue)*100, 2);
+    };
+
+    return {
+        require: 'ngModel',
+        link: function(scope, ele, attr, ctrl){
+            ctrl.$parsers.unshift(p);
+            ctrl.$formatters.unshift(f);
+        }
+    };
+});;

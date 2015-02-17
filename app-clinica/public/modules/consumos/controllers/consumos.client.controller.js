@@ -1,18 +1,35 @@
 'use strict';
 
 // Consumos controller
-angular.module('consumos').controller('ConsumosController', ['$scope', '$stateParams', '$location', 'Authentication', 'Consumos', 'Personas', 'Productos', 'Articulos',
-	function($scope, $stateParams, $location, Authentication, Consumos, Personas, Productos, Articulos) {
+angular.module('consumos').controller('ConsumosController', ['$scope', '$stateParams', '$location', 'Authentication', 'Consumos', 'Personas', 'Productos', 'Persona', 'Consumo',
+	function($scope, $stateParams, $location, Authentication, Consumos, Personas, Productos, Persona, Consumo) {
 		$scope.authentication = Authentication;
 
         $scope.consumo = {};
         $scope.consumo.productos = [];
 
+        $scope.newPersona = function() {
+            Consumo.setNewConsumo($scope.consumo);
+            $location.path('personas/create');
+        }
         $scope.initNewConsumo = function() {
 
+            $scope.consumo.persona = null;
+            var consumo = Consumo.getNewConsumo();
+            if (consumo !== null) {
+                $scope.consumo = consumo;
+            }
+            $scope.newPersonaState = false;
             $scope.newArticulo = {};
+            $scope.newArticulo.producto = null;
+
             $scope.personas = Personas.query(function(personas){
                 $scope.personas = personas;
+                var newPersona = Persona.getNewPersona();
+                if(newPersona !== null) {
+                  //  $scope.persona.selected = newPersona;
+                    $scope.consumo.persona = newPersona;
+                }
             });
 
             Productos.query(function(productos){
@@ -28,21 +45,30 @@ angular.module('consumos').controller('ConsumosController', ['$scope', '$statePa
 
             });
 
+            $scope.$watch('newArticulo', function(value){
+
+                $scope.isValidNewArticulo = false;
+                if (!angular.isDefined(value.producto)) {
+                    $scope.error = 'Seleccioná un producto en el Nuevo artículo.';
+                }else if (!angular.isDefined(value.cantidad) || !value.cantidad > 0) {
+                    $scope.error = 'Ingrese la cantidad de articulos.';
+                }else if(value.cantidad > value.producto.stockActual) {
+                    $scope.error = 'La cantidad no puede ser mayor al stock actual del producto';
+                }else{
+                    $scope.isValidNewArticulo = true;
+                }
+
+            }, true);
+
         };
-        $scope.$watch('newArticulo', function(value){
+        $scope.$watch('consumo', function(value){
 
-            $scope.isValidNewArticulo = false;
-            if (!angular.isDefined(value.producto)) {
-                $scope.error = 'Seleccioná un producto en el Nuevo artículo.';
-            }else if (!angular.isDefined(value.cantidad) || !value.cantidad > 0) {
-                $scope.error = 'Ingrese la cantidad de articulos.';
-            }else if(value.cantidad > value.producto.stockActual) {
-                $scope.error = 'La cantidad no puede ser mayor al stock actual del producto';
-            }else{
-                $scope.isValidNewArticulo = true;
+            $scope.enableSaveConsumo = false;
+            if (value.fecha && value.persona && value.productos.length > 0) {
+                $scope.enableSaveConsumo = true;
             }
-
         }, true);
+
 
         $scope.saveNewArticulo = function() {
             if ($scope.isValidNewArticulo) {
@@ -54,14 +80,25 @@ angular.module('consumos').controller('ConsumosController', ['$scope', '$statePa
         $scope.deleteProducto = function(index) {
             $scope.consumo.productos.splice(index, 1);
         };
+        $scope.getToList = function(){
+            Persona.setNewPersona(null);
+            $location.path('consumos');
+        };
 
 		// Create new Consumo
-		$scope.create = function() {
+		$scope.createConsumo = function() {
 			// Create new Consumo object
-			var consumo = new Consumos ($scope.consumo);
+            var consumo = $scope.consumo;
+            consumo.persona = $scope.consumo.persona._id;
+            consumo.monto = 0;
+            angular.forEach(consumo.productos, function(producto){
+                consumo.monto +=  producto.producto.precio * producto.cantidad;
+            });
+			var consumo = new Consumos (consumo);
 
 			// Redirect after save
 			consumo.$save(function(response) {
+                Consumo.setNewConsumo(null);
 				$location.path('consumos/' + response._id);
 
 				// Clear form fields

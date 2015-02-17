@@ -1,0 +1,19 @@
+<section data-ng-controller="PagosController" data-ng-init="find()">
+    <div class="page-header">
+        <h1>Pagos</h1>
+    </div>
+    <div class="list-group">
+        <a data-ng-repeat="pago in pagos" data-ng-href="#!/pagos/{{pago._id}}" class="list-group-item">
+			<small class="list-group-item-text">
+				Posted on
+				<span data-ng-bind="pago.created | date:'medium'"></span>
+				by
+				<span data-ng-bind="pago.user.displayName"></span>
+			</small>
+			<h4 class="list-group-item-heading" data-ng-bind="pago.name"></h4>
+        </a>
+    </div>
+    <div class="alert alert-warning text-center" data-ng-hide="!pagos.$resolved || pagos.length">
+    	No Pagos yet, why don't you <a href="/#!/pagos/create">create one</a>?
+    </div>
+</section>

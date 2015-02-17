@@ -18,15 +18,15 @@
                         </td>
                         <td data-title="Persona" class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
                             <div class="input-group">
-                                <ui-select ng-model="persona.selected" theme="bootstrap">
+                                <ui-select ng-model="consumo.persona " theme="bootstrap">
                                     <ui-select-match placeholder="Persona">{{$select.selected.nombre}}</ui-select-match>
-                                    <ui-select-choices repeat="item in persona | filter: $select.search">
+                                    <ui-select-choices repeat="item in personas | filter: $select.search">
                                         <span ng-bind-html="item.nombre | highlight: $select.search"></span>
                                         <small ng-bind-html="item.email | highlight: $select.search"></small>
                                     </ui-select-choices>
                                 </ui-select>
                         <span class="input-group-btn">
-                            <div ng-click="newPersonaState()" class="btn btn-default" tooltip="Nueva Persona">
+                            <div ng-click="newPersona()" class="btn btn-default" tooltip="Nueva Persona">
                                 <span class="glyphicon glyphicon-plus"></span>
                             </div>
                         </span>
@@ -53,7 +53,7 @@
                     <th>#</th>
                     <th>Producto</th>
                     <th class="numeric">Cantidad</th>
-                    <th class="numeric">Precio Unitario</th>
+                    <th class="numeric">Precio</th>
                     <th>Opciones</th>
                 </tr>
                 </thead>
@@ -74,16 +74,21 @@
                     </td>
                     <td class="numeric" data-title="Cantidad" class="col-xs-4 col-sm-1 col-md-1 col-lg-1">
 
-                        <input class="form-control"
-                               type="number"
-                               name="cantidad"
-                               pattern="[0-9]+([\.|,][0-9]+)?" step="0.1"
-                               tooltip="El stock actual es {{ newArticulo.producto.stockActual}}"
-                               min="0"
-                               max="{{newArticulo.producto.stockActual}}"
-                               ng-model="newArticulo.cantidad"
-                               ng-disabled="!(newArticulo.producto)"
-                               ng-show="newArticulo.producto.fraccionable">
+                         <div class="input-group" ng-show="newArticulo.producto.fraccionable">
+
+                            <input class="form-control"
+                                   type="number"
+                                   name="cantidad"
+                                   step="1"
+                                   tooltip="El Producto es fraccionable, la cantidad esta expresada como porcentaje. El stock actual es {{ newArticulo.producto.stockActual}}; expresado en porcetaje es {{newArticulo.producto.stockActual * 100}}."
+                                   min="0"
+                                   max="{{newArticulo.producto.stockActual * 100}}"
+                                   ng-model="newArticulo.cantidad"
+                                   ng-disabled="!(newArticulo.producto)"
+
+                                   percent>
+                            <div class="input-group-addon">%</div>
+                        </div>
                         <input class="form-control"
                                type="number"
                                name="cantidad"
@@ -125,7 +130,10 @@
             </table>
         </section>
     </div><!-- /row -->
-
+    <div class="form-group">
+            <input type="button" class="btn btn-success" ng-click="createConsumo()" value="Guardar" ng-disabled="!enableSaveConsumo">
+        <input type="button" class="btn btn-default" value="Cancelar" ng-click="getToList()">
+    </div>
 </section>
 
 <!-- /Articulos -->

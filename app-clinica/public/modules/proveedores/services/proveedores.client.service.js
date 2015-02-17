@@ -10,4 +10,16 @@ angular.module('proveedores').factory('Proveedores', ['$resource',
 			}
 		});
 	}
-]);
+]).service('Proveedor', [function() {
+
+    var newProveedor = null;
+    return {
+        setNewProveedor: function(proveedor) {
+            newProveedor = proveedor;
+        },
+        getNewProveedor: function(){
+            return newProveedor;
+        }
+    };
+
+}]);

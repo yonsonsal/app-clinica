@@ -10,4 +10,16 @@ angular.module('personas').factory('Personas', ['$resource',
 			}
 		});
 	}
-]);
+]).service('Persona', [function(){
+
+    var newPersona = null;
+
+    return {
+        setNewPersona: function(persona){
+            newPersona = persona;
+        },
+        getNewPersona: function(){
+            return newPersona;
+        }
+    };
+}]);

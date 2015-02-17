@@ -1,26 +1,62 @@
 <section class="wrapper site-min-height" data-ng-controller="ConsumosController" data-ng-init="findOne()">
-    <h3><i class="fa fa-angle-right"></i>Consumos: <strong></strong></h3>
+    <h3><i class="fa fa-angle-right"></i>Consumo: <strong>{{consumo.persona.nombre}}</strong></h3>
     <div class="row">
         <div class="col-md-12">
             <div class="content-panel">
                 <div class="pull-right" style="margin-right: 10px">
-                    <!--data-ng-show="((authentication.user) && (authentication.user._id == consumo.user._id))"-->
-                    <a class="btn btn-success" href="/#!/consumos/{{consumo._id}}/edit">
-                        <i class="glyphicon glyphicon-edit"></i>
-                    </a>
-                    <a class="btn btn-danger" data-ng-click="remove();">
+                    <!--data-ng-show="((authentication.user) && (authentication.user._id == tipoproducto.user._id))"-->
+                    <a class="btn btn-primary" data-ng-click="remove();">
                         <i class="glyphicon glyphicon-trash"></i>
                     </a>
                 </div>
-            </div>
-        </div>
+                <table class="table table-hover">
+
+                    <hr>
+                    <tbody>
+                    <tr>
+                        <td>Fecha</td>
+                        <td><strong>{{consumo.fecha | date:'dd/MM/yyyy'}}</strong></td>
+                    </tr>
+                    <tr>
+                        <td>Pago</td>
+                        <td>
+                            <div ng-show="compra.pago">
+                                <i class="fa fa-check-square"></i> Si
+                            </div>
+                            <div ng-show="!compra.pago">
+                                <i class="fa fa-square"></i> No
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Monto</td>
+                        <td><strong>{{consumo.monto}}</strong></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div><! --/content-panel -->
+        </div><!-- /col-md-12 -->
     </div>
-	<small>
-		<em class="text-muted">
-		    Creado en
-			<span data-ng-bind="consumo.created | date:'mediumDate'"></span>
-			por
-			<span data-ng-bind="consumo.user.displayName"></span>
-		</em>
-	</small>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="content-panel">
+                <table class="table table-hover">
+                    <thead>
+                    <th>Articulo</th>
+                    <th>Cantidad</th>
+                    <th>Precio</th>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="articulo in consumo.productos">
+                        <td>{{articulo.producto.nombre}}</td>
+                        <td>{{articulo.cantidad}}</td>
+                        <td>{{articulo.producto.moneda}} {{articulo.producto.precio}}</td>
+                    </tr>
+                    <tr><td></td><td></td><td>Total {{consumo.monto}}</td></tr>
+                    </tbody>
+                </table>
+            </div><! --/content-panel -->
+        </div><!-- /col-md-12 -->
+    </div>
 </section>

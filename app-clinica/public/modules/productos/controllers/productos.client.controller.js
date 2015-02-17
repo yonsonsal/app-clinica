@@ -80,10 +80,9 @@ angular.module('productos').controller('ProductosController', ['$scope', '$state
             }
         };
 		// Create new Producto
-        $scope.producto = {};
+        $scope.producto = {servicio:false, moneda:'UYU'};
 		$scope.createProducto = function() {
 
-			// Create new Producto object
 
             $scope.producto.tipoProducto = $scope.tipoproducto.selected._id;
             $scope.producto.fabricante = $scope.fabricante.selected._id;
@@ -92,7 +91,18 @@ angular.module('productos').controller('ProductosController', ['$scope', '$state
 			// Redirect after save
 			producto.$save(function(response) {
 
-				$location.path('productos/' + response._id);
+                if (Producto.getFlagFromCompra()) {
+
+                    Productos.get({
+                        productoId: response._id
+                    }, function(newProducto){
+                        Producto.setNewProducto(newProducto);
+                        $location.path('compras/create');
+                    });
+
+                } else {
+                    $location.path('productos');
+                }
 
 				// Clear form fields
                 $scope.producto = {};
@@ -105,8 +115,13 @@ angular.module('productos').controller('ProductosController', ['$scope', '$state
 
             // Create new Producto object
 
-            $scope.producto.tipoProducto = $scope.tipoproducto.selected._id;
-            $scope.producto.fabricante = $scope.fabricante.selected._id;
+            if (!$scope.producto.servicio) {
+                $scope.producto.tipoProducto = $scope.tipoproducto.selected._id;
+                $scope.producto.fabricante = $scope.fabricante.selected._id;
+            } else {
+                $scope.producto.tamanio = 0;
+                $scope.producto.stockMinimo = 0;
+            }
             var producto = new Productos ($scope.producto);
 
             // Redirect after save
@@ -162,9 +177,40 @@ angular.module('productos').controller('ProductosController', ['$scope', '$state
 
 		// Find a list of Productos
 		$scope.find = function() {
-			$scope.productos = Productos.query();
-		};
 
+            $scope.productos = [];
+            $scope.servicios = [];
+           var todos = Productos.query(function(){
+
+
+               todos.forEach(function(item){
+
+                   if(item.servicio === true) {
+                       $scope.servicios.push(item);
+                   } else {
+                       $scope.productos.push(item);
+                   }
+               });
+               $scope.filteredProductos = [];
+               angular.copy($scope.productos, $scope.filteredProductos);
+
+           });
+			//$scope.productos = Productos.query();
+
+		};
+        $scope.searchWord = '';
+        $scope.$watch('searchWord', function(value){
+
+            angular.copy($scope.productos, $scope.filteredProductos);
+            angular.forEach($scope.productos, function(product, index){
+
+                console.log(value);
+                if (value && !product.nombre.indexOf(value) > -1) {
+                    console.log(product);
+                    $scope.filteredProductos.splice(index, 1);
+                }
+            });
+        });
 		// Find existing Producto
 		$scope.findOne = function() {
 
@@ -194,5 +240,13 @@ angular.module('productos').controller('ProductosController', ['$scope', '$state
         $scope.changeActivo = function () {
             $scope.producto.activo = !$scope.producto.activo;
         };
+
+        $scope.$watch('producto', function(value){
+            $scope.enableSaveProducto = false;
+            if ($scope.fabricante.selected && $scope.tipoproducto.selected && value.tamanio && value.nombre){
+                $scope.enableSaveProducto = true;
+            }
+
+        }, true);
 	}
 ]);

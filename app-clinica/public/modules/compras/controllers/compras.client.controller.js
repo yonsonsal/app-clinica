@@ -1,8 +1,8 @@
 'use strict';
 
 // Compras controller
-angular.module('compras').controller('ComprasController', ['$scope', '$stateParams', '$location', 'Authentication', 'Compras', 'Articulos', 'Productos', 'Proveedores','$q', 'Producto',
-    function($scope, $stateParams, $location, Authentication, Compras, Articulos, Productos, Proveedores, $q, Producto) {
+angular.module('compras').controller('ComprasController', ['$scope', '$stateParams', '$location', 'Authentication', 'Compras', 'Articulos', 'Productos', 'Proveedores','$q', 'Producto', 'Proveedor',
+    function($scope, $stateParams, $location, Authentication, Compras, Articulos, Productos, Proveedores, $q, Producto, Proveedor) {
         $scope.authentication = Authentication;
 
         //proveedores
@@ -44,11 +44,18 @@ angular.module('compras').controller('ComprasController', ['$scope', '$statePara
         $scope.createCompraInit = function() {
             $scope.proveedores = Proveedores.query(function(proveedores) {
                 $scope.proveedores = proveedores;
+                $scope.proveedor.selected = Proveedor.getNewProveedor();
 
             });
             $scope.productos = Productos.query(function(productos){
                 $scope.productos = productos;
             });
+            if(Producto.getFlagFromCompra()) {
+                Producto.setFlagFromCompra(false);
+                $scope.compra = Producto.getCompra();
+                $scope.proveedor.selected = Producto.getProveedorFromCompra();
+                $scope.newArticulo.producto = Producto.getNewProducto();
+            }
         };
         $scope.createCompra = function() {
             // Create new Compra object
@@ -75,6 +82,7 @@ angular.module('compras').controller('ComprasController', ['$scope', '$statePara
 
                         prod.precio = articulo.precio;
                         prod.moneda = articulo.moneda;
+                        prod.frecuencia = prod.frecuencia + 1;
                         prod.$update();
                     });
                 });
@@ -118,47 +126,14 @@ angular.module('compras').controller('ComprasController', ['$scope', '$statePara
             }
         };
 
-        $scope.newProductoToSet = Producto.getNewProducto();
-        $scope.createProduct = function(){
-
-            // Create new Producto object
-            $scope.newProducto;
-            $scope.producto.tipoProducto = $scope.tipoproducto.selected._id;
-            $scope.producto.fabricante = $scope.fabricante.selected._id;
-            var producto = new Productos ($scope.producto);
-
-            // Redirect after save
-            producto.$save(function(response) {
-                // Clear form fields
-                $scope.producto = Productos.get({
-                    productoId: response._id
-                }, function(resp) {
-                    $scope.productos.push(resp);
-                    $scope.newArticulo.producto = response;
-                    $scope.producto = {};
-                    $scope.newProductoState = false;
-                });
-
-            }, function(errorResponse) {
-                $scope.error = errorResponse.data.message;
-            });
-        };
-
-        //Productos
-        $scope.newProductoState = false;
         $scope.newProducto = function(){
-            $scope.newProductoState = true;
-        };
-        $scope.comprasState = function() {
-            $scope.newProductoState = false;
-        };
-        $scope.comprasFromProductoState = function() {
-            $scope.newProductoState = false;
-            $scope.newArticulo.producto =  Producto.getNewProducto();
-            $scope.productos.push(Producto.getNewProducto());
 
+            Producto.setCompra($scope.compra);
+            Producto.setFlagFromCompra(true);
+            Producto.setProveedorFromCompra($scope.proveedor.selected);
+            $location.path('productos/create');
+            //$scope.newProductoState = true;
         };
-
 
         // Update existing Compra
         var compraOldValues = {};
@@ -201,7 +176,7 @@ angular.module('compras').controller('ComprasController', ['$scope', '$statePara
             });
         };
         //Articulos
-        $scope.newArticulo = {'cantidad':1};
+        $scope.newArticulo = {'moneda':'UYU'};
         $scope.saveNewArticulo = function() {
             if ($scope.isValidNewArticulo) {
                 $scope.compra.articulos.push($scope.newArticulo);
@@ -220,8 +195,6 @@ angular.module('compras').controller('ComprasController', ['$scope', '$statePara
                 $scope.error = 'Ingrese la cantidad de articulos.';
             }else if (!angular.isDefined(value.precio)) {
                 $scope.error = 'Ingrese el precio.';
-            }else if (!angular.isDefined(value.fechaVencimiento)) {
-                $scope.error = 'Ingrese el precio.';
             } else{
                 $scope.isValidNewArticulo = true;
             }
@@ -238,10 +211,10 @@ angular.module('compras').controller('ComprasController', ['$scope', '$statePara
             if (!$scope.compra.factura) {
                 enableToSave = false;
             }
-            if (!$scope.proveedor.selected._id) {
+            if (!$scope.proveedor.selected || !$scope.proveedor.selected._id) {
                 enableToSave = false;
             }
-            if (!angular.isDefined($scope.compra.articulos) || !$scope.compra.articulos.length === 0) {
+            if (!angular.isDefined($scope.compra.articulos) || $scope.compra.articulos.length === 0) {
                 enableToSave = false;
             }
 

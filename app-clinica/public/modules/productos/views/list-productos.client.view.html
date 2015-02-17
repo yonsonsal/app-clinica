@@ -5,11 +5,11 @@
             <div class="content-panel">
                 <div class="pull-right" style="margin-right: 10px">
                     <!--data-ng-show="((authentication.user) && (authentication.user._id == consumo.user._id))"-->
-                    <a class="btn btn-primary" href="/#!/compras/create" tooltip="Nuevo compra">
-                        <i class="fa fa-suitcase fa-lg"></i>
+                    <a class="btn btn-primary" href="/#!/productos/create" tooltip="Nuevo Producto">
+                        <i class="fa fa-plus fa-lg"></i>
                     </a>
                 </div>
-                <h4><i class="fa fa-angle-right"></i> Lista de Productos</h4>
+                <h4><i class="fa fa-angle-right"></i> Lista de Productos <input type="search" ng-model="searchWord" /></h4>
                 <section id="table-responsive-one">
                     <table class="table table-bordered table-striped table-condensed cf">
                         <thead class="cf">
@@ -18,15 +18,15 @@
                             <th>Nombre</th>
                             <th>Fabricante</th>
                             <th>Tipo de Producto</th>
+
                             <th>Stock Actual</th>
                             <th>Stock M&iacute;nimo</th>
                             <th>Precio Actual</th>
-                            <th>Activo</th>
-                            <th>Opciones</th>
+                            <th></th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr data-ng-repeat="producto in productos">
+                        <tr data-ng-repeat="producto in filteredProductos">
                             <td data-title="#">{{$index+1}}</td>
                             <td data-title="Nombre" data-ng-bind="producto.nombre"></td>
                             <td data-title="Fabricante" data-ng-bind="producto.fabricante.nombre"></td>
@@ -34,8 +34,14 @@
                             <td data-title="Stock Actual">{{producto.stockActual}}</td>
                             <td data-title="Stock M&iacute;nimo">{{producto.stockMinimo}}</td>
                             <td data-title="Precio">{{producto.moneda}} {{producto.precio}}</td>
-                            <td data-title="Activo">{{producto.activo}}</td>
-                            <td data-title="Opciones" class="opciones"> <a href="#!/productos/{{producto._id}}" tooltip="Ver detalle"><span class="glyphicon glyphicon-floppy-open"></span></a></td>
+
+                            <td data-title="Opciones" class="opciones">
+                                <a class="btn btn-primary" href="/#!/productos/{{producto._id}}/edit">
+                                    <i class="glyphicon glyphicon-edit"></i>
+                                </a>
+                                <a class="btn btn-primary" data-ng-click="remove(producto);">
+                                    <i class="glyphicon glyphicon-trash"></i>
+                                </a></td>
                         </tr>
                         </tbody>
                     </table>

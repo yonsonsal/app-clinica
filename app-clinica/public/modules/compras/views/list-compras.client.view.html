@@ -5,8 +5,8 @@
             <div class="content-panel">
                 <div class="pull-right" style="margin-right: 10px">
                     <!--data-ng-show="((authentication.user) && (authentication.user._id == consumo.user._id))"-->
-                    <a class="btn btn-primary" href="/#!/compras/create" tooltip="Nuevo producto">
-                        <i class="fa fa-shopping-cart fa-lg"></i>
+                    <a class="btn btn-primary" href="/#!/compras/create" tooltip="Nueva Compra">
+                        <i class="fa fa-plus fa-lg"></i>
                     </a>
                 </div>
                 <h4><i class="fa fa-angle-right"></i> Lista de compras</h4>
@@ -19,7 +19,7 @@
                             <th>Factura</th>
                             <th>Pago</th>
                             <th>Monto</th>
-                            <th>Opciones</th>
+                            <th>Detalles</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -44,7 +44,7 @@
                             <td data-title="Monto" class="col-xs-12 col-sm-1 col-md-1 col-lg-1">
                                 {{compra.monto}}
                             </td>
-                            <td data-title="Opciones" class="opciones"><a href="#!/compras/{{compra._id}}" tooltip="Ver detalle"><span class="glyphicon glyphicon-floppy-open"></span></a></td>
+                            <td data-title="Opciones" class="opciones"><a href="#!/compras/{{compra._id}}" tooltip="Ver detalle"><span class="glyphicon glyphicon-zoom-in"></span></a></td>
                         </tr>
                         </tbody>
                     </table>

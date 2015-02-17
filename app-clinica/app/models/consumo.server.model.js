@@ -25,6 +25,9 @@ var ConsumoSchema = new Schema({
         default: true,
         require:'Pago es requerido'
     },
+    monto:{
+        type: String
+    },
 	user: {
 		type: Schema.ObjectId,
 		ref: 'User'

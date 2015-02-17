@@ -6,6 +6,7 @@
 var mongoose = require('mongoose'),
 	errorHandler = require('./errors.server.controller'),
 	Consumo = mongoose.model('Consumo'),
+    Producto = mongoose.model('Producto'),
 	_ = require('lodash');
 
 /**
@@ -15,6 +16,27 @@ exports.create = function(req, res) {
 	var consumo = new Consumo(req.body);
 	consumo.user = req.user;
 
+    consumo.productos.forEach(function(producto){
+
+        Producto.findById(producto.producto._id)
+           .exec(function(err, productoLoaded) {
+                if (err) {
+                    return next(err)
+                };
+
+                productoLoaded.stockActual = productoLoaded.stockActual - producto.cantidad;
+                productoLoaded.save(function(err){
+                    if (err) {
+                        return res.status(400).send({
+                            message: errorHandler.getErrorMessage(err)
+                        });
+                    } else {
+                        console.log('todo ok');
+                    }
+                });
+
+            });
+    });
 	consumo.save(function(err) {
 		if (err) {
 			return res.status(400).send({

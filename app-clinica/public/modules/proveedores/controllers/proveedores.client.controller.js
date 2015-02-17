@@ -1,20 +1,21 @@
 'use strict';
 
 // Proveedores controller
-angular.module('proveedores').controller('ProveedoresController', ['$scope', '$stateParams', '$location', 'Authentication', 'Proveedores',
-	function($scope, $stateParams, $location, Authentication, Proveedores) {
+angular.module('proveedores').controller('ProveedoresController', ['$scope', '$stateParams', '$location', 'Authentication', 'Proveedores', 'Proveedor',
+	function($scope, $stateParams, $location, Authentication, Proveedores, Proveedor) {
 		$scope.authentication = Authentication;
 
 		// Create new Proveedore
         $scope.proveedor = {};
 
-		$scope.create = function() {
+		$scope.createProveedor = function() {
 			// Create new Proveedore object
 
 			var proveedore = new Proveedores ($scope.proveedor);
 
 			// Redirect after save
 			proveedore.$save(function(response) {
+                Proveedor.setNewProveedor(response);
                 $location.path('compras/create');
 
 				// Clear form fields

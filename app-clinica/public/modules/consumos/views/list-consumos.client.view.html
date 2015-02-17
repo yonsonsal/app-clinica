@@ -17,17 +17,19 @@
                         <thead class="cf">
                         <tr>
                             <th>#</th>
-                            <th>Creado Por</th>
-                            <th>Creado En</th>
-                            <th>Opciones</th>
+                            <th>Fecha</th>
+                            <th>Persona</th>
+                            <th>Monto</th>
+                            <th>Productos</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr data-ng-repeat="consumo in consumos">
                             <td data-title="#">{{$index+1}}</td>
-                            <td data-title="Creado Por" data-ng-bind="producto.nombre"></td>
-                            <td data-title="Creado En" data-ng-bind="producto.fabricante.nombre"></td>
-                            <td data-title="Opciones" class="opciones"> <a href="#!/consumos/{{consumo._id}}" tooltip="Ver detalle"><span class="glyphicon glyphicon-floppy-open"></span></a></td>
+                            <td>{{consumo.fecha}}</td>
+                            <td>{{consumo.persona.nombre}}</td>
+                            <td>{{consumo.monto}}</td>
+                            <td data-title="Opciones" class="opciones"> <a href="#!/consumos/{{consumo._id}}" tooltip="Ver detalle"><span class="glyphicon glyphicon-zoom-in"></span></a></td>
                         </tr>
                         </tbody>
                     </table>

@@ -18,8 +18,7 @@ var ProductoSchema = new Schema({
 	},
     tipoProducto:{
         type:Schema.ObjectId,
-        ref:'Tipoproducto',
-        required: 'El tipo de producto es obligatorio.'
+        ref:'Tipoproducto'
     },
     fabricante:{
         type:Schema.ObjectId,
@@ -39,18 +38,19 @@ var ProductoSchema = new Schema({
     },
     moneda:{
         type: String,
-        default: 'UYU',
-        required: 'La moneda es requerida'
+        default: 'UYU'
     },
     precio:{
-        type: Number,
-        required: 'El precio del artículo es requerido'
+        type: Number
     },
 
     stockActual:{
         type: Number,
         default: 0,
         trim: true
+    },
+    frecuencia:{
+        type: Number
     },
     fraccionable:{
         type: Boolean,
@@ -72,10 +72,13 @@ var ProductoSchema = new Schema({
         default: '',
         trim: true
     },
+    servicio:{
+        type: Boolean,
+        default: false
+    },
     activo:{
         type: Boolean,
-        default: true,
-        trim: true
+        default: true
     },
 	created: {
 		type: Date,
