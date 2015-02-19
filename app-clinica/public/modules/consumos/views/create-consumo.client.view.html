@@ -25,11 +25,11 @@
                                         <small ng-bind-html="item.email | highlight: $select.search"></small>
                                     </ui-select-choices>
                                 </ui-select>
-                        <span class="input-group-btn">
-                            <div ng-click="newPersona()" class="btn btn-default" tooltip="Nueva Persona">
-                                <span class="glyphicon glyphicon-plus"></span>
-                            </div>
-                        </span>
+                                <span class="input-group-btn">
+                                    <div ng-click="newPersona()" class="btn btn-default" tooltip="Nueva Persona">
+                                        <span class="glyphicon glyphicon-plus"></span>
+                                    </div>
+                                </span>
                             </div>
                         </td>
                         <td class="numeric" data-title="Pago" class="col-xs-12 col-sm-1 col-md-1 col-lg-1">
@@ -60,22 +60,20 @@
                 <tbody>
                 <tr>
                     <td></td>
+
                     <td data-title="Producto" class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-                        <div class="input-group">
-                            <ui-select ng-model="newArticulo.producto" theme="bootstrap">
-                                <ui-select-match placeholder="Artículo">{{$select.selected.tipoProducto.nombre}}-{{$select.selected.fabricante.nombre}}-{{$select.selected.descripcion}}({{$select.selected.tamanio}})</ui-select-match>
-                                <ui-select-choices repeat="item in productos | filter: $select.search">
-                                    <span ng-bind-html="item.producto.nombre | highlight: $select.search"></span>
-                                    <span>{{item.tipoProducto.nombre}}-{{item.fabricante.nombre}}-{{item.descripcion}}({{item.tamanio}})</span>
-
-                                </ui-select-choices>
-                            </ui-select>
-                        </div>
+                        <ui-select ng-model="newArticulo.producto" theme="bootstrap">
+                            <ui-select-match placeholder="Articulo">{{$select.selected.tipoProducto.nombre}}-{{$select.selected.fabricante.nombre}}-{{$select.selected.descripcion}}({{$select.selected.tamanio}})</ui-select-match>
+                            <ui-select-choices repeat="item in productos | filter: $select.search">
+                                <span ng-bind-html="item.nombre | highlight: $select.search"></span>
+                                <span>{{item.tipoProducto.nombre}}-{{item.fabricante.nombre}}-{{item.descripcion}}({{item.tamanio}})</span>
+                                <small ng-bind-html="item.descripcion | highlight: $select.search"></small>
+                            </ui-select-choices>
+                        </ui-select>
                     </td>
-                    <td class="numeric" data-title="Cantidad" class="col-xs-4 col-sm-1 col-md-1 col-lg-1">
 
+                    <td style="max-height: 53px; height: 53px;" class="numeric" data-title="Cantidad" class="col-xs-4 col-sm-1 col-md-1 col-lg-1">
                          <div class="input-group" ng-show="newArticulo.producto.fraccionable">
-
                             <input class="form-control"
                                    type="number"
                                    name="cantidad"
@@ -85,7 +83,6 @@
                                    max="{{newArticulo.producto.stockActual * 100}}"
                                    ng-model="newArticulo.cantidad"
                                    ng-disabled="!(newArticulo.producto)"
-
                                    percent>
                             <div class="input-group-addon">%</div>
                         </div>

@@ -23,15 +23,13 @@
                                 <span ng-bind-html="item.nombre | highlight: $select.search"></span>
                                 <span>{{item.tipoProducto.nombre}}-{{item.fabricante.nombre}}-{{item.descripcion}}({{item.tamanio}})</span>
                                 <small ng-bind-html="item.descripcion | highlight: $select.search"></small>
-
                             </ui-select-choices>
                         </ui-select>
-
-                    <span class="input-group-btn">
-                         <div ng-click="newProducto()" class="btn btn-default" tooltip="Nuevo Producto">
-                             <span class="glyphicon glyphicon-plus"></span>
-                         </div>
-                    </span>
+                        <span class="input-group-btn">
+                             <div ng-click="newProducto()" class="btn btn-default" tooltip="Nuevo Producto">
+                                 <span class="glyphicon glyphicon-plus"></span>
+                             </div>
+                        </span>
                     </div>
                 </td>
 
