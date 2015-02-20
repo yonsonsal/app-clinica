@@ -9,7 +9,15 @@
                         <i class="fa fa-plus fa-lg"></i>
                     </a>
                 </div>
-                <h4><i class="fa fa-angle-right"></i> Lista de Productos <input type="search" ng-model="searchWord" /></h4>
+                <h4><i class="fa fa-angle-right"></i> Lista de Productos</h4>
+
+                <form class="form-inline" style="padding: 10px;">
+                    <div class="form-group">
+                        <label for="findInput">Buscar Producto: </label>
+                        <input type="text" class="form-control" id="findInput" placeholder="" ng-model="searchWord">
+                    </div>
+                </form>
+
                 <section id="table-responsive-one">
                     <table class="table table-bordered table-striped table-condensed cf">
                         <thead class="cf">
@@ -18,7 +26,6 @@
                             <th>Nombre</th>
                             <th>Fabricante</th>
                             <th>Tipo de Producto</th>
-
                             <th>Stock Actual</th>
                             <th>Stock M&iacute;nimo</th>
                             <th>Precio Actual</th>
@@ -26,7 +33,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr data-ng-repeat="producto in filteredProductos">
+                        <tr data-ng-repeat="producto in productos | filter: searchWord">
                             <td data-title="#">{{$index+1}}</td>
                             <td data-title="Nombre" data-ng-bind="producto.nombre"></td>
                             <td data-title="Fabricante" data-ng-bind="producto.fabricante.nombre"></td>

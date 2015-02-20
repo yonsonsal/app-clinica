@@ -17,16 +17,16 @@
                         <thead class="cf">
                         <tr>
                             <th>#</th>
-                            <th>Fecha</th>
-                            <th>Persona</th>
-                            <th>Monto</th>
+                            <th ng-click="predicate = 'fecha'; reverse=!reverse" style='cursor: pointer; text-decoration: underline'>Fecha</th>
+                            <th ng-click="predicate = 'persona.nombre'; reverse=!reverse" style='cursor: pointer; text-decoration: underline'>Persona</th>
+                            <th ng-click="predicate = 'monto'; reverse=!reverse" style='cursor: pointer; text-decoration: underline'>Monto</th>
                             <th>Productos</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr data-ng-repeat="consumo in consumos">
+                        <tr data-ng-repeat="consumo in consumos | orderBy:predicate:reverse">
                             <td data-title="#">{{$index+1}}</td>
-                            <td>{{consumo.fecha}}</td>
+                            <td>{{consumo.fecha | date:'dd/MM/yyyy'}}</td>
                             <td>{{consumo.persona.nombre}}</td>
                             <td>{{consumo.monto}}</td>
                             <td data-title="Opciones" class="opciones"> <a href="#!/consumos/{{consumo._id}}" tooltip="Ver detalle"><span class="glyphicon glyphicon-zoom-in"></span></a></td>

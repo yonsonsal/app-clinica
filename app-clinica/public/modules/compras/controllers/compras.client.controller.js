@@ -203,7 +203,7 @@ angular.module('compras').controller('ComprasController', ['$scope', '$statePara
 
         $scope.showError = function(){
             console.log('showError');
-        }
+        };
         $scope.enableSave = false;
         $scope.$watch('compra', function(){
 
@@ -220,6 +220,10 @@ angular.module('compras').controller('ComprasController', ['$scope', '$statePara
 
             $scope.enableSave = enableToSave;
         }, true);
+
+        $scope.predicate = 'fecha';
+        $scope.reverse = true;
+        
     }
 ])
     .directive('switch', ['$timeout', function ($timeout){

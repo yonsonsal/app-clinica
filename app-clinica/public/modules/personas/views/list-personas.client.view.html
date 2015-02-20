@@ -4,6 +4,12 @@
         <div class="col-lg-12">
             <div class="content-panel">
                 <h4><i class="fa fa-angle-right"></i> Lista de Personas</h4>
+                <form class="form-inline" style="padding: 10px;">
+                    <div class="form-group">
+                        <label for="findInput">Buscar Persona: </label>
+                        <input type="text" class="form-control" id="findInput" placeholder="" ng-model="searchWord">
+                    </div>
+                </form>
                 <section id="table-responsive-one">
                     <table class="table table-bordered table-striped table-condensed cf">
                         <thead class="cf">
@@ -18,7 +24,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr data-ng-repeat="persona in personas">
+                        <tr data-ng-repeat="persona in personas | filter: searchWord">
                             <td data-title="#">{{$index+1}}</td>
                             <td data-title="Nombre" data-ng-bind="persona.nombre"></td>
                             <td data-title="Direcci&oacute;n" data-ng-bind="persona.direccion"></td>

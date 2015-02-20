@@ -177,40 +177,10 @@ angular.module('productos').controller('ProductosController', ['$scope', '$state
 
 		// Find a list of Productos
 		$scope.find = function() {
-
-            $scope.productos = [];
-            $scope.servicios = [];
-           var todos = Productos.query(function(){
-
-
-               todos.forEach(function(item){
-
-                   if(item.servicio === true) {
-                       $scope.servicios.push(item);
-                   } else {
-                       $scope.productos.push(item);
-                   }
-               });
-               $scope.filteredProductos = [];
-               angular.copy($scope.productos, $scope.filteredProductos);
-
-           });
-			//$scope.productos = Productos.query();
-
+            $scope.productos = Productos.query();
 		};
         $scope.searchWord = '';
-        $scope.$watch('searchWord', function(value){
 
-            angular.copy($scope.productos, $scope.filteredProductos);
-            angular.forEach($scope.productos, function(product, index){
-
-                console.log(value);
-                if (value && !product.nombre.indexOf(value) > -1) {
-                    console.log(product);
-                    $scope.filteredProductos.splice(index, 1);
-                }
-            });
-        });
 		// Find existing Producto
 		$scope.findOne = function() {
 

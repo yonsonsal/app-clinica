@@ -67,6 +67,8 @@ angular.module('personas').controller('PersonasController', ['$scope', '$statePa
 				personaId: $stateParams.personaId
 			});
 		};
+
+        $scope.searchWord = '';
 	}
 ]).directive("percent", function($filter){
     var p = function(viewValue){

@@ -14,16 +14,16 @@
                     <table class="table table-bordered table-striped table-condensed cf">
                         <thead class="cf">
                         <tr>
-                            <th>Fecha</th>
-                            <th>Proveedor</th>
-                            <th>Factura</th>
-                            <th>Pago</th>
-                            <th>Monto</th>
+                            <th ng-click="predicate = 'fecha'; reverse=!reverse" style='cursor: pointer; text-decoration: underline'>Fecha</th>
+                            <th ng-click="predicate = 'proveedor.nombre'; reverse=!reverse" style='cursor: pointer; text-decoration: underline'>Proveedor</th>
+                            <th ng-click="predicate = 'factura'; reverse=!reverse" style='cursor: pointer; text-decoration: underline'>Factura</th>
+                            <th ng-click="predicate = 'pago'; reverse=!reverse" style='cursor: pointer; text-decoration: underline'>Pago</th>
+                            <th ng-click="predicate = 'monto'; reverse=!reverse" style='cursor: pointer; text-decoration: underline'>Monto</th>
                             <th>Detalles</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr ng-repeat="compra in compras">
+                        <tr ng-repeat="compra in compras | orderBy:predicate:reverse">
                             <td data-title="Fecha" class="col-xs-12 col-sm-1 col-md-1 col-lg-1">
                                 {{compra.fecha | date:'dd/MM/yyyy'}}
                             </td>

@@ -148,5 +148,7 @@ angular.module('consumos').controller('ConsumosController', ['$scope', '$statePa
 				consumoId: $stateParams.consumoId
 			});
 		};
+
+        $scope.predicate = 'fecha'
 	}
 ]);

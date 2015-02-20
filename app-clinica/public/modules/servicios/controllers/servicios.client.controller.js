@@ -71,5 +71,7 @@ angular.module('servicios').controller('ServiciosController', ['$scope', '$state
 				servicioId: $stateParams.servicioId
 			});
 		};
+
+        $scope.searchWord = '';
 	}
 ]);
