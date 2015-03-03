@@ -43,7 +43,14 @@ var ProductoSchema = new Schema({
     precio:{
         type: Number
     },
-
+    factorSobreCosto:{
+      type:Number,
+      default:0
+    },
+    iva:{
+      type: Number,
+      default:22
+    },
     stockActual:{
         type: Number,
         default: 0,

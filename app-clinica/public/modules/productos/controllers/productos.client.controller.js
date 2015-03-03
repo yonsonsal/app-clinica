@@ -66,7 +66,18 @@ angular.module('productos').controller('ProductosController', ['$scope', '$state
         };
 
         $scope.cancel = function() {
-            $scope.newProductState();
+            if (!$scope.newProductTypeStateBoolean && !$scope.newFabricanteStateBoolean) {
+
+                if (Producto.getFlagFromCompra()) {
+                    Producto.setFlagFromCompra(false);
+                    Producto.setNewProducto(null);
+                    $location.path('compras/create');
+                } else {
+                    $location.path('productos');
+                }
+            } else {
+                $scope.newProductState();
+            }
         };
         $scope.create = function(){
 
@@ -111,34 +122,7 @@ angular.module('productos').controller('ProductosController', ['$scope', '$state
 			});
 		};
 
-        $scope.createProductoFromArticulo = function() {
-
-            // Create new Producto object
-
-            if (!$scope.producto.servicio) {
-                $scope.producto.tipoProducto = $scope.tipoproducto.selected._id;
-                $scope.producto.fabricante = $scope.fabricante.selected._id;
-            } else {
-                $scope.producto.tamanio = 0;
-                $scope.producto.stockMinimo = 0;
-            }
-            var producto = new Productos ($scope.producto);
-
-            // Redirect after save
-            producto.$save(function(response) {
-                Producto.setNewProducto(response);
-                $scope.$parent.comprasFromProductoState();
-                //$location.path('productos/' + response._id);
-
-                // Clear form fields
-                $scope.producto = {};
-                $scope.tipoproducto.selected = null;
-                $scope.fabricante.selected = null;
-            }, function(errorResponse) {
-                $scope.error = errorResponse.data.message;
-            });
-        };
-
+        $scope.cancel
 		// Remove existing Producto
 		$scope.remove = function(producto) {
 			if ( producto ) { 

@@ -9,7 +9,7 @@
         </div>
     </div>
 
-    <div class="row" ng-show="producto.servicio">
+    <div class="row">
         <div class="form-group col-xs-12 col-sm-8 col-md-6 col-lg-4">
             <label class="control-label" for="nombre">Precio</label>
             <div class="controls">
@@ -29,7 +29,7 @@
     </div>
 
 
-    <div class="row" ng-show="!producto.servicio">
+    <div class="row">
         <div class="form-group col-xs-12 col-sm-8 col-md-6 col-lg-4">
 
             <label class="control-label" for="tipo-producto">Tipo de Producto</label>
@@ -53,7 +53,7 @@
         </div>
     </div>
 
-    <div class="row" ng-show="!producto.servicio">
+    <div class="row">
         <div class="form-group col-xs-12 col-sm-8 col-md-6 col-lg-4">
 
             <label class="control-label" for="fabricante">Fabricante</label>
@@ -78,7 +78,7 @@
         </div>
     </div>
 
-    <div class="row" ng-show="!producto.servicio">
+    <div class="row">
         <div class="form-group col-xs-12 col-sm-8 col-md-6 col-lg-4">
             <label class="control-label" for="tamanio">Tamaño</label>
             <div class="controls">
@@ -87,7 +87,7 @@
         </div>
     </div>
 
-    <div class="row" ng-show="!producto.servicio">
+    <div class="row">
         <div class="form-group col-xs-12 col-sm-8 col-md-6 col-lg-4">
             <label class="control-label">Fraccionable</label>
             <div class="animate-switch-container" ng-switch="producto.fraccionable">
@@ -105,7 +105,7 @@
         </div>
     </div>
 
-    <div class="row" ng-show="!producto.servicio">
+    <div class="row">
         <div class="form-group col-xs-12 col-sm-8 col-md-6 col-lg-4">
             <label class="control-label">Consumible</label>
             <div class="animate-switch-container" ng-switch="producto.consumible">
@@ -123,14 +123,14 @@
         </div>
     </div>
 
-    <div class="row" ng-show="!producto.servicio">
+    <div class="row">
         <div class="form-group col-xs-12 col-sm-8 col-md-6 col-lg-4">
             <label class="control-label" for="stock-minimo">Stock Mínimo</label>
             <input type="number" data-ng-model="producto.stockMinimo" id="stock-minimo" class="form-control" placeholder="Stock Mínimo" required>
         </div>
     </div>
 
-    <div class="row" ng-show="!producto.servicio">
+    <div class="row">
         <div class="form-group col-xs-12 col-sm-8 col-md-6 col-lg-4">
             <label class="control-label">Activo</label>
             <div class="animate-switch-container" ng-switch="producto.activo">
