@@ -1812,6 +1812,11 @@ label {
     position: relative;
     top: 0;
 }
+
+#changeTipoTd .has-switch {
+    width: 120px;
+}
+
 .has-switch > div.switch-animate {
     -webkit-transition: left 0.25s ease-out;
     -moz-transition: left 0.25s ease-out;

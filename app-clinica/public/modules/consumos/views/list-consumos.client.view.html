@@ -11,7 +11,12 @@
                     </a>
                 </div>
                 <h4><i class="fa fa-angle-right"></i> Lista de Consumos</h4>
-
+                <form class="form-inline" style="padding: 10px;">
+                    <div class="form-group">
+                        <label for="findInput">Buscar Consumo: </label>
+                        <input type="text" class="form-control" id="findInput" placeholder="" ng-model="searchWord">
+                    </div>
+                </form>
                 <section id="table-responsive-one">
                     <table class="table table-bordered table-striped table-condensed cf">
                         <thead class="cf">
@@ -24,7 +29,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr data-ng-repeat="consumo in consumos | orderBy:predicate:reverse">
+                        <tr data-ng-repeat="consumo in consumos | orderBy:predicate:reverse | filter: searchWord">
                             <td data-title="#">{{$index+1}}</td>
                             <td>{{consumo.fecha | date:'dd/MM/yyyy'}}</td>
                             <td>{{consumo.persona.nombre}}</td>

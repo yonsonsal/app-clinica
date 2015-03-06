@@ -12,9 +12,8 @@
                     </thead>
                     <tbody>
                     <tr>
-
                         <td data-title="Fecha" class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-                            <input class="form-control" id="fecha" type="date" ng-model="consumo.fecha"/>
+                            <input class="form-control" id="fecha" type="date" ng-model="consumo.fecha" value={{consumo.fecha}}>
                         </td>
                         <td data-title="Persona" class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
                             <div class="input-group">
@@ -34,7 +33,7 @@
                         </td>
                         <td class="numeric" data-title="Pago" class="col-xs-12 col-sm-1 col-md-1 col-lg-1">
                             <div ng-click="changePago()">
-                                <input id="changePago" switch type="checkbox" data-toggle="switch"/>
+                                <input id="changePago" switch type="checkbox" data-toggle="switch" on-label="Si" off-label="No"/>
                             </div>
                         </td>
                     </tr>
@@ -51,7 +50,8 @@
                 <thead class="cf">
                 <tr>
                     <th>#</th>
-                    <th>Producto</th>
+                    <th>Tipo</th>
+                    <th>Consumos</th>
                     <th class="numeric">Cantidad</th>
                     <th class="numeric">Factor</th>
                     <th class="numeric">Precio</th>
@@ -60,10 +60,14 @@
                 </thead>
                 <tbody>
                 <tr>
-                    <td></td>
-
-                    <td data-title="Producto" class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-                        <ui-select ng-model="newArticulo.producto" theme="bootstrap">
+                    <td>#</td>
+                    <td class="numeric" class="col-xs-12 col-sm-1 col-md-1 col-lg-1" id="changeTipoTd">
+                        <div ng-click="changeTipo()">
+                            <input id="changeTipo" switch type="checkbox" data-toggle="switch" off-label="Servicio" on-label="Articulo" width-switch=""/>
+                        </div>
+                    </td>
+                    <td class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                        <ui-select ng-model="newArticulo.producto" theme="bootstrap" ng-show="tipoConsumo">
                             <ui-select-match placeholder="Articulo">{{$select.selected.tipoProducto.nombre}}-{{$select.selected.fabricante.nombre}}-{{$select.selected.descripcion}}({{$select.selected.tamanio}})</ui-select-match>
                             <ui-select-choices repeat="item in productos | filter: $select.search">
                                 <span ng-bind-html="item.nombre | highlight: $select.search"></span>
@@ -71,10 +75,12 @@
                                 <small ng-bind-html="item.descripcion | highlight: $select.search"></small>
                             </ui-select-choices>
                         </ui-select>
+                        <span ng-show="!tipoConsumo">
+                            Servicio
+                        </span>
                     </td>
-
-                    <td style="max-height: 53px; height: 53px;" class="numeric" data-title="Cantidad" class="col-xs-4 col-sm-1 col-md-1 col-lg-1">
-                         <div class="input-group" ng-show="newArticulo.producto.fraccionable">
+                    <td class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+                        <div class="input-group" ng-show="newArticulo.producto.fraccionable">
                             <input class="form-control"
                                    type="number"
                                    name="cantidad"
@@ -87,21 +93,26 @@
                                    percent>
                             <div class="input-group-addon">%</div>
                         </div>
-                        <input class="form-control"
-                               type="number"
-                               name="cantidad"
-                               step="1"
-                               tooltip="El stock actual es {{ newArticulo.producto.stockActual}}"
-                               min="0"
-                               max="{{newArticulo.producto.stockActual}}"
-                               ng-model="newArticulo.cantidad"
-                               ng-disabled="!(newArticulo.producto)"
-                               ng-show="!newArticulo.producto.fraccionable">
+                        <div class="input-group hidden-addon" ng-show="!newArticulo.producto.fraccionable">
+                            <input class="form-control"
+                                   type="number"
+                                   name="cantidad"
+                                   step="1"
+                                   tooltip="El stock actual es {{ newArticulo.producto.stockActual}}"
+                                   min="0"
+                                   max="{{newArticulo.producto.stockActual}}"
+                                   ng-model="newArticulo.cantidad"
+                                   ng-disabled="!(newArticulo.producto)">
+                            <div class="input-group-addon">u.</div>
+                        </div>
                     </td>
-                    <td class="numeric" data-title="Precio" class="col-xs-4 col-sm-1 col-md-1 col-lg-1">
+                    <td class="col-xs-12 col-sm-1 col-md-1 col-lg-1">
                         <span ng-show="newArticulo.cantidad > 0">{{newArticulo.producto.precio * newArticulo.cantidad | number : 2}}</span>
                     </td>
-                    <td class="numeric" data-title="Opciones" class="col-xs-4 col-sm-1 col-md-1 col-lg-1">
+                    <td class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+                        <input class="form-control" type="number" name="precio" ng-model="newArticulo.precio">
+                    </td>
+                    <td class="col-xs-12 col-sm-1 col-md-1 col-lg-1">
                         <div ng-click="saveNewArticulo()" tooltip="Guardar artículo" ng-class="{'disabled-save-articulo': !isValidNewArticulo}" ng-disabled="!isValidNewArticulo" class="fa-icon save-articulo">
                             <i class="fa fa-check-circle"></i>
                         </div>
@@ -110,15 +121,11 @@
                 <tr data-ng-repeat="producto in consumo.productos">
 
                     <td>{{$index+1}}</td>
-                    <td data-title="Producto">
-                        {{producto.producto.nombre}} ({{producto.producto.tipoProducto.nombre}} - {{producto.producto.tamanio}})</td>
-                    </td>
-
-                    <td class="numeric" data-title="Cantidad" data-ng-bind="producto.cantidad"></td>
-                    <td class="numeric" data-title="Precio">
-                        <span ng-show="producto.cantidad > 0">{{producto.producto.precio * producto.cantidad | number : 2}}</span>
-                    </td>
-                    <td class="numeric" data-title="Opciones">
+                    <td>{{producto.producto.nombre}} ({{producto.producto.tipoProducto.nombre}} - {{producto.producto.tamanio}})</td>
+                    <td class="numeric" data-ng-bind="producto.cantidad"></td>
+                    <td class="numeric">{{producto.factor}}</td>
+                    <td class="numeric"><span ng-show="producto.cantidad > 0">{{producto.producto.precio * producto.cantidad | number : 2}}</span></td>
+                    <td>
                         <div ng-click="deleteProducto($index)" class="fa-icon delete-articulo" tooltip="Borrar producto">
                             <i class="fa fa-times-circle"></i>
                         </div>
@@ -133,5 +140,3 @@
         <input type="button" class="btn btn-default" value="Cancelar" ng-click="getToList()">
     </div>
 </section>
-
-<!-- /Articulos -->

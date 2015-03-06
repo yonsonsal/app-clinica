@@ -1,17 +1,22 @@
 'use strict';
 
 // Consumos controller
-angular.module('consumos').controller('ConsumosController', ['$scope', '$stateParams', '$location', 'Authentication', 'Consumos', 'Personas', 'Productos', 'Persona', 'Consumo',
-	function($scope, $stateParams, $location, Authentication, Consumos, Personas, Productos, Persona, Consumo) {
+angular.module('consumos').controller('ConsumosController', ['$scope', '$stateParams', '$location', 'Authentication', 'Consumos', 'Personas', 'Productos', 'Persona', 'Consumo','$filter',
+	function($scope, $stateParams, $location, Authentication, Consumos, Personas, Productos, Persona, Consumo, $filter) {
 		$scope.authentication = Authentication;
 
         $scope.consumo = {};
         $scope.consumo.productos = [];
 
+        $scope.tipoConsumo = true;
+        $scope.changeTipo = function () {
+            $scope.tipoConsumo = !$scope.tipoConsumo;
+        };
+
         $scope.newPersona = function() {
             Consumo.setNewConsumo($scope.consumo);
             $location.path('personas/create');
-        }
+        };
         $scope.initNewConsumo = function() {
 
             $scope.consumo.persona = null;
@@ -85,6 +90,8 @@ angular.module('consumos').controller('ConsumosController', ['$scope', '$statePa
             $location.path('consumos');
         };
 
+        $scope.consumo.fecha = $filter("date")(Date.now(), 'yyyy-MM-dd');
+
 		// Create new Consumo
 		$scope.createConsumo = function() {
 			// Create new Consumo object
@@ -149,6 +156,7 @@ angular.module('consumos').controller('ConsumosController', ['$scope', '$statePa
 			});
 		};
 
-        $scope.predicate = 'fecha'
+        $scope.predicate = 'fecha';
+        $scope.searchWord = '';
 	}
 ]);
