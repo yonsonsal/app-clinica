@@ -11,6 +11,9 @@ angular.module('pagos').controller('PagosController', ['$scope', '$stateParams',
         $scope.pago = {moneda:'UYU'};
         $scope.pago.fecha = $filter("date")(Date.now(), 'yyyy-MM-dd');
 
+        $scope.persona = '';
+        $scope.consumo = '';
+
         $scope.changeMoneda = function () {
             if ($scope.pago.moneda == 'UYU') {
                 $scope.pago.moneda = 'USD';
@@ -23,6 +26,9 @@ angular.module('pagos').controller('PagosController', ['$scope', '$stateParams',
 		$scope.createPago = function() {
 			// Create new Pago object
 			var pago = new Pagos($scope.pago);
+			console.log($scope.persona);
+			pago.persona = $scope.persona;
+			pago.consumo = $scope.consumo;
 
 			// Redirect after save
 			pago.$save(function(response) {

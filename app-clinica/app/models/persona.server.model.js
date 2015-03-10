@@ -26,7 +26,6 @@ var PersonaSchema = new Schema({
         default: '',
         trim: true
     },
-    pagos:[{type : Schema.Types.Mixed }],
     telefono: {
         type: String,
         default: '',
