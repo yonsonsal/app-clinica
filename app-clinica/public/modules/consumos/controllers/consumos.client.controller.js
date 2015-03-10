@@ -1,17 +1,30 @@
 'use strict';
 
 // Consumos controller
-angular.module('consumos').controller('ConsumosController', ['$scope', '$stateParams', '$location', 'Authentication', 'Consumos', 'Personas', 'Productos', 'Persona', 'Consumo','$filter',
-	function($scope, $stateParams, $location, Authentication, Consumos, Personas, Productos, Persona, Consumo, $filter) {
+angular.module('consumos').controller('ConsumosController', ['$scope', '$stateParams', '$location', 'Authentication', 'Consumos', 'Servicios', 'Personas', 'Productos', 'Persona', 'Consumo','$filter',
+	function($scope, $stateParams, $location, Authentication, Consumos, Servicios, Personas, Productos, Persona, Consumo, $filter) {
 		$scope.authentication = Authentication;
 
         $scope.consumo = {};
         $scope.consumo.productos = [];
 
-        $scope.tipoConsumo = true;
+        $scope.tipoConsumo = false;
         $scope.changeTipo = function () {
             $scope.tipoConsumo = !$scope.tipoConsumo;
+            $scope.newArticulo.producto = null;
         };
+
+        $scope.consumo.pago = false;
+        $scope.changePagoConsumo = function () {
+            $scope.consumo.pago = !$scope.consumo.pago;
+        };
+
+
+        function roundNumber(number, precision){
+            precision = Math.abs(parseInt(precision)) || 0;
+            var multiplier = Math.pow(10, precision);
+            return (Math.round(number * multiplier) / multiplier);
+        }
 
         $scope.newPersona = function() {
             Consumo.setNewConsumo($scope.consumo);
@@ -48,6 +61,35 @@ angular.module('consumos').controller('ConsumosController', ['$scope', '$statePa
                 });
                 $scope.productos = filteredProductos;
 
+            });
+
+            Servicios.query(function(servicios){
+                $scope.servicios = servicios;
+            });
+
+            function calcularValorLinea () {
+                if ($scope.newArticulo != null && $scope.newArticulo.producto != null) {
+                    $scope.newArticulo.precio = $scope.newArticulo.producto.precio * $scope.newArticulo.cantidad;
+
+                    if ($scope.newArticulo.producto.factorSobreCosto > 0){
+                        $scope.newArticulo.precio =  $scope.newArticulo.precio * $scope.newArticulo.producto.factorSobreCosto;
+                    }
+
+                    $scope.newArticulo.factor = $scope.newArticulo.producto.factorSobreCosto;
+                    $scope.newArticulo.precio = roundNumber($scope.newArticulo.precio, 2);
+                }
+            }
+
+            $scope.$watch('newArticulo.producto', function(value){
+                calcularValorLinea();
+            });
+
+            $scope.$watch('newArticulo.producto.factorSobreCosto', function(value){
+                calcularValorLinea();
+            });
+
+            $scope.$watch('newArticulo.cantidad', function(value){
+                calcularValorLinea();
             });
 
             $scope.$watch('newArticulo', function(value){
@@ -99,11 +141,12 @@ angular.module('consumos').controller('ConsumosController', ['$scope', '$statePa
             consumo.persona = $scope.consumo.persona._id;
             consumo.monto = 0;
             angular.forEach(consumo.productos, function(producto){
-                consumo.monto +=  producto.producto.precio * producto.cantidad;
+                if (angular.isDefined(producto.producto)) {
+                    consumo.monto += producto.producto.precio * producto.cantidad;
+                }
             });
 			var consumo = new Consumos (consumo);
-
-			// Redirect after save
+           	// Redirect after save
 			consumo.$save(function(response) {
                 Consumo.setNewConsumo(null);
 				$location.path('consumos/' + response._id);

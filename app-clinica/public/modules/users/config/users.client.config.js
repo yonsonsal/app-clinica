@@ -1,7 +1,13 @@
 'use strict';
 
 // Config HTTP Error Handling
-angular.module('users').config(['$httpProvider',
+angular.module('users').run(['Menus',
+    function(Menus) {
+        // Set top bar menu items
+        Menus.addMenuItem('topbar', 'Admin', 'accounts', 'item');
+    }
+]);
+    /*.config(['$httpProvider',
 	function($httpProvider) {
 		// Set the httpProvider "not authorized" interceptor
 		$httpProvider.interceptors.push(['$q', '$location', 'Authentication',
@@ -27,4 +33,4 @@ angular.module('users').config(['$httpProvider',
 			}
 		]);
 	}
-]);
+]);*/

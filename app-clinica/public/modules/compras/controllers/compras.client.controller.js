@@ -177,6 +177,22 @@ angular.module('compras').controller('ComprasController', ['$scope', '$statePara
         };
         //Articulos
         $scope.newArticulo = {'moneda':'UYU'};
+
+        $scope.$watch('newArticulo.producto', function(){
+           console.log('cambie producto');
+           // $scope.newArticulo.moneda = $scope.newArticulo.producto.moneda;
+        });
+
+        $scope.changeMonedaCompra = function () {
+            if ($scope.newArticulo.producto) {
+                if ($scope.newArticulo.moneda == 'UYU') {
+                    $scope.newArticulo.moneda = 'USD';
+                } else {
+                    $scope.newArticulo.moneda = 'UYU';
+                }
+            }
+        };
+
         $scope.saveNewArticulo = function() {
             if ($scope.isValidNewArticulo) {
                 $scope.compra.articulos.push($scope.newArticulo);

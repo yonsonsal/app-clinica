@@ -8,6 +8,8 @@ angular.module('productos').controller('ProductosController', ['$scope', '$state
 
         $scope.formTitle =  'Nuevo Producto';
 
+
+
         $scope.newTypeProductState = function(){
             $scope.formTitle =  'Nuevo Tipo de Producto';
             $scope.newProductTypeStateBoolean = true;
@@ -92,6 +94,17 @@ angular.module('productos').controller('ProductosController', ['$scope', '$state
         };
 		// Create new Producto
         $scope.producto = {servicio:false, moneda:'UYU'};
+
+        $scope.changeMoneda = function () {
+            if ($scope.producto.moneda == 'UYU') {
+                $scope.producto.moneda = 'USD';
+            }else{
+                $scope.producto.moneda = 'UYU';
+            }
+        };
+
+
+
 		$scope.createProducto = function() {
 
 
@@ -122,7 +135,7 @@ angular.module('productos').controller('ProductosController', ['$scope', '$state
 			});
 		};
 
-        $scope.cancel
+        //$scope.cancel
 		// Remove existing Producto
 		$scope.remove = function(producto) {
 			if ( producto ) { 

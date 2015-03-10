@@ -1,23 +1,101 @@
-<section data-ng-controller="PagosController">
-    <div class="page-header">
-        <h1>New Pago</h1>
-    </div>
-    <div class="col-md-12">
-        <form class="form-horizontal" data-ng-submit="create()" novalidate>
-            <fieldset>
-                <div class="form-group">
-                    <label class="control-label" for="name">Name</label>
-                    <div class="controls">
-                        <input type="text" data-ng-model="name" id="name" class="form-control" placeholder="Name" required>
+<section class="wrapper site-min-height" data-ng-controller="PagosController">
+    <h3><i class="fa fa-angle-right"></i>Nuevo Pago</h3>
+    <div class="row">
+        <div class="col-md-12">
+            <form class="form-horizontal"  novalidate>
+                <fieldset>
+
+                    <div class="row">
+                        <div class="form-group col-xs-12 col-sm-8 col-md-6 col-lg-4">
+                            <label class="control-label" for="fecha">Fecha</label>
+                            <input class="form-control" id="fecha" type="date" ng-model="pago.fecha" value={{pago.fecha}}>
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    <input type="submit" class="btn btn-default">
-                </div>
-				<div data-ng-show="error" class="text-danger">
-					<strong data-ng-bind="error"></strong>
-				</div>
-            </fieldset>
-        </form>
+
+                    <div class="row">
+                        <div class="form-group col-xs-12 col-sm-8 col-md-6 col-lg-4">
+                            <label class="control-label" for="personaId">Persona</label>
+                            <ui-select ng-model="pago.persona" theme="bootstrap" id="personaId">
+                                <ui-select-match placeholder="Persona">{{$select.selected.nombre}}</ui-select-match>
+                                <ui-select-choices repeat="item in personas | filter: $select.search">
+                                    <span ng-bind-html="item.nombre | highlight: $select.search"></span>
+                                    <!--span>{{$select.selected.persona.nombre}}</span-->
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-xs-12 col-sm-8 col-md-6 col-lg-4">
+                            <label class="control-label" for="consumoId">Consumo</label>
+                            <ui-select ng-model="pago.consumo" theme="bootstrap" id="consumoId" name="consumoId">
+                                <ui-select-match placeholder="Consumo">{{$select.selected.persona.nombre}} - {{$select.selected.monto}}</ui-select-match>
+                                <ui-select-choices repeat="item in consumos | filter: $select.search">
+                                    <span ng-bind-html="item.persona.nombre | highlight: $select.search"></span>
+                                    <span>{{$select.selected.consumo.persona.nombre}}</span>
+                                </ui-select-choices>
+                            </ui-select>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-xs-12 col-sm-8 col-md-6 col-lg-4">
+                            <label class="control-label">Moneda</label>
+                            <div class="animate-switch-container" ng-switch="pago.moneda">
+                                <div class="animate-switch" ng-switch-when="UYU">
+                                    <div ng-click="changeMoneda()" class="btn btn-switch btn-switch-si">
+                                        <label>UYU</label>
+                                    </div>
+                                </div>
+                                <div class="animate-switch" ng-switch-when="USD">
+                                    <div ng-click="changeMoneda()" class="btn btn-switch btn-switch-no">
+                                        <label>USD</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-xs-12 col-sm-8 col-md-6 col-lg-4">
+                            <label class="control-label" for="monto">Monto</label>
+                            <div class="controls">
+
+                                <div class="input-group">
+                                    <div class="input-group-addon">{{pago.moneda}}</div>
+                                    <input class="form-control"
+                                           type="number"
+                                           name="monto"
+                                           min="0"
+                                           ng-model="pago.monto">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-xs-12 col-sm-8 col-md-6 col-lg-4">
+                            <label class="control-label" for="monto">Cotizacion</label>
+                            <div class="controls">
+                                <div class="input-group">
+                                    <div class="input-group-addon">UYU</div>
+                                    <input class="form-control" ng-disabled="pago.moneda == 'UYU'"
+                                           type="number"
+                                           name="monto"
+                                           min="0"
+                                           ng-model="pago.cotizacion">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-success" ng-click="createPago()" value="Guardar">
+                        <input type="button" class="btn btn-default" value="Cancelar" ng-click="cancelPago()">
+                    </div>
+
+                </fieldset>
+            </form>
+        </div>
     </div>
 </section>

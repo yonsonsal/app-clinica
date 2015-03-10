@@ -32,8 +32,18 @@
                             </div>
                         </td>
                         <td class="numeric" data-title="Pago" class="col-xs-12 col-sm-1 col-md-1 col-lg-1">
-                            <div ng-click="changePago()">
-                                <input id="changePago" switch type="checkbox" data-toggle="switch" on-label="Si" off-label="No"/>
+
+                            <div class="animate-switch-container" ng-switch="consumo.pago">
+                                <div class="animate-switch" ng-switch-when="true">
+                                    <div ng-click="changePagoConsumo()" class="btn btn-switch btn-switch-si">
+                                        <label>Si</label><i class="fa fa-check-circle"></i>
+                                    </div>
+                                </div>
+                                <div class="animate-switch" ng-switch-when="false">
+                                    <div ng-click="changePagoConsumo()" class="btn btn-switch btn-switch-no">
+                                        <i class="fa fa-times-circle"></i><label>No</label>
+                                    </div>
+                                </div>
                             </div>
                         </td>
                     </tr>
@@ -51,7 +61,7 @@
                 <tr>
                     <th>#</th>
                     <th>Tipo</th>
-                    <th>Consumos</th>
+                    <th>Articulo/Servicio</th>
                     <th class="numeric">Cantidad</th>
                     <th class="numeric">Factor</th>
                     <th class="numeric">Precio</th>
@@ -61,13 +71,22 @@
                 <tbody>
                 <tr>
                     <td>#</td>
-                    <td class="numeric" class="col-xs-12 col-sm-1 col-md-1 col-lg-1" id="changeTipoTd">
-                        <div ng-click="changeTipo()">
-                            <input id="changeTipo" switch type="checkbox" data-toggle="switch" off-label="Servicio" on-label="Articulo" width-switch=""/>
+                    <td class="col-xs-12 col-sm-1 col-md-1 col-lg-1" id="changeTipoTd">
+                        <div class="animate-switch-container" ng-switch="tipoConsumo">
+                            <div class="animate-switch" ng-switch-when="false">
+                                <div ng-click="changeTipo()" class="btn btn-switch btn-switch-si">
+                                    <label> Articulo </label>
+                                </div>
+                            </div>
+                            <div class="animate-switch" ng-switch-when="true">
+                                <div ng-click="changeTipo()" class="btn btn-switch btn-switch-no">
+                                    <label> Servicio </label>
+                                </div>
+                            </div>
                         </div>
                     </td>
                     <td class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-                        <ui-select ng-model="newArticulo.producto" theme="bootstrap" ng-show="tipoConsumo">
+                        <ui-select ng-model="newArticulo.producto" theme="bootstrap" ng-show="!tipoConsumo">
                             <ui-select-match placeholder="Articulo">{{$select.selected.tipoProducto.nombre}}-{{$select.selected.fabricante.nombre}}-{{$select.selected.descripcion}}({{$select.selected.tamanio}})</ui-select-match>
                             <ui-select-choices repeat="item in productos | filter: $select.search">
                                 <span ng-bind-html="item.nombre | highlight: $select.search"></span>
@@ -75,9 +94,12 @@
                                 <small ng-bind-html="item.descripcion | highlight: $select.search"></small>
                             </ui-select-choices>
                         </ui-select>
-                        <span ng-show="!tipoConsumo">
-                            Servicio
-                        </span>
+                        <ui-select ng-model="newArticulo.producto" theme="bootstrap" ng-show="tipoConsumo">
+                            <ui-select-match placeholder="Servicio">{{$select.selected.descripcion}}</ui-select-match>
+                            <ui-select-choices repeat="item in servicios | filter: $select.search">
+                                <span ng-bind-html="item.descripcion | highlight: $select.search"></span>
+                            </ui-select-choices>
+                        </ui-select>
                     </td>
                     <td class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
                         <div class="input-group" ng-show="newArticulo.producto.fraccionable">
@@ -103,14 +125,17 @@
                                    max="{{newArticulo.producto.stockActual}}"
                                    ng-model="newArticulo.cantidad"
                                    ng-disabled="!(newArticulo.producto)">
-                            <div class="input-group-addon">u.</div>
+                            <div class="input-group-addon">#</div>
                         </div>
                     </td>
                     <td class="col-xs-12 col-sm-1 col-md-1 col-lg-1">
-                        <span ng-show="newArticulo.cantidad > 0">{{newArticulo.producto.precio * newArticulo.cantidad | number : 2}}</span>
+                        <input class="form-control" type="number" name="factor" ng-model="newArticulo.producto.factorSobreCosto">
                     </td>
                     <td class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
-                        <input class="form-control" type="number" name="precio" ng-model="newArticulo.precio">
+                        <div class="input-group hidden-addon">
+                            <input class="form-control" type="number" name="precio" ng-model="newArticulo.precio">
+                            <div class="input-group-addon">{{newArticulo.producto.moneda}}</div>
+                        </div>
                     </td>
                     <td class="col-xs-12 col-sm-1 col-md-1 col-lg-1">
                         <div ng-click="saveNewArticulo()" tooltip="Guardar artículo" ng-class="{'disabled-save-articulo': !isValidNewArticulo}" ng-disabled="!isValidNewArticulo" class="fa-icon save-articulo">
@@ -121,10 +146,17 @@
                 <tr data-ng-repeat="producto in consumo.productos">
 
                     <td>{{$index+1}}</td>
+                    <td></td>
                     <td>{{producto.producto.nombre}} ({{producto.producto.tipoProducto.nombre}} - {{producto.producto.tamanio}})</td>
                     <td class="numeric" data-ng-bind="producto.cantidad"></td>
                     <td class="numeric">{{producto.factor}}</td>
-                    <td class="numeric"><span ng-show="producto.cantidad > 0">{{producto.producto.precio * producto.cantidad | number : 2}}</span></td>
+                    <td class="numeric">
+                        <span ng-show="producto.cantidad > 0">
+                            <span>{{producto.producto.moneda}} </span>
+                            <span ng-show="producto.factor != '0'">{{producto.producto.precio * producto.cantidad * producto.factor | number : 2}}</span>
+                            <span ng-show="producto.factor == '0'">{{producto.producto.precio * producto.cantidad | number : 2}}</span>
+                        </span>
+                    </td>
                     <td>
                         <div ng-click="deleteProducto($index)" class="fa-icon delete-articulo" tooltip="Borrar producto">
                             <i class="fa fa-times-circle"></i>

@@ -1,4 +1,61 @@
-<section data-ng-controller="PagosController" data-ng-init="find()">
+111111111111111111111111111111111111111`6<section class="wrapper site-min-height" data-ng-controller="PagosController" data-ng-init="find()">
+    <h3><i class="fa fa-angle-right"></i> Pagos</h3>
+    <div class="row mt">
+        <div class="col-lg-12">
+            <div class="content-panel">
+                <div class="pull-right" style="margin-right: 10px">
+                    <!--data-ng-show="((authentication.user) && (authentication.user._id == consumo.user._id))"-->
+                    <a class="btn btn-primary" href="/#!/pagos/create" tooltip="Nuevo  Pagos">
+                        <i class="fa fa-plus fa-lg"></i>
+                    </a>
+                </div>
+                <h4><i class="fa fa-angle-right"></i> Lista de Pagos</h4>
+
+                <form class="form-inline" style="padding: 10px;">
+                    <div class="form-group">
+                        <label for="findInput">Buscar Pagos: </label>
+                        <input type="text" class="form-control" id="findInput" placeholder="" ng-model="searchWord">
+                    </div>
+                </form>
+
+                <section id="table-responsive-one">
+                    <table class="table table-bordered table-striped table-condensed cf">
+                        <thead class="cf">
+                        <tr>
+                            <th>#</th>
+                            <th>Fecha</th>
+                            <th>Persona</th>
+                            <th>Cotizacion</th>
+                            <th>Moneda</th>
+                            <th>Monto</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr data-ng-repeat="pago in pagos | filter: searchWord">
+                            <td>{{$index+1}}</td>
+                            <td data-ng-bind="pago.fecha"></td>
+                            <td>{{servicio.persona.nombre}}</td>
+                            <td data-ng-bind="pago.cotizacion"></td>
+                            <td data-ng-bind="pago.moneda"></td>
+                            <td data-ng-bind="pago.monto"></td>
+                            <td>
+                                <a class="btn btn-primary" href="/#!/pagos/{{pago._id}}/edit">
+                                    <i class="glyphicon glyphicon-edit"></i>
+                                </a>
+                                <a class="btn btn-primary" data-ng-click="remove(pago);">
+                                    <i class="glyphicon glyphicon-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </section>
+            </div><!-- /content-panel -->
+        </div><!-- /col-md-12 -->
+    </div>
+</section>
+
+<!--section data-ng-controller="PagosController" data-ng-init="find()">
     <div class="page-header">
         <h1>Pagos</h1>
     </div>
@@ -16,4 +73,4 @@
     <div class="alert alert-warning text-center" data-ng-hide="!pagos.$resolved || pagos.length">
     	No Pagos yet, why don't you <a href="/#!/pagos/create">create one</a>?
     </div>
-</section>
+</section-->

@@ -42,8 +42,22 @@
                            ng-disabled="!(newArticulo.producto)">
                 </td>
                 <td data-title="Moneda" class="col-xs-4 col-sm-1 col-md-1 col-lg-1">
-                    <input type="radio" ng-model="newArticulo.moneda" value="UYU" ng-disabled="!(newArticulo.producto)" > UYU
-                    <input type="radio" ng-model="newArticulo.moneda" value="USD" ng-disabled="!(newArticulo.producto)"> USD
+                    {{newArticulo.moneda}}
+                    <div class="animate-switch-container" ng-switch="newArticulo.moneda">
+                        <div class="animate-switch" ng-switch-when="UYU">
+                            <div ng-click="changeMonedaCompra()" class="btn btn-switch btn-switch-si">
+                                <label>UYU</label>
+                            </div>
+                        </div>
+                        <div class="animate-switch" ng-switch-when="USD">
+                            <div ng-click="changeMonedaCompra()" class="btn btn-switch btn-switch-no">
+                                <label>USD</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--input type="radio" ng-model="newArticulo.moneda" value="UYU" ng-disabled="!(newArticulo.producto)" > UYU
+                    <input type="radio" ng-model="newArticulo.moneda" value="USD" ng-disabled="!(newArticulo.producto)"> USD-->
 
                 </td>
                 <td class="numeric" data-title="Precio" class="col-xs-4 col-sm-1 col-md-1 col-lg-1">

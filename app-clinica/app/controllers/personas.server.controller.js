@@ -100,8 +100,5 @@ exports.personaByID = function(req, res, next, id) {
  * Persona authorization middleware
  */
 exports.hasAuthorization = function(req, res, next) {
-	if (req.persona.user.id !== req.user.id) {
-		return res.status(403).send('User is not authorized');
-	}
 	next();
 };

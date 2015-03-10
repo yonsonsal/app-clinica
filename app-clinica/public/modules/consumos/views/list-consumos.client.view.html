@@ -25,6 +25,7 @@
                             <th ng-click="predicate = 'fecha'; reverse=!reverse" style='cursor: pointer; text-decoration: underline'>Fecha</th>
                             <th ng-click="predicate = 'persona.nombre'; reverse=!reverse" style='cursor: pointer; text-decoration: underline'>Persona</th>
                             <th ng-click="predicate = 'monto'; reverse=!reverse" style='cursor: pointer; text-decoration: underline'>Monto</th>
+                            <th ng-click="predicate = 'pago'; reverse=!reverse"  style='cursor: pointer; text-decoration: underline'>Pago</th>
                             <th>Productos</th>
                         </tr>
                         </thead>
@@ -33,7 +34,11 @@
                             <td data-title="#">{{$index+1}}</td>
                             <td>{{consumo.fecha | date:'dd/MM/yyyy'}}</td>
                             <td>{{consumo.persona.nombre}}</td>
-                            <td>{{consumo.monto}}</td>
+                            <td>{{consumo.monto | number : 2}}</td>
+                            <td>
+                                <span ng-show="consumo.pago"><i class="fa fa-check-square"></i> Si </span>
+                                <span ng-show="!consumo.pago"><i class="fa fa-square"></i> No </span>
+                            </td>
                             <td data-title="Opciones" class="opciones"> <a href="#!/consumos/{{consumo._id}}" tooltip="Ver detalle"><span class="glyphicon glyphicon-zoom-in"></span></a></td>
                         </tr>
                         </tbody>
@@ -43,3 +48,9 @@
         </div><!-- /col-md-12 -->
     </div>
 </section>
+
+        <style>
+            .selected{
+                font-weight: bold;
+            }
+        </style>

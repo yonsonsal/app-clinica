@@ -100,8 +100,5 @@ exports.fabricanteByID = function(req, res, next, id) {
  * Fabricante authorization middleware
  */
 exports.hasAuthorization = function(req, res, next) {
-	if (req.fabricante.user.id !== req.user.id) {
-		return res.status(403).send('User is not authorized');
-	}
 	next();
 };

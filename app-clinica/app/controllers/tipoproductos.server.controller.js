@@ -100,8 +100,5 @@ exports.tipoproductoByID = function(req, res, next, id) {
  * Tipoproducto authorization middleware
  */
 exports.hasAuthorization = function(req, res, next) {
-	if (req.tipoproducto.user.id !== req.user.id) {
-		return res.status(403).send('User is not authorized');
-	}
 	next();
 };

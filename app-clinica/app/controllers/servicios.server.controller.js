@@ -100,8 +100,5 @@ exports.servicioByID = function(req, res, next, id) {
  * Servicio authorization middleware
  */
 exports.hasAuthorization = function(req, res, next) {
-	if (req.servicio.user.id !== req.user.id) {
-		return res.status(403).send('User is not authorized');
-	}
 	next();
 };

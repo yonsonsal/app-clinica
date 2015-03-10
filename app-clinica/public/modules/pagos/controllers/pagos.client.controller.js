@@ -1,23 +1,35 @@
 'use strict';
 
 // Pagos controller
-angular.module('pagos').controller('PagosController', ['$scope', '$stateParams', '$location', 'Authentication', 'Pagos',
-	function($scope, $stateParams, $location, Authentication, Pagos) {
+angular.module('pagos').controller('PagosController', ['$scope', '$stateParams', '$location', '$filter', 'Authentication', 'Pagos', 'Personas', 'Consumos',
+	function($scope, $stateParams, $location, $filter, Authentication, Pagos, Personas, Consumos) {
 		$scope.authentication = Authentication;
 
+        $scope.personas = Personas.query();
+        $scope.consumos = Consumos.query();
+
+        $scope.pago = {moneda:'UYU'};
+        $scope.pago.fecha = $filter("date")(Date.now(), 'yyyy-MM-dd');
+
+        $scope.changeMoneda = function () {
+            if ($scope.pago.moneda == 'UYU') {
+                $scope.pago.moneda = 'USD';
+            }else{
+                $scope.pago.moneda = 'UYU';
+            }
+        };
+
 		// Create new Pago
-		$scope.create = function() {
+		$scope.createPago = function() {
 			// Create new Pago object
-			var pago = new Pagos ({
-				name: this.name
-			});
+			var pago = new Pagos($scope.pago);
 
 			// Redirect after save
 			pago.$save(function(response) {
-				$location.path('pagos/' + response._id);
+				$location.path('pagos');
 
 				// Clear form fields
-				$scope.name = '';
+				$scope.pago = {};
 			}, function(errorResponse) {
 				$scope.error = errorResponse.data.message;
 			});

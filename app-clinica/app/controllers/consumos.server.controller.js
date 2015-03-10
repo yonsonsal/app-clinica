@@ -17,25 +17,24 @@ exports.create = function(req, res) {
 	consumo.user = req.user;
 
     consumo.productos.forEach(function(producto){
-
-        Producto.findById(producto.producto._id)
-           .exec(function(err, productoLoaded) {
-                if (err) {
-                    return next(err)
-                };
-
-                productoLoaded.stockActual = productoLoaded.stockActual - producto.cantidad;
-                productoLoaded.save(function(err){
+        if (producto.producto.tipoProducto) {
+            Producto.findById(producto.producto._id)
+                .exec(function (err, productoLoaded) {
                     if (err) {
-                        return res.status(400).send({
-                            message: errorHandler.getErrorMessage(err)
-                        });
-                    } else {
-                        console.log('todo ok');
-                    }
-                });
+                        return next(err)
+                    };
+                    productoLoaded.stockActual = productoLoaded.stockActual - producto.cantidad;
+                    productoLoaded.save(function (err) {
+                        if (err) {
+                            return res.status(400).send({
+                                message: errorHandler.getErrorMessage(err)
+                            });
+                        }
+                    });
 
-            });
+                });
+        }
+
     });
 	consumo.save(function(err) {
 		if (err) {
@@ -120,14 +119,14 @@ exports.consumoByID = function(req, res, next, id) {
         .exec(function(err, consumo) {
             if (err){
                 return next(err)
-            };
+            }
             if (! consumo) {
                 return next(new Error('Failed to load Consumo ' + id))
-            };
+            }
             var options = {
                 path: 'articulos.producto',
                 model: 'Producto'
-            }
+            };
             Consumo.populate(consumo, options, function(err, consumoAux){
 
                 req.consumo = consumoAux ;
@@ -140,9 +139,9 @@ exports.consumoByID = function(req, res, next, id) {
  * Consumo authorization middleware
  */
 exports.hasAuthorization = function(req, res, next) {
-    console.log(req.user);
-	if (req.consumo.user.id) {
+    //console.log(req.user);
+	/*if (req.consumo.user.id) {
 		return res.status(403).send('User is not authorized');
-	}
+	}*/
 	next();
 };

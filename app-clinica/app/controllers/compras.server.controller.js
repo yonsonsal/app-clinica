@@ -140,7 +140,7 @@ exports.compraByID = function(req, res, next, id) {
             var options = {
                 path: 'articulos.producto',
                 model: 'Producto'
-            }
+            };
             Compra.populate(compra, options, function(err, compraAux){
 
                 req.compra = compraAux ;
@@ -154,8 +154,5 @@ exports.compraByID = function(req, res, next, id) {
  * Compra authorization middleware
  */
 exports.hasAuthorization = function(req, res, next) {
-	if (req.compra.user.id) {
-		return res.status(403).send('User is not authorized');
-	}
 	next();
 };

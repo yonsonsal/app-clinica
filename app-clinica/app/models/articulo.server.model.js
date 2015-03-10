@@ -23,6 +23,9 @@ var ArticuloSchema = new Schema({
         type: Number,
         required: 'El precio del artículo es requerido'
     },
+    factor: {
+        type: Number
+    },
     cantidad:{
         type: Number,
         required: 'La cantidad es requerida',

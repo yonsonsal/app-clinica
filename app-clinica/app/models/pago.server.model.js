@@ -10,16 +10,30 @@ var mongoose = require('mongoose'),
  * Pago Schema
  */
 var PagoSchema = new Schema({
-	name: {
-		type: String,
-		default: '',
-		required: 'Please fill Pago name',
-		trim: true
-	},
-	created: {
-		type: Date,
-		default: Date.now
-	},
+    persona: {
+        type: Schema.ObjectId,
+        ref: 'Persona',
+        required: 'Seleccione una persona'
+    },
+    consumo: {
+        type: Schema.ObjectId,
+        ref: 'Consumo'
+    },
+    monto: {
+        type: String,
+        required: 'El monto es requerido'
+    },
+    cotizacion: {
+        type: String
+    },
+    moneda: {
+        type: String,
+        required: 'La moneda es requerida'
+    },
+    fecha: {
+        type: Date,
+        default: Date.now
+    },
 	user: {
 		type: Schema.ObjectId,
 		ref: 'User'
