@@ -1,4 +1,5 @@
-<section class="wrapper site-min-height" data-ng-controller="ConsumosController" data-ng-init="findOne()">
+<section class="wrapper site-min-height" data-ng-controller="ConsumosController" data-ng-init="findOne()" >
+    <div ng-show ="!viewPagoInterface">
     <h3><i class="fa fa-angle-right"></i> Consumo</h3>
     <div class="row">
         <div class="col-md-12">
@@ -8,6 +9,15 @@
                     <!--data-ng-show="((authentication.user) && (authentication.user._id == tipoproducto.user._id))"-->
                     <a class="btn btn-danger" data-ng-click="remove();">
                         <i class="glyphicon glyphicon-trash"></i>
+                    </a>
+                    <a class="btn btn-success" data-ng-click="print();">
+                        <i class="glyphicon glyphicon-print"></i>
+                    </a>
+                    <a class="btn btn-success" data-ng-click="changePagoConsumo();" ng-show="!consumo.pago">
+                        <i class="glyphicon fa fa-money"></i>
+                    </a>
+                    <a class="btn btn-primary" href="/#!/consumos/create" tooltip="Nuevo consumo">
+                        <i class="fa fa-plus fa-lg"></i>
                     </a>
                 </div>
                 <table class="table table-hover">
@@ -22,12 +32,18 @@
                         <td>Pago</td>
                         <td>
                             <div ng-show="consumo.pago">
-                                <i class="fa fa-check-square"></i> Si
+                                <i class="fa fa-check-square"></i> Si - <strong>{{consumo.fechaPago | date:'dd/MM/yyyy'}}</strong>
                             </div>
                             <div ng-show="!consumo.pago">
                                 <i class="fa fa-square"></i> No
                             </div>
+
                         </td>
+
+                    </tr>
+                    <tr ng-show="consumo.pago">
+                        <td>Cotización Dólar </td>
+                        <td>UYU {{consumo.cotizacion}}</td>
                     </tr>
                     </tbody>
                 </table>
@@ -43,24 +59,107 @@
                     <th>Articulo/Servicio</th>
                     <th>Cantidad</th>
                     <th>Factor</th>
-                    <th>Precio total</th>
+                    <th>Precio</th>
                     </thead>
                     <tbody>
                     <tr ng-repeat="articulo in consumo.productos">
-                        <td>{{articulo.producto.nombre}} ({{articulo.producto.tipoProducto.nombre}} - {{articulo.producto.tamanio}})</td>
+                        <td ng-if="articulo.producto.tipoProducto">{{articulo.producto.nombre}} ({{articulo.producto.tipoProducto.nombre}} - {{articulo.producto.tamanio}})</td>
+                        <td ng-if="!articulo.producto.tipoProducto">{{articulo.producto.descripcion}}</td>
                         <td class="numeric" data-ng-bind="articulo.cantidad"></td>
                         <td class="numeric">{{articulo.factor}}</td>
                         <td class="numeric">
                             <span ng-show="articulo.cantidad > 0">
-                                <span ng-show="articulo.factor != '0'">{{articulo.producto.precio * articulo.cantidad * articulo.factor | number : 2}}</span>
-                                <span ng-show="articulo.factor == '0'">{{articulo.producto.precio * articulo.cantidad | number : 2}}</span>
+                                <span ng-show="articulo.factor != '0'">{{articulo.producto.moneda}} {{articulo.producto.precio * articulo.cantidad * articulo.factor | number : 2}}</span>
+                                <span ng-show="articulo.factor == '0'">{{articulo.producto.moneda}} {{articulo.producto.precio * articulo.cantidad | number : 2}}</span>
                             </span>
                         </td>
                     </tr>
-                    <tr><td></td><td></td><td><strong>Total</strong></td><td>{{consumo.monto | number : 2}}</td></tr>
+                    <tr><td></td><td></td><td><strong>Total USD </strong></td><td>{{consumo.montoDollar | number : 2}}</td></tr>
+                    <tr class="no-border"><td></td><td></td><td><strong>Total UYU </strong></td><td>{{consumo.montoPesos | number : 2}}</td></tr>
+                    <tr class="no-border" ng-show="consumo.pago"><td></td><td></td><td><strong>Total {{consumo.monedaPago}} </strong></td><td>{{consumo.monto | number : 2}}</td></tr>
                     </tbody>
                 </table>
             </div><! --/content-panel -->
         </div><!-- /col-md-12 -->
     </div>
+    </div>
+
+    <div class="wrapper site-min-height" ng-show="viewPagoInterface">
+        <h3><i class="fa fa-angle-right"></i>Pago: {{consumo.persona.nombre}}</h3>
+        <div class="row">
+            <div class="col-md-12">
+                <form class="form-horizontal"  novalidate>
+                    <fieldset>
+
+                        <div class="row">
+                            <div class="form-group col-xs-12 col-sm-8 col-md-6 col-lg-4">
+                                <label class="control-label" for="fecha">Fecha</label>
+                                <input class="form-control" id="fecha" type="date" ng-model="consumo.fechaPago">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-xs-12 col-sm-8 col-md-6 col-lg-4">
+                                <label class="control-label">Moneda</label>
+                                <div class="animate-switch-container" ng-switch="consumo.monedaPago">
+                                    <div class="animate-switch" ng-switch-when="UYU">
+                                        <div ng-click="changeMoneda()" class="btn btn-switch btn-switch-si">
+                                            <label>UYU</label>
+                                        </div>
+                                    </div>
+                                    <div class="animate-switch" ng-switch-when="USD">
+                                        <div ng-click="changeMoneda()" class="btn btn-switch btn-switch-no">
+                                            <label>USD</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group col-xs-12 col-sm-8 col-md-6 col-lg-4">
+                                <label class="control-label" for="cotizacion">Cotizacion Dolar</label>
+                                <div class="controls">
+                                    <div class="input-group">
+                                        <div class="input-group-addon">UYU</div>
+                                        <input class="form-control"
+                                               type="number"
+                                               name="cotizacion"
+                                               min="0"
+                                               ng-model="consumo.cotizacion">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-xs-12 col-sm-8 col-md-6 col-lg-4">
+                                <label class="control-label" for="consumoId">Total <strong>USD</strong> {{consumo.montoDollar}}</label>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-xs-12 col-sm-8 col-md-6 col-lg-4">
+                                <label class="control-label" for="consumoId">Total <strong>UYU</strong> {{consumo.montoPesos}}</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-xs-12 col-sm-8 col-md-6 col-lg-4">
+                                </stromg><label class="control-label" for="consumoId" ng-show="consumo.monto"><strong>Monto Total en {{consumo.monedaPago}} {{consumo.monto}}</strong></label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" class="btn btn-success" ng-click="update()" value="Guardar" ng-disabled="!consumo.monto || !consumo.fechaPago">
+                            <input type="button" class="btn btn-default" value="Cancelar" ng-click="cancelPago()">
+                        </div>
+
+                        <div data-ng-show="error" class="text-danger">
+                            <strong data-ng-bind="error"></strong>
+                        </div>
+
+                    </fieldset>
+                </form>
+            </div>
+        </div>
+    </div>
 </section>
+

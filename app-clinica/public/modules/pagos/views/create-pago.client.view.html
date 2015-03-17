@@ -15,7 +15,7 @@
                     <div class="row">
                         <div class="form-group col-xs-12 col-sm-8 col-md-6 col-lg-4">
                             <label class="control-label" for="personaId">Persona</label>
-                            <ui-select ng-model="persona" theme="bootstrap" id="personaId">
+                            <ui-select ng-model="pago.persona" theme="bootstrap" id="personaId">
                                 <ui-select-match placeholder="Persona">{{$select.selected.nombre}}</ui-select-match>
                                 <ui-select-choices repeat="item in personas | filter: $select.search">
                                     <span ng-bind-html="item.nombre | highlight: $select.search"></span>
@@ -27,7 +27,7 @@
                     <div class="row">
                         <div class="form-group col-xs-12 col-sm-8 col-md-6 col-lg-4">
                             <label class="control-label" for="consumoId">Consumo</label>
-                            <ui-select ng-model="consumo" theme="bootstrap" id="consumoId" name="consumoId">
+                            <ui-select ng-model="pago.consumo" theme="bootstrap" id="consumoId" name="consumoId">
                                 <ui-select-match placeholder="Consumo">{{$select.selected.persona.nombre}} - {{$select.selected.monto}}</ui-select-match>
                                 <ui-select-choices repeat="item in consumos | filter: $select.search">
                                     <span ng-bind-html="item.persona.nombre | highlight: $select.search"></span>

@@ -1,8 +1,8 @@
 'use strict';
 
 // Compras controller
-angular.module('compras').controller('ComprasController', ['$scope', '$stateParams', '$location', 'Authentication', 'Compras', 'Articulos', 'Productos', 'Proveedores','$q', 'Producto', 'Proveedor',
-    function($scope, $stateParams, $location, Authentication, Compras, Articulos, Productos, Proveedores, $q, Producto, Proveedor) {
+angular.module('compras').controller('ComprasController', ['$scope', '$stateParams', '$location', 'Authentication', 'Compras', 'Articulos', 'Productos', 'Proveedores','$q', 'Producto', 'Proveedor', '$filter',
+    function($scope, $stateParams, $location, Authentication, Compras, Articulos, Productos, Proveedores, $q, Producto, Proveedor, $filter) {
         $scope.authentication = Authentication;
 
         //proveedores
@@ -12,6 +12,7 @@ angular.module('compras').controller('ComprasController', ['$scope', '$statePara
         });
         // Nueva Compra
         $scope.compra = {};
+        $scope.compra.fecha = $filter("date")(Date.now(), 'yyyy-MM-dd');
         $scope.compra.articulos = [];
         $scope.compra.proveedor = {};
         $scope.proveedor = {};

@@ -7,7 +7,6 @@
                     <tr>
                         <th>Fecha</th>
                         <th>Persona</th>
-                        <th>Pago</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -31,21 +30,7 @@
                                 </span>
                             </div>
                         </td>
-                        <td class="numeric" data-title="Pago" class="col-xs-12 col-sm-1 col-md-1 col-lg-1">
 
-                            <div class="animate-switch-container" ng-switch="consumo.pago">
-                                <div class="animate-switch" ng-switch-when="true">
-                                    <div ng-click="changePagoConsumo()" class="btn btn-switch btn-switch-si">
-                                        <label>Si</label><i class="fa fa-check-circle"></i>
-                                    </div>
-                                </div>
-                                <div class="animate-switch" ng-switch-when="false">
-                                    <div ng-click="changePagoConsumo()" class="btn btn-switch btn-switch-no">
-                                        <i class="fa fa-times-circle"></i><label>No</label>
-                                    </div>
-                                </div>
-                            </div>
-                        </td>
                     </tr>
                     </tbody>
                 </table>
@@ -147,14 +132,15 @@
 
                     <td>{{$index+1}}</td>
                     <td></td>
-                    <td>{{producto.producto.nombre}} ({{producto.producto.tipoProducto.nombre}} - {{producto.producto.tamanio}})</td>
+                    <td ng-if="producto.producto.tipoProducto">{{producto.producto.nombre}} ({{producto.producto.tipoProducto.nombre}} - {{producto.producto.tamanio}})</td>
+                    <td ng-if="!producto.producto.tipoProducto">{{producto.producto.descripcion}}</td>
                     <td class="numeric" data-ng-bind="producto.cantidad"></td>
                     <td class="numeric">{{producto.factor}}</td>
                     <td class="numeric">
                         <span ng-show="producto.cantidad > 0">
                             <span>{{producto.producto.moneda}} </span>
                             <span ng-show="producto.factor != '0'">{{producto.producto.precio * producto.cantidad * producto.factor | number : 2}}</span>
-                            <span ng-show="producto.factor == '0'">{{producto.producto.precio * producto.cantidad | number : 2}}</span>
+                            <span ng-show="!producto.factor || producto.factor == '0'">{{producto.producto.precio * producto.cantidad | number : 2}}</span>
                         </span>
                     </td>
                     <td>

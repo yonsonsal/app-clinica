@@ -33,11 +33,7 @@ var PagoSchema = new Schema({
     fecha: {
         type: Date,
         default: Date.now
-    },
-	user: {
-		type: Schema.ObjectId,
-		ref: 'User'
-	}
+    }
 });
 
 mongoose.model('Pago', PagoSchema);

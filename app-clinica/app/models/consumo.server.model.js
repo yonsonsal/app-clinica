@@ -28,6 +28,23 @@ var ConsumoSchema = new Schema({
     monto:{
         type: String
     },
+    montoDollar:{
+        type: Number
+    },
+    montoPesos:{
+        type: Number
+    },
+    monedaPago:{
+        type: String,
+        default: 'UYU'
+    },
+    fechaPago: {
+        type: Date,
+        default: Date.now
+    },
+    cotizacion: {
+        type: Number
+    },
 	user: {
 		type: Schema.ObjectId,
 		ref: 'User'

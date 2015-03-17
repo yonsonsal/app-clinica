@@ -27,8 +27,6 @@ angular.module('pagos').controller('PagosController', ['$scope', '$stateParams',
 			// Create new Pago object
 			var pago = new Pagos($scope.pago);
 			console.log($scope.persona);
-			pago.persona = $scope.persona;
-			pago.consumo = $scope.consumo;
 
 			// Redirect after save
 			pago.$save(function(response) {

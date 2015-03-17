@@ -12,6 +12,7 @@ var mongoose = require('mongoose'),
  * Create a Pago
  */
 exports.create = function(req, res) {
+    console.log(req.body);
 	var pago = new Pago(req.body);
 	pago.user = req.user;
 

@@ -94,9 +94,9 @@ exports.delete = function(req, res) {
  * List of Consumos
  */
 exports.list = function(req, res) { 
-	Consumo.find().sort('-fecha')
-                  .populate('user', 'displayName')
-                  .populate('persona')
+	Consumo.find().populate('user', 'displayName')
+                  .populate('persona').
+                    sort({fecha: 'ascending'})
                   .exec(function(err, consumos) {
                     if (err) {
                         return res.status(400).send({
