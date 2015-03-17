@@ -12,11 +12,11 @@
                     <tbody>
                     <tr>
                         <td data-title="Fecha" class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-                            <input class="form-control" id="fecha" type="date" ng-model="consumo.fecha" value={{consumo.fecha}}>
+                            <input class="form-control" id="fecha" type="date" ng-model="consumo.fecha" value={{consumo.fecha}} tabindex="1">
                         </td>
                         <td data-title="Persona" class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
                             <div class="input-group">
-                                <ui-select ng-model="consumo.persona " theme="bootstrap">
+                                <ui-select ng-model="consumo.persona " theme="bootstrap" tabindex="1">
                                     <ui-select-match placeholder="Persona">{{$select.selected.nombre}}</ui-select-match>
                                     <ui-select-choices repeat="item in personas | filter: $select.search">
                                         <span ng-bind-html="item.nombre | highlight: $select.search"></span>
@@ -24,7 +24,7 @@
                                     </ui-select-choices>
                                 </ui-select>
                                 <span class="input-group-btn">
-                                    <div ng-click="newPersona()" class="btn btn-default" tooltip="Nueva Persona">
+                                    <div ng-click="newPersona()" ng-space="newPersona()" class="btn btn-default" tooltip="Nueva Persona" tabindex="1">
                                         <span class="glyphicon glyphicon-plus"></span>
                                     </div>
                                 </span>
@@ -55,23 +55,23 @@
                 </thead>
                 <tbody>
                 <tr>
-                    <td>#</td>
+                    <td tabindex="2" id="switch-articulo">#</td>
                     <td class="col-xs-12 col-sm-1 col-md-1 col-lg-1" id="changeTipoTd">
                         <div class="animate-switch-container" ng-switch="tipoConsumo">
                             <div class="animate-switch" ng-switch-when="false">
-                                <div ng-click="changeTipo()" class="btn btn-switch btn-switch-si">
+                                <div ng-click="changeTipo()" class="btn btn-switch btn-switch-si" tabindex="2" ng-space="changeTipo()">
                                     <label> Articulo </label>
                                 </div>
                             </div>
                             <div class="animate-switch" ng-switch-when="true">
-                                <div ng-click="changeTipo()" class="btn btn-switch btn-switch-no">
+                                <div ng-click="changeTipo()" class="btn btn-switch btn-switch-no" tabindex="2" ng-space="changeTipo()">
                                     <label> Servicio </label>
                                 </div>
                             </div>
                         </div>
                     </td>
                     <td class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-                        <ui-select ng-model="newArticulo.producto" theme="bootstrap" ng-show="!tipoConsumo">
+                        <ui-select ng-model="newArticulo.producto" theme="bootstrap" ng-show="!tipoConsumo" ng-show="tipoConsumo" tabindex="2">
                             <ui-select-match placeholder="Articulo">{{$select.selected.tipoProducto.nombre}}-{{$select.selected.fabricante.nombre}}-{{$select.selected.descripcion}}({{$select.selected.tamanio}})</ui-select-match>
                             <ui-select-choices repeat="item in productos | filter: $select.search">
                                 <span ng-bind-html="item.nombre | highlight: $select.search"></span>
@@ -79,7 +79,7 @@
                                 <small ng-bind-html="item.descripcion | highlight: $select.search"></small>
                             </ui-select-choices>
                         </ui-select>
-                        <ui-select ng-model="newArticulo.producto" theme="bootstrap" ng-show="tipoConsumo">
+                        <ui-select ng-model="newArticulo.producto" theme="bootstrap" ng-show="tipoConsumo" tabindex="2">
                             <ui-select-match placeholder="Servicio">{{$select.selected.descripcion}}</ui-select-match>
                             <ui-select-choices repeat="item in servicios | filter: $select.search">
                                 <span ng-bind-html="item.descripcion | highlight: $select.search"></span>
@@ -91,40 +91,42 @@
                             <input class="form-control"
                                    type="number"
                                    name="cantidad"
-                                   step="1"
+                                   step="2"
                                    tooltip="El Producto es fraccionable, la cantidad esta expresada como porcentaje. El stock actual es {{ newArticulo.producto.stockActual}}; expresado en porcetaje es {{newArticulo.producto.stockActual * 100}}."
                                    min="0"
                                    max="{{newArticulo.producto.stockActual * 100}}"
                                    ng-model="newArticulo.cantidad"
                                    ng-disabled="!(newArticulo.producto)"
-                                   percent>
+                                   percent
+                                   tabindex="2">
                             <div class="input-group-addon">%</div>
                         </div>
                         <div class="input-group hidden-addon" ng-show="!newArticulo.producto.fraccionable">
                             <input class="form-control"
                                    type="number"
                                    name="cantidad"
-                                   step="1"
+                                   step="2"
                                    tooltip="El stock actual es {{ newArticulo.producto.stockActual}}"
                                    min="0"
                                    max="{{newArticulo.producto.stockActual}}"
                                    ng-model="newArticulo.cantidad"
-                                   ng-disabled="!(newArticulo.producto)">
+                                   ng-disabled="!(newArticulo.producto)"
+                                   tabindex="2">
                             <div class="input-group-addon">#</div>
                         </div>
                     </td>
                     <td class="col-xs-12 col-sm-1 col-md-1 col-lg-1">
-                        <input class="form-control" type="number" name="factor" ng-model="newArticulo.producto.factorSobreCosto">
+                        <input class="form-control" ng-disabled="!newArticulo.producto.tipoProducto" type="number" name="factor" ng-model="newArticulo.producto.factorSobreCosto" tabindex="2">
                     </td>
                     <td class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
                         <div class="input-group hidden-addon">
-                            <input class="form-control" type="number" name="precio" ng-model="newArticulo.precio">
+                            <input class="form-control" type="number" name="precio" ng-model="newArticulo.precio" tabindex="2">
                             <div class="input-group-addon">{{newArticulo.producto.moneda}}</div>
                         </div>
                     </td>
                     <td class="col-xs-12 col-sm-1 col-md-1 col-lg-1">
-                        <div ng-click="saveNewArticulo()" tooltip="Guardar artículo" ng-class="{'disabled-save-articulo': !isValidNewArticulo}" ng-disabled="!isValidNewArticulo" class="fa-icon save-articulo">
-                            <i class="fa fa-check-circle"></i>
+                        <div ng-click="saveNewArticulo()" ng-enter="saveNewArticulo();" tooltip="Guardar artículo" ng-class="{'disabled-save-articulo': !isValidNewArticulo}" ng-disabled="!isValidNewArticulo" class="fa-icon save-articulo">
+                            <i class="fa fa-check-circle" tabindex="2"></i>
                         </div>
                     </td>
                 </tr>

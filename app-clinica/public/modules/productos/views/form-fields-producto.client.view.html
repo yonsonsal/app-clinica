@@ -1,50 +1,5 @@
 <div ng-hide="newProductTypeStateBoolean || newFabricanteStateBoolean">
 
-    <div class="row">
-        <div class="form-group col-xs-12 col-sm-8 col-md-6 col-lg-4">
-            <label class="control-label" for="nombre">Descripción</label>
-            <div class="controls">
-                <input type="text" data-ng-model="producto.nombre" id="nombre" class="form-control" required>
-            </div>
-        </div>
-    </div>
-
-
-    <div class="row">
-        <div class="form-group col-xs-12 col-sm-8 col-md-6 col-lg-4">
-            <label class="control-label">Moneda</label>
-            <div class="animate-switch-container" ng-switch="producto.moneda">
-                <div class="animate-switch" ng-switch-when="UYU">
-                    <div ng-click="changeMoneda()" class="btn btn-switch btn-switch-si">
-                        <label>UYU</label>
-                    </div>
-                </div>
-                <div class="animate-switch" ng-switch-when="USD">
-                    <div ng-click="changeMoneda()" class="btn btn-switch btn-switch-no">
-                        <label>USD</label>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="form-group col-xs-12 col-sm-8 col-md-6 col-lg-4">
-            <label class="control-label" for="nombre">Precio</label>
-            <div class="controls">
-
-                <div class="input-group">
-                    <div class="input-group-addon">{{producto.moneda}}</div>
-                    <input class="form-control"
-                           type="number"
-                           name="precio"
-                           min="0"
-                           ng-model="producto.precio">
-                </div>
-            </div>
-        </div>
-    </div>
-
 
     <div class="row">
         <div class="form-group col-xs-12 col-sm-8 col-md-6 col-lg-4">
@@ -94,6 +49,67 @@
             </div>
         </div>
     </div>
+
+    <div class="row">
+        <div class="form-group col-xs-12 col-sm-8 col-md-6 col-lg-4">
+            <label class="control-label" for="nombre">Descripción</label>
+            <div class="controls">
+                <input type="text" data-ng-model="producto.nombre" id="nombre" class="form-control" required>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="form-group col-xs-12 col-sm-8 col-md-6 col-lg-4">
+            <label class="control-label">Moneda</label>
+            <div class="animate-switch-container" ng-switch="producto.moneda">
+                <div class="animate-switch" ng-switch-when="UYU">
+                    <div ng-click="changeMoneda()" class="btn btn-switch btn-switch-si">
+                        <label>UYU</label>
+                    </div>
+                </div>
+                <div class="animate-switch" ng-switch-when="USD">
+                    <div ng-click="changeMoneda()" class="btn btn-switch btn-switch-no">
+                        <label>USD</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="form-group col-xs-12 col-sm-8 col-md-6 col-lg-4">
+            <label class="control-label" for="nombre">Precio</label>
+            <div class="controls">
+
+                <div class="input-group">
+                    <div class="input-group-addon">{{producto.moneda}}</div>
+                    <input class="form-control"
+                           type="number"
+                           name="precio"
+                           min="0"
+                           ng-model="producto.precio">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-xs-12 col-sm-8 col-md-6 col-lg-4">
+            <label class="control-label" for="nombre">Factor Sobre Costo</label>
+            <div class="controls">
+
+                <div class="input-group">
+                      <input class="form-control"
+                           type="number"
+                           name="factorSobreCosto"
+                           min="1"
+                           ng-model="producto.factorSobreCosto">
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <div class="row">
         <div class="form-group col-xs-12 col-sm-8 col-md-6 col-lg-4">

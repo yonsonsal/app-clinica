@@ -45,7 +45,7 @@ var ProductoSchema = new Schema({
     },
     factorSobreCosto:{
       type:Number,
-      default:0
+      default:1
     },
     iva:{
       type: Number,

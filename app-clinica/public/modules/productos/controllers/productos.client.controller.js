@@ -93,7 +93,7 @@ angular.module('productos').controller('ProductosController', ['$scope', '$state
             }
         };
 		// Create new Producto
-        $scope.producto = {servicio:false, moneda:'UYU'};
+        $scope.producto = {servicio:false, moneda:'UYU', factorSobreCosto:1};
 
         $scope.changeMoneda = function () {
             if ($scope.producto.moneda == 'UYU') {

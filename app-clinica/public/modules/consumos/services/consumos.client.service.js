@@ -12,13 +12,19 @@ angular.module('consumos').factory('Consumos', ['$resource',
 	}
 ]).service('Consumo', [function(){
     var newConsumo = null;
-
+    var lastCotizacion = 0;
     return{
         setNewConsumo: function(consumo){
             newConsumo = consumo;
         },
         getNewConsumo: function(){
             return newConsumo;
+        },
+        setLastCotizacion: function(lastCotizacionParam) {
+            lastCotizacion = lastCotizacionParam;
+        },
+        getLastCotizacion: function() {
+            return lastCotizacion;
         }
     }
 }]);

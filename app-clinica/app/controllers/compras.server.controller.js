@@ -60,20 +60,23 @@ exports.delete = function(req, res) {
     var compra = req.compra;
 
     req.compra.articulos.forEach(function(articulo){
-
+        console.log(articulo);
         Producto.findById(articulo.producto).exec(
             function(err, producto) {
                 console.log(producto);
-                producto.stockActual = producto.stockActual - articulo.cantidad;
-                producto.save(function(err){
-                    if (err) {
-                        return res.status(400).send({
-                            message: errorHandler.getErrorMessage(err)
-                        });
-                    }
-                });
-            }
-        );
+                if (!err && producto) {
+                    producto.stockActual = producto.stockActual - articulo.cantidad;
+                    producto.save(function (err) {
+                        if (err) {
+                            return res.status(400).send({
+                                message: errorHandler.getErrorMessage(err)
+                            });
+                        } else {
+
+                        }
+                    });
+                }
+            });
     });
     var id = req.compra._id;
     Compra.findById(id)

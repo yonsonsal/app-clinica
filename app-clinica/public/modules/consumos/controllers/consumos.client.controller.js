@@ -19,6 +19,7 @@ angular.module('consumos').controller('ConsumosController', ['$scope', '$statePa
         $scope.changePagoConsumo = function () {
             $scope.consumo.fechaPago = $filter("date")(Date.now(), 'yyyy-MM-dd');
             $scope.viewPagoInterface = true;
+            $scope.consumo.cotizacion = Consumo.getLastCotizacion();
         };
         $scope.cancelPago = function() {
             $scope.viewPagoInterface = false;
@@ -149,6 +150,8 @@ angular.module('consumos').controller('ConsumosController', ['$scope', '$statePa
 
         $scope.saveNewArticulo = function() {
             if ($scope.isValidNewArticulo) {
+
+                angular.element( document.querySelector('#switch-articulo'))[0].focus();
                 $scope.consumo.productos.push($scope.newArticulo);
                 $scope.newArticulo = {};
             }
@@ -226,7 +229,22 @@ angular.module('consumos').controller('ConsumosController', ['$scope', '$statePa
 
 		// Find a list of Consumos
 		$scope.find = function() {
-			$scope.consumos = Consumos.query();
+			$scope.consumos = Consumos.query(function(consumos){
+                var lastCotizacion = 0;
+                var lastFecha = false;
+                angular.forEach(consumos, function(consumo){
+                    if (consumo.pago) {
+                        if (!lastFecha) {
+                            lastFecha = consumo.fechaPago;
+                            lastCotizacion = consumo.cotizacion;
+                        } else if (consumo.fechaPago > lastFecha){
+                            lastFecha = consumo.fechaPago;
+                            lastCotizacion = consumo.cotizacion;
+                        }
+                    }
+                });
+                Consumo.setLastCotizacion(lastCotizacion);
+            });
 		};
 
 		// Find existing Consumo
