@@ -1,8 +1,8 @@
 'use strict';
 
 // Consumos controller
-angular.module('consumos').controller('ConsumosController', ['$scope', '$stateParams', '$location', 'Authentication', 'Consumos', 'Servicios', 'Personas', 'Productos', 'Persona', 'Consumo','$filter',
-	function($scope, $stateParams, $location, Authentication, Consumos, Servicios, Personas, Productos, Persona, Consumo, $filter) {
+angular.module('consumos').controller('ConsumosController', ['$scope', '$stateParams', '$location', 'Authentication', 'Consumos', 'Servicios', 'Personas', 'Productos', 'Persona', 'Consumo','$filter', '$window',
+	function($scope, $stateParams, $location, Authentication, Consumos, Servicios, Personas, Productos, Persona, Consumo, $filter, $window) {
 		$scope.authentication = Authentication;
 
         $scope.consumo = {};
@@ -256,5 +256,9 @@ angular.module('consumos').controller('ConsumosController', ['$scope', '$statePa
 
         $scope.predicate = 'fecha';
         $scope.searchWord = '';
+
+        $scope.print = function (){
+            $window.print();
+        }
 	}
 ]);

@@ -4,6 +4,10 @@ angular.module('users').controller('SettingsController', ['$scope', '$http', '$l
 	function($scope, $http, $location, Users, Authentication) {
 		$scope.user = Authentication.user;
 
+		$scope.find = function() {
+			$scope.users = Users.query();
+		};
+
 		// If user is not signed in then redirect back home
 		if (!$scope.user) $location.path('/');
 
@@ -61,6 +65,7 @@ angular.module('users').controller('SettingsController', ['$scope', '$http', '$l
 
 			$http.post('/users/password', $scope.passwordDetails).success(function(response) {
 				// If successful show success message and clear form
+				console.log('entre aca');
 				$scope.success = true;
 				$scope.passwordDetails = null;
 			}).error(function(response) {

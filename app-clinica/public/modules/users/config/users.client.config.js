@@ -4,7 +4,7 @@
 angular.module('users').run(['Menus',
     function(Menus) {
         // Set top bar menu items
-        Menus.addMenuItem('topbar', 'Admin', 'accounts', 'item');
+        Menus.addMenuItem('topbar', 'Usuarios', 'signup', 'item');
     }
 ]);
     /*.config(['$httpProvider',

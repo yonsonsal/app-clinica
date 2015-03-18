@@ -1,10 +1,10 @@
-<section class="wrapper site-min-height" data-ng-controller="ConsumosController" data-ng-init="findOne()" >
+<section class="wrapper site-min-height example-print" data-ng-controller="ConsumosController" data-ng-init="findOne()" >
     <div ng-show ="!viewPagoInterface && !viewDeleteInterface">
         <h3><i class="fa fa-angle-right"></i> Consumo</h3>
         <div class="row">
             <div class="col-md-12">
                 <div class="content-panel">
-                    <div class="pull-right" style="margin-right: 10px">
+                    <div class="pull-right example-screen" style="margin-right: 10px">
 
                         <!--data-ng-show="((authentication.user) && (authentication.user._id == tipoproducto.user._id))"-->
                         <a class="btn btn-danger" data-ng-click="viewDeleteInterface = true">
@@ -170,3 +170,14 @@
         </div>
     </div>
 </section>
+
+<style>
+    @media print {
+        .example-screen {
+           display: none;
+        }
+        .example-print {
+           display: block;
+        }
+    }
+</style>
