@@ -3,18 +3,20 @@
     <div class="row mt">
         <div class="col-lg-12">
             <div class="row mt">
-                <div ng-repeat="alert in productos | orderBy: 'position'" class="col-md-3 col-sm-3 mb" ng-click="goToProductEdit(alert.id)">
-                    <div class="white-panel pn {{alert.status}}">
-                        <div class="white-header {{alert.status}}">
-                            <h4>{{alert.nombre}}</h4>
-                        </div>
-                        <div class="row goleft card-body">
-                            <div>Tipo de Producto: <span>{{alert.tipoProducto.nombre}}</span></div>
-                            <div>Fabricante: <span>{{alert.fabricante.nombre}}</span></div>
-                            <div>Stock Minimo: <span>{{alert.stockMinimo}}</span></div>
-                            <div>Stock Actual: <span>{{alert.stockActual}}</span></div>
-                        </div>
-                    </div><!-- /grey-panel ---->
+                <div ng-repeat="alert in productos | orderBy: 'position'" class="col-md-3 col-sm-3 mb">
+                    <a href="/#!/productos/{{alert._id}}/edit"> 
+                        <div class="white-panel pn {{alert.status}}">
+                            <div class="white-header {{alert.status}}">
+                                <h4>{{alert.nombre}}</h4>
+                            </div>
+                            <div class="row goleft card-body">
+                                <div>Tipo de Producto: <span>{{alert.tipoProducto.nombre}}</span></div>
+                                <div>Fabricante: <span>{{alert.fabricante.nombre}}</span></div>
+                                <div>Stock Minimo: <span>{{alert.stockMinimo}}</span></div>
+                                <div>Stock Actual: <span>{{alert.stockActual}}</span></div>
+                            </div>
+                        </div><!-- /grey-panel -->
+                    </a>
                 </div><!-- /col-md-4-->
             </div>
         </div>

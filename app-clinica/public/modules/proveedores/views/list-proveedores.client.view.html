@@ -25,12 +25,22 @@
                             <td data-title="RUT" data-ng-bind="proveedore.rut"></td>
                             <td data-title="Direcci&oacute;n" data-ng-bind="proveedore.direccion"></td>
                             <td data-title="Tel&eacute;fono" data-ng-bind="proveedore.telefono"></td>
-                            <td data-title="Opciones"> <a href="#!/proveedores/{{proveedore._id}}"><span class="glyphicon glyphicon-floppy-open"></span></a></td>
+                            <td data-title="Opciones"> 
+                                <a class="btn btn-success" href="/#!/proveedores/{{proveedore._id}}">
+                                    <i class="glyphicon glyphicon-zoom-in"></i>
+                                </a>
+                                <a class="btn btn-warning" href="/#!/proveedores/{{proveedore._id}}/edit">
+                                    <i class="glyphicon glyphicon-edit"></i>
+                                </a>
+                                <a class="btn btn-danger" data-ng-click="remove(proveedore);">
+                                    <i class="glyphicon glyphicon-trash"></i>
+                                </a>
+                            </td>
                         </tr>
                         </tbody>
                     </table>
                 </section>
-            </div><! --/content-panel -->
+            </div><!--/content-panel -->
         </div><!-- /col-md-12 -->
     </div>
 </section>

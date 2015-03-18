@@ -22,6 +22,15 @@ angular.module('servicios').controller('ServiciosController', ['$scope', '$state
 			});
 		};
 
+		 $scope.changeMoneda = function () {
+            if ($scope.servicio.moneda == 'UYU') {
+                $scope.servicio.moneda = 'USD';
+            }else{
+                $scope.servicio.moneda = 'UYU';
+            }
+        };
+
+
         $scope.$watch('servicio',function(value){
 
             $scope.enableSaveServicio = false;

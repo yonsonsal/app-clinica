@@ -27,7 +27,7 @@
                             <td data-title="Fecha" class="col-xs-12 col-sm-1 col-md-1 col-lg-1">
                                 {{compra.fecha | date:'dd/MM/yyyy'}}
                             </td>
-                            <td data-title="Proveedor" class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                            <td data-title="Proveedor" class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
                                 {{compra.proveedor.nombre}}
                             </td>
                             <td data-title="Factura" class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
@@ -44,7 +44,14 @@
                             <td data-title="Monto" class="col-xs-12 col-sm-1 col-md-1 col-lg-1">
                                 {{compra.monto}}
                             </td>
-                            <td data-title="Opciones" class="opciones"><a href="#!/compras/{{compra._id}}" tooltip="Ver detalle"><span class="glyphicon glyphicon-zoom-in"></span></a></td>
+                            <td data-title="Opciones" class="col-xs-12 col-sm-1 col-md-1 col-lg-1">
+                                <a class="btn btn-primary" href="/#!/compras/{{compra._id}}">
+                                    <i class="glyphicon glyphicon-zoom-in"></i>
+                                </a>
+                                <a class="btn btn-primary" data-ng-click="remove(compra);">
+                                    <i class="glyphicon glyphicon-trash"></i>
+                                </a></
+                            </td>
                         </tr>
                         </tbody>
                     </table>

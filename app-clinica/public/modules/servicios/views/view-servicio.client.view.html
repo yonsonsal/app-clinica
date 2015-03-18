@@ -1,12 +1,12 @@
-<section data-ng-controller="ServiciosController" data-ng-init="findOne()">
+<!--section data-ng-controller="ServiciosController" data-ng-init="findOne()">
 	<div class="page-header">
 		<h1 data-ng-bind="servicio.name"></h1>
 	</div>
-	<div class="pull-right" data-ng-show="((authentication.user) && (authentication.user._id == servicio.user._id))">
-		<a class="btn btn-primary" href="/#!/servicios/{{servicio._id}}/edit">
+	<div class="pull-right">
+		<a class="btn btn-warning" href="/#!/servicios/{{servicio._id}}/edit">
 			<i class="glyphicon glyphicon-edit"></i>
 		</a>
-		<a class="btn btn-primary" data-ng-click="remove();">
+		<a class="btn btn-danger" data-ng-click="remove();">
 			<i class="glyphicon glyphicon-trash"></i>
 		</a>
 	</div>
@@ -18,4 +18,40 @@
 			<span data-ng-bind="servicio.user.displayName"></span>
 		</em>
 	</small>
+</section-->
+
+<section class="wrapper site-min-height" data-ng-controller="ServiciosController" data-ng-init="findOne()">
+    <h3><i class="fa fa-angle-right"></i> Servicios: <strong>{{servicio.nombre}}</strong></h3>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="content-panel">
+                <div class="pull-right" style="margin-right: 10px">
+                    <a class="btn btn-warning" href="/#!/servicios/{{servicio._id}}/edit">
+                        <i class="glyphicon glyphicon-edit"></i>
+                    </a>
+                    <a class="btn btn-danger" data-ng-click="remove();">
+                        <i class="glyphicon glyphicon-trash"></i>
+                    </a>
+                </div>
+                <table class="table table-hover">
+                    <h4><i class="fa fa-angle-right"></i>{{servicio.nombre}}</h4>
+                    <hr>
+                    <tbody>
+                    <tr>
+                        <td>Descripcion</td>
+                        <td><strong>{{servicio.descripcion}}</strong></td>
+                    </tr>
+                    <tr>
+                        <td>Moneda</td>
+                        <td><strong>{{servicio.moneda}}</strong></td>
+                    </tr>
+                    <tr>
+                        <td>Precio</td>
+                        <td><strong>{{servicio.precio}}</strong></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div><!--/content-panel -->
+        </div><!--/col-md-12 -->
+    </div>
 </section>

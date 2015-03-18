@@ -7,18 +7,18 @@
 
         <li class="sub-menu" data-ng-repeat="item in menu.items | orderBy: 'position'" ng-switch="item.menuItemType"
             ui-route="{{item.uiRoute}}">
-            <!--a ng-switch-when="dropdown" href="javascript:;" >
+            
+            <a ng-switch-when="dropdown" href="javascript:;" >
+                <i class="fa fa-desktop"></i>
+                <span data-ng-bind="item.title"></span>
+             </a>
+             <a ng-switch-when="item" href="/#!/{{item.link}}" >
                 <i class="fa fa-desktop"></i>
                 <span data-ng-bind="item.title"></span>
             </a>
-            <ul class="sub">
+            <ul class="sub" ng-if="item.menuItemType == 'dropdown'">
                 <li data-ng-repeat="subitem in item.items | orderBy: 'position'"><a href="/#!/{{subitem.link}}" data-ng-bind="subitem.title"></a></li>
-            </ul-->
-
-            <a ng-switch-when="item" href="/#!/{{item.link}}" >
-                <i class="fa fa-desktop"></i>
-                <span data-ng-bind="item.title"></span>
-            </a>
+            </ul>
         </li>
 
     </ul>

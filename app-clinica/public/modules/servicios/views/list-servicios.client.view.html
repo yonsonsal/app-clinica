@@ -34,12 +34,15 @@
                                 <td data-title="Descripcion" data-ng-bind="servicio.descripcion"></td>
                                 <td data-title="Precio">{{servicio.moneda}} {{servicio.precio}}</td>
                                 <td>
-                                    <a class="btn btn-primary" href="/#!/servicios/{{servicio._id}}/edit">
-                                        <i class="glyphicon glyphicon-edit"></i>
-                                    </a>
-                                    <a class="btn btn-primary" data-ng-click="remove(servicio);">
-                                        <i class="glyphicon glyphicon-trash"></i>
-                                    </a>
+                                    <a class="btn btn-success" href="/#!/servicios/{{servicio._id}}">
+                                    <i class="glyphicon glyphicon-zoom-in"></i>
+                                </a>
+                                <a class="btn btn-warning" href="/#!/servicios/{{servicio._id}}/edit">
+                                    <i class="glyphicon glyphicon-edit"></i>
+                                </a>
+                                <a class="btn btn-danger" data-ng-click="remove(servicio);">
+                                    <i class="glyphicon glyphicon-trash"></i>
+                                </a>
                                 </td>
                             </tr>
                         </tbody>

@@ -17,11 +17,21 @@
                         </thead>
                         <tbody>
                         <tr data-ng-repeat="fabricante in fabricantes" data-ng-href="#!/fabricantes/{{fabricante._id}}">
-                            <td data-title="#">{{$index+1}}</td>
-                            <td data-title="Nombre" data-ng-bind="fabricante.nombre"></td>
-                            <td data-title="Origen" data-ng-bind="fabricante.origen"></td>
-                            <td data-title="Observaciones" data-ng-bind="fabricante.observaciones"></td>
-                            <td data-title="Opciones"><a href="#!/fabricantes/{{fabricante._id}}"><span class="glyphicon glyphicon-floppy-open"></span></a></td>
+                            <td data-title="#" class="col-xs-12 col-sm-1 col-md-1 col-lg-1">{{$index+1}}</td>
+                            <td data-title="Nombre" class="col-xs-12 col-sm-2 col-md-2 col-lg-2" data-ng-bind="fabricante.nombre"></td>
+                            <td data-title="Origen" class="col-xs-12 col-sm-2 col-md-2 col-lg-2" data-ng-bind="fabricante.origen"></td>
+                            <td data-title="Observaciones" class="col-xs-12 col-sm-4 col-md-4 col-lg-4" data-ng-bind="fabricante.observaciones"></td>
+                            <td data-title="Opciones" class="col-xs-12 col-sm-2 col-md-2 col-lg-2">
+                                <a class="btn btn-success" href="/#!/fabricantes/{{fabricante._id}}">
+                                    <i class="glyphicon glyphicon-zoom-in"></i>
+                                </a>
+                                <a class="btn btn-warning" href="/#!/fabricantes/{{fabricante._id}}/edit">
+                                    <i class="glyphicon glyphicon-edit"></i>
+                                </a>
+                                <a class="btn btn-danger" data-ng-click="remove(fabricante);">
+                                    <i class="glyphicon glyphicon-trash"></i>
+                                </a>
+                            </td>
                         </tr>
                         </tbody>
                     </table>

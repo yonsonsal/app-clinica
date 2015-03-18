@@ -29,7 +29,7 @@
                             <th>Stock Actual</th>
                             <th>Stock M&iacute;nimo</th>
                             <th>Precio Actual</th>
-                            <th></th>
+                            <th>Opciones</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -41,14 +41,18 @@
                             <td data-title="Stock Actual">{{producto.stockActual}}</td>
                             <td data-title="Stock M&iacute;nimo">{{producto.stockMinimo}}</td>
                             <td data-title="Precio">{{producto.moneda}} {{producto.precio}}</td>
-
                             <td data-title="Opciones" class="opciones">
-                                <a class="btn btn-primary" href="/#!/productos/{{producto._id}}/edit">
+                                <a class="btn btn-success" href="/#!/productos/{{producto._id}}">
+                                    <i class="glyphicon glyphicon-zoom-in"></i>
+                                </a>
+                                <a class="btn btn-warning" href="/#!/productos/{{producto._id}}/edit">
                                     <i class="glyphicon glyphicon-edit"></i>
                                 </a>
-                                <a class="btn btn-primary" data-ng-click="remove(producto);">
+                                <a class="btn btn-danger" data-ng-click="remove(producto);">
                                     <i class="glyphicon glyphicon-trash"></i>
-                                </a></td>
+                                </a>
+                            </td>
+
                         </tr>
                         </tbody>
                     </table>

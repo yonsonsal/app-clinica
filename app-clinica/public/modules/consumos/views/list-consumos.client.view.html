@@ -42,10 +42,14 @@
                                <span ng-show="consumo.pago"><i class="fa fa-check-square"></i> Si {{consumo.fechaPago | date:'dd/MM/yyyy'}} </span>
                                <span ng-show="!consumo.pago"><i class="fa fa-square"></i> No </span>
                             </td>
-
-                            <td data-title="Opciones" class="opciones">
-
-                                <a href="#!/consumos/{{consumo._id}}" tooltip="Ver detalle"><span class="glyphicon glyphicon-zoom-in"></span></a></td>
+                            <td data-title="Opciones" class="col-xs-12 col-sm-1 col-md-1 col-lg-1">
+                                <a class="btn btn-primary" href="/#!/consumos/{{consumo._id}}">
+                                    <i class="glyphicon glyphicon-zoom-in"></i>
+                                </a>
+                                <a class="btn btn-primary" data-ng-click="remove(consumo);">
+                                    <i class="glyphicon glyphicon-trash"></i>
+                                </a>
+                            </td>
                         </tr>
                         </tbody>
                     </table>
