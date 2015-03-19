@@ -1,6 +1,7 @@
-<section class="wrapper site-min-height example-print" data-ng-controller="ConsumosController" data-ng-init="findOne()" >
-    <div ng-show ="!viewPagoInterface && !viewDeleteInterface">
+<section class="wrapper site-min-height example-print" data-ng-controller="ConsumosController" data-ng-init="findOne()">
+    <div ng-show="!viewPagoInterface && !viewDeleteInterface">
         <h3><i class="fa fa-angle-right"></i> Consumo</h3>
+
         <div class="row">
             <div class="col-md-12">
                 <div class="content-panel">
@@ -32,7 +33,8 @@
                             <td>Pago</td>
                             <td>
                                 <div ng-show="consumo.pago">
-                                    <i class="fa fa-check-square"></i> Si - <strong>{{consumo.fechaPago | date:'dd/MM/yyyy'}}</strong>
+                                    <i class="fa fa-check-square"></i> Si - <strong>{{consumo.fechaPago |
+                                    date:'dd/MM/yyyy'}}</strong>
                                 </div>
                                 <div ng-show="!consumo.pago">
                                     <i class="fa fa-square"></i> No
@@ -42,13 +44,15 @@
 
                         </tr>
                         <tr ng-show="consumo.pago">
-                            <td>Cotización Dólar </td>
+                            <td>Cotización Dólar</td>
                             <td>UYU {{consumo.cotizacion}}</td>
                         </tr>
                         </tbody>
                     </table>
-                </div><! --/content-panel -->
-            </div><!-- /col-md-12 -->
+                </div>
+                <! --/content-panel -->
+            </div>
+            <!-- /col-md-12 -->
         </div>
 
         <div class="row">
@@ -63,7 +67,9 @@
                         </thead>
                         <tbody>
                         <tr ng-repeat="articulo in consumo.productos">
-                            <td ng-if="articulo.producto.tipoProducto">{{articulo.producto.nombre}} ({{articulo.producto.tipoProducto.nombre}} - {{articulo.producto.tamanio}})</td>
+                            <td ng-if="articulo.producto.tipoProducto">{{articulo.producto.nombre}}
+                                ({{articulo.producto.tipoProducto.nombre}} - {{articulo.producto.tamanio}})
+                            </td>
                             <td ng-if="!articulo.producto.tipoProducto">{{articulo.producto.descripcion}}</td>
                             <td class="numeric" data-ng-bind="articulo.cantidad"></td>
                             <td class="numeric">{{articulo.factor}}</td>
@@ -74,13 +80,30 @@
                             </span>
                             </td>
                         </tr>
-                        <tr><td></td><td></td><td><strong>Total USD </strong></td><td>{{consumo.montoDollar | number : 2}}</td></tr>
-                        <tr class="no-border"><td></td><td></td><td><strong>Total UYU </strong></td><td>{{consumo.montoPesos | number : 2}}</td></tr>
-                        <tr class="no-border" ng-show="consumo.pago"><td></td><td></td><td><strong>Total {{consumo.monedaPago}} </strong></td><td>{{consumo.monto | number : 2}}</td></tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td><strong>Total USD </strong></td>
+                            <td>{{consumo.montoDollar | number : 2}}</td>
+                        </tr>
+                        <tr class="no-border">
+                            <td></td>
+                            <td></td>
+                            <td><strong>Total UYU </strong></td>
+                            <td>{{consumo.montoPesos | number : 2}}</td>
+                        </tr>
+                        <tr class="no-border" ng-show="consumo.pago">
+                            <td></td>
+                            <td></td>
+                            <td><strong>Total {{consumo.monedaPago}} </strong></td>
+                            <td>{{consumo.monto | number : 2}}</td>
+                        </tr>
                         </tbody>
                     </table>
-                </div><! --/content-panel -->
-            </div><!-- /col-md-12 -->
+                </div>
+                <! --/content-panel -->
+            </div>
+            <!-- /col-md-12 -->
         </div>
     </div>
     <div class="wrapper site-min-height" ng-show="viewDeleteInterface">
@@ -88,15 +111,17 @@
         <div class="form-group">
             <h3>Esta serguro que desea eliminar el Consumo?</h3>
             <input type="submit" class="btn btn-danger" ng-click="remove()" value="Eliminar">
-            <input type="button" class="btn btn-default" value="Cancelar" ng-click="viewDeleteInterface = false; viewPagoInterface = false">
+            <input type="button" class="btn btn-default" value="Cancelar"
+                   ng-click="viewDeleteInterface = false; viewPagoInterface = false">
         </div>
 
     </div>
     <div class="wrapper site-min-height" ng-show="viewPagoInterface">
         <h3><i class="fa fa-angle-right"></i>Pago: {{consumo.persona.nombre}}</h3>
+
         <div class="row">
             <div class="col-md-12">
-                <form class="form-horizontal"  novalidate>
+                <form class="form-horizontal" novalidate>
                     <fieldset>
 
                         <div class="row">
@@ -109,6 +134,7 @@
                         <div class="row">
                             <div class="form-group col-xs-12 col-sm-8 col-md-6 col-lg-4">
                                 <label class="control-label">Moneda</label>
+
                                 <div class="animate-switch-container" ng-switch="consumo.monedaPago">
                                     <div class="animate-switch" ng-switch-when="UYU">
                                         <div ng-click="changeMoneda()" class="btn btn-switch btn-switch-si">
@@ -127,6 +153,7 @@
                         <div class="row">
                             <div class="form-group col-xs-12 col-sm-8 col-md-6 col-lg-4">
                                 <label class="control-label" for="cotizacion">Cotizacion Dolar</label>
+
                                 <div class="controls">
                                     <div class="input-group">
                                         <div class="input-group-addon">UYU</div>
@@ -141,22 +168,26 @@
                         </div>
                         <div class="row">
                             <div class="form-group col-xs-12 col-sm-8 col-md-6 col-lg-4">
-                                <label class="control-label" for="consumoId">Total <strong>USD</strong> {{consumo.montoDollar}}</label>
+                                <label class="control-label" for="consumoId">Total <strong>USD</strong>
+                                    {{consumo.montoDollar}}</label>
                             </div>
 
                         </div>
                         <div class="row">
                             <div class="form-group col-xs-12 col-sm-8 col-md-6 col-lg-4">
-                                <label class="control-label" for="consumoId">Total <strong>UYU</strong> {{consumo.montoPesos}}</label>
+                                <label class="control-label" for="consumoId">Total <strong>UYU</strong>
+                                    {{consumo.montoPesos}}</label>
                             </div>
                         </div>
                         <div class="row">
                             <div class="form-group col-xs-12 col-sm-8 col-md-6 col-lg-4">
-                                </stromg><label class="control-label" for="consumoId" ng-show="consumo.monto"><strong>Monto Total en {{consumo.monedaPago}} {{consumo.monto | number : 2}}</strong></label>
+                                </stromg><label class="control-label" for="consumoId" ng-show="consumo.monto"><strong>Monto
+                                Total en {{consumo.monedaPago}} {{consumo.monto | number : 2}}</strong></label>
                             </div>
                         </div>
                         <div class="form-group">
-                            <input type="submit" class="btn btn-success" ng-click="update()" value="Guardar" ng-disabled="!consumo.monto || !consumo.fechaPago">
+                            <input type="submit" class="btn btn-success" ng-click="update()" value="Guardar"
+                                   ng-disabled="!consumo.monto || !consumo.fechaPago">
                             <input type="button" class="btn btn-default" value="Cancelar" ng-click="cancelPago()">
                         </div>
 
@@ -174,10 +205,11 @@
 <style>
     @media print {
         .example-screen {
-           display: none;
+            display: none;
         }
+
         .example-print {
-           display: block;
+            display: block;
         }
     }
 </style>

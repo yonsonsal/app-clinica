@@ -179,11 +179,6 @@ angular.module('compras').controller('ComprasController', ['$scope', '$statePara
         //Articulos
         $scope.newArticulo = {'moneda':'UYU'};
 
-        $scope.$watch('newArticulo.producto', function(){
-           console.log('cambie producto');
-           // $scope.newArticulo.moneda = $scope.newArticulo.producto.moneda;
-        });
-
         $scope.changeMonedaCompra = function () {
             if ($scope.newArticulo.producto) {
                 if ($scope.newArticulo.moneda == 'UYU') {
@@ -197,7 +192,7 @@ angular.module('compras').controller('ComprasController', ['$scope', '$statePara
         $scope.saveNewArticulo = function() {
             if ($scope.isValidNewArticulo) {
                 $scope.compra.articulos.push($scope.newArticulo);
-                $scope.newArticulo = {};
+                $scope.newArticulo = {'moneda':'UYU'};
             }
         };
         $scope.deleteArticulo = function(index){
@@ -223,6 +218,22 @@ angular.module('compras').controller('ComprasController', ['$scope', '$statePara
         };
         $scope.enableSave = false;
         $scope.$watch('compra', function(){
+
+            var enableToSave = true;
+            if (!$scope.compra.factura) {
+                enableToSave = false;
+            }
+            if (!$scope.proveedor.selected || !$scope.proveedor.selected._id) {
+                enableToSave = false;
+            }
+            if (!angular.isDefined($scope.compra.articulos) || $scope.compra.articulos.length === 0) {
+                enableToSave = false;
+            }
+
+            $scope.enableSave = enableToSave;
+        }, true);
+
+        $scope.$watch('proveedor.selected', function(){
 
             var enableToSave = true;
             if (!$scope.compra.factura) {

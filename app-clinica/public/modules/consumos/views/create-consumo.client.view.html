@@ -72,7 +72,7 @@
                     </td>
                     <td class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
                         <ui-select ng-model="newArticulo.producto" theme="bootstrap" ng-show="!tipoConsumo" ng-show="tipoConsumo" tabindex="2">
-                            <ui-select-match placeholder="Articulo">{{$select.selected.tipoProducto.nombre}}-{{$select.selected.fabricante.nombre}}-{{$select.selected.descripcion}}({{$select.selected.tamanio}})</ui-select-match>
+                            <ui-select-match placeholder="Articulo">Algo{{$select.selected.tipoProducto.nombre}}-{{$select.selected.fabricante.nombre}}-{{$select.selected.descripcion}}({{$select.selected.tamanio}})</ui-select-match>
                             <ui-select-choices repeat="item in productos | filter: $select.search">
                                 <span ng-bind-html="item.nombre | highlight: $select.search"></span>
                                 <span>{{item.tipoProducto.nombre}}-{{item.fabricante.nombre}}-{{item.descripcion}}({{item.tamanio}})</span>
@@ -80,7 +80,7 @@
                             </ui-select-choices>
                         </ui-select>
                         <ui-select ng-model="newArticulo.producto" theme="bootstrap" ng-show="tipoConsumo" tabindex="2">
-                            <ui-select-match placeholder="Servicio">{{$select.selected.descripcion}}</ui-select-match>
+                            <ui-select-match placeholder="Servicio">{{$select.selected.descripcion}}Algo</ui-select-match>
                             <ui-select-choices repeat="item in servicios | filter: $select.search">
                                 <span ng-bind-html="item.descripcion | highlight: $select.search"></span>
                             </ui-select-choices>
