@@ -35,10 +35,12 @@
                         <tbody>
                         <tr data-ng-repeat="producto in productos | filter: searchWord">
                             <td data-title="#">{{$index+1}}</td>
-                            <td data-title="Nombre" data-ng-bind="producto.nombre"></td>
+                            <td data-title="Nombre">{{producto.nombre}}
+                                <span class="badge fraccionable" ng-show="producto.fraccionable" tooltip="Producto Fraccionable">F</span>
+                                <span class="badge consumible" ng-show="producto.consumible" tooltip="Producto Consumible">C</span></td>
                             <td data-title="Fabricante" data-ng-bind="producto.fabricante.nombre"></td>
                             <td data-title="Tipo de Producto" data-ng-bind="producto.tipoProducto.nombre"></td>
-                            <td data-title="Stock Actual">{{producto.stockActual}}</td>
+                            <td data-title="Stock Actual">{{producto.stockActual | number:2}}</td>
                             <td data-title="Stock M&iacute;nimo">{{producto.stockMinimo}}</td>
                             <td data-title="Precio">{{producto.moneda}} {{producto.precio}}</td>
                             <td data-title="Opciones" class="opciones">

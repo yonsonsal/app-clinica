@@ -64,7 +64,7 @@ exports.delete = function(req, res) {
         Producto.findById(articulo.producto).exec(
             function(err, producto) {
                 console.log(producto);
-                if (!err && producto) {
+                if (!err && producto && producto.consumible) {
                     producto.stockActual = producto.stockActual - articulo.cantidad;
                     producto.save(function (err) {
                         if (err) {

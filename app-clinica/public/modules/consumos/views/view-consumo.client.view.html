@@ -47,6 +47,12 @@
                             <td>Cotización Dólar</td>
                             <td>UYU {{consumo.cotizacion}}</td>
                         </tr>
+                        <tr ng-show="!consumo.pago">
+                            <td>Ultima Cotización Dólar</td>
+                            <td>UYU {{consumo.cotizacion}}</td>
+                        </tr>
+
+
                         </tbody>
                     </table>
                 </div>
@@ -63,7 +69,8 @@
                         <th>Articulo/Servicio</th>
                         <th>Cantidad</th>
                         <th>Factor</th>
-                        <th>Precio</th>
+                        <th>UYU</th>
+                        <th>USD</th>
                         </thead>
                         <tbody>
                         <tr ng-repeat="articulo in consumo.productos">
@@ -73,30 +80,43 @@
                             <td ng-if="!articulo.producto.tipoProducto">{{articulo.producto.descripcion}}</td>
                             <td class="numeric" data-ng-bind="articulo.cantidad"></td>
                             <td class="numeric">{{articulo.factor}}</td>
-                            <td class="numeric">
+
+                            <td class="numeric" ng-show="articulo.producto.moneda == 'UYU'">
+
                             <span ng-show="articulo.cantidad > 0">
-                                <span ng-show="articulo.factor > 0">{{articulo.producto.moneda}} {{articulo.producto.precio * articulo.cantidad * articulo.factor | number : 2}}</span>
-                                <span ng-show="!articulo.factor > 0">{{articulo.producto.moneda}} {{articulo.producto.precio * articulo.cantidad | number : 2}}</span>
+                                <span ng-show="articulo.factor > 0"> {{articulo.producto.precio * articulo.cantidad * articulo.factor | number : 2}}</span>
+                                <span ng-show="!articulo.factor > 0">{{articulo.producto.precio * articulo.cantidad | number : 2}}</span>
                             </span>
+
+                            </td>
+
+                            <td class="numeric" ng-show="articulo.producto.moneda == 'USD'">
+
+                            <span ng-show="articulo.cantidad > 0">
+                                <span ng-show="articulo.factor > 0">{{articulo.producto.precio * articulo.cantidad * articulo.factor | number : 2}}</span>
+                                <span ng-show="!articulo.factor > 0">{{articulo.producto.precio * articulo.cantidad | number : 2}}</span>
+                            </span>
+
                             </td>
                         </tr>
                         <tr>
                             <td></td>
                             <td></td>
-                            <td><strong>Total USD </strong></td>
+                            <td>Totales </td>
+                            <td>{{consumo.montoPesos | number : 2}}</td>
                             <td>{{consumo.montoDollar | number : 2}}</td>
                         </tr>
-                        <tr class="no-border">
+                        <tr ng-show="consumo.cotizacion > 0">
                             <td></td>
                             <td></td>
-                            <td><strong>Total UYU </strong></td>
-                            <td>{{consumo.montoPesos | number : 2}}</td>
-                        </tr>
-                        <tr class="no-border" ng-show="consumo.pago">
-                            <td></td>
-                            <td></td>
-                            <td><strong>Total {{consumo.monedaPago}} </strong></td>
-                            <td>{{consumo.monto | number : 2}}</td>
+                            <td>Total a pagar</td>
+
+                            <td colspan="2" style="text-align: left; vertical-align: top">
+                                <strong>UYU
+                                {{consumo.montoPesos + consumo.montoDollar * consumo.cotizacion | number : 2}}<br>
+                                USD {{consumo.montoDollar + consumo.montoPesos / consumo.cotizacion | number : 2}}</strong>
+                            </td>
+
                         </tr>
                         </tbody>
                     </table>
@@ -169,14 +189,14 @@
                         <div class="row">
                             <div class="form-group col-xs-12 col-sm-8 col-md-6 col-lg-4">
                                 <label class="control-label" for="consumoId">Total <strong>USD</strong>
-                                    {{consumo.montoDollar}}</label>
+                                    {{consumo.montoDollar | number : 2}}</label>
                             </div>
 
                         </div>
                         <div class="row">
                             <div class="form-group col-xs-12 col-sm-8 col-md-6 col-lg-4">
                                 <label class="control-label" for="consumoId">Total <strong>UYU</strong>
-                                    {{consumo.montoPesos}}</label>
+                                    {{consumo.montoPesos  | number : 2}}</label>
                             </div>
                         </div>
                         <div class="row">

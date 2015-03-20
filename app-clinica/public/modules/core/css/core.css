@@ -16,3 +16,9 @@
 .no-border td{
     border: none !important;
 }
+.badge.consumible {
+    background-color: green;
+}
+.badge.fraccionable {
+    background-color: orange;
+}

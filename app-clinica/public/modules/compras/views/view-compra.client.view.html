@@ -49,7 +49,11 @@
                     </thead>
                     <tbody>
                     <tr ng-repeat="articulo in compra.articulos">
-                        <td>{{articulo.producto.nombre}}</td>
+
+                        <td>
+                            <span class="badge fraccionable" ng-show="articulo.producto.tipoProducto && articulo.producto.fraccionable">F</span>
+                            <span class="badge consumible" ng-show="articulo.producto.tipoProducto && articulo.producto.consumible">C</span>
+                            {{articulo.producto.nombre}}</td>
                         <td>{{articulo.cantidad}}</td>
                         <td>{{articulo.moneda}} {{articulo.precio}}</td>
                     </tr>

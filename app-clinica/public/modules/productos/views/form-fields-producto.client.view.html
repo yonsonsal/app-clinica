@@ -31,7 +31,7 @@
             <label class="control-label" for="fabricante">Fabricante</label>
             <div class="input-group">
 
-                <ui-select ng-model="fabricante.selected" theme="bootstrap">
+                <ui-select ng-model="fabricante.selected" theme="bootstrap" theme="select2">
                     <ui-select-match placeholder="Fabricante">{{$select.selected.nombre}} ({{$select.selected.origen}})</ui-select-match>
                     <ui-select-choices repeat="item in fabricantes | filter: $select.search">
                         <span ng-bind-html="item.nombre | highlight: $select.search"></span>
@@ -155,7 +155,7 @@
         </div>
     </div>
 
-    <div class="row">
+    <div class="row" ng-show="producto.consumible">
         <div class="form-group col-xs-12 col-sm-8 col-md-6 col-lg-4">
             <label class="control-label" for="stock-minimo">Stock Mínimo</label>
             <input type="number" data-ng-model="producto.stockMinimo" id="stock-minimo" class="form-control" placeholder="Stock Mínimo" required>

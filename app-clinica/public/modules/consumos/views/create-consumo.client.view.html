@@ -42,14 +42,15 @@
     <div class="row mt">
         <section id="table-responsive-two">
             <table class="table table-bordered table-striped table-condensed cf">
+
                 <thead class="cf">
                 <tr>
                     <th>#</th>
                     <th>Tipo</th>
                     <th>Articulo/Servicio</th>
-                    <th class="numeric">Cantidad</th>
-                    <th class="numeric">Factor</th>
-                    <th class="numeric">Precio</th>
+                    <th>Cantidad</th>
+                    <th>Factor</th>
+                    <th>Precio</th>
                     <th>Opciones</th>
                 </tr>
                 </thead>
@@ -72,8 +73,13 @@
                     </td>
                     <td class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
                         <ui-select ng-model="newArticulo.producto" theme="bootstrap" ng-show="!tipoConsumo" ng-show="tipoConsumo" tabindex="2">
-                            <ui-select-match placeholder="Articulo">Algo{{$select.selected.tipoProducto.nombre}}-{{$select.selected.fabricante.nombre}}-{{$select.selected.descripcion}}({{$select.selected.tamanio}})</ui-select-match>
+                            <ui-select-match placeholder="Articulo">
+                                <span class="badge fraccionable" ng-show="$select.selected.fraccionable" tooltip="Producto Fraccionable">F</span>
+                                <span class="badge consumible" ng-show="$select.selected.consumible" tooltip="Producto Consumible">C</span>
+                                {{$select.selected.nombre}} {{$select.selected.tipoProducto.nombre}}-{{$select.selected.fabricante.nombre}}-{{$select.selected.descripcion}}({{$select.selected.tamanio}})</ui-select-match>
                             <ui-select-choices repeat="item in productos | filter: $select.search">
+                                <span class="badge fraccionable" ng-show="item.fraccionable" tooltip="Producto Fraccionable">F</span>
+                                <span class="badge consumible" ng-show="item.consumible" tooltip="Producto Consumible">C</span>
                                 <span ng-bind-html="item.nombre | highlight: $select.search"></span>
                                 <span>{{item.tipoProducto.nombre}}-{{item.fabricante.nombre}}-{{item.descripcion}}({{item.tamanio}})</span>
                                 <small ng-bind-html="item.descripcion | highlight: $select.search"></small>
@@ -134,7 +140,10 @@
 
                     <td>{{$index+1}}</td>
                     <td></td>
-                    <td ng-if="producto.producto.tipoProducto">{{producto.producto.nombre}} ({{producto.producto.tipoProducto.nombre}} - {{producto.producto.tamanio}})</td>
+                    <td ng-if="producto.producto.tipoProducto">
+                        <span class="badge fraccionable" ng-show="producto.producto.fraccionable" tooltip="Producto Fraccionable">F</span>
+                        <span class="badge consumible" ng-show="producto.producto.consumible" tooltip="Producto Consumible">C</span>
+                        {{producto.producto.nombre}} ({{producto.producto.tipoProducto.nombre}} - {{producto.producto.tamanio}})</td>
                     <td ng-if="!producto.producto.tipoProducto">{{producto.producto.descripcion}}</td>
                     <td class="numeric" data-ng-bind="producto.cantidad"></td>
                     <td class="numeric">{{producto.factor}}</td>
