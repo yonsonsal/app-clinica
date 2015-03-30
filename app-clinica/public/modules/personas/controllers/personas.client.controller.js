@@ -5,6 +5,7 @@ angular.module('personas').controller('PersonasController', ['$scope', '$statePa
 	function($scope, $stateParams, $location, Authentication, Personas, Persona) {
 		$scope.authentication = Authentication;
 
+		$scope.showDeleteMessage = false;
 		// Create new Persona
         $scope.persona = {};
 		$scope.create = function() {

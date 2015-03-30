@@ -21,15 +21,12 @@
                             <td data-title="Nombre" class="col-xs-12 col-sm-2 col-md-2 col-lg-2" data-ng-bind="fabricante.nombre"></td>
                             <td data-title="Origen" class="col-xs-12 col-sm-2 col-md-2 col-lg-2" data-ng-bind="fabricante.origen"></td>
                             <td data-title="Observaciones" class="col-xs-12 col-sm-4 col-md-4 col-lg-4" data-ng-bind="fabricante.observaciones"></td>
-                            <td data-title="Opciones" class="col-xs-12 col-sm-2 col-md-2 col-lg-2">
+                            <td data-title="Opciones" class="col-xs-12 col-sm-2 col-md-2 col-lg-2 center-text">
                                 <a class="btn btn-success" href="/#!/fabricantes/{{fabricante._id}}">
                                     <i class="glyphicon glyphicon-zoom-in"></i>
                                 </a>
                                 <a class="btn btn-warning" href="/#!/fabricantes/{{fabricante._id}}/edit">
                                     <i class="glyphicon glyphicon-edit"></i>
-                                </a>
-                                <a class="btn btn-danger" data-ng-click="remove(fabricante);">
-                                    <i class="glyphicon glyphicon-trash"></i>
                                 </a>
                             </td>
                         </tr>

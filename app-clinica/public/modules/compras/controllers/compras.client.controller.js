@@ -7,6 +7,8 @@ angular.module('compras').controller('ComprasController', ['$scope', '$statePara
 
         //proveedores
 
+        $scope.showDeleteMessage = false;
+
         $scope.proveedores = Proveedores.query(function(proveedores) {
             $scope.proveedores = proveedores;
         });

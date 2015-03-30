@@ -19,21 +19,18 @@
                         </thead>
                         <tbody>
                         <tr data-ng-repeat="proveedore in proveedores">
-                            <td data-title="#">{{$index+1}}</td>
+                            <td data-title="#" class="col-xs-12 col-sm-1 col-md-1 col-lg-1">{{$index+1}}</td>
                             <td data-title="Nombre" data-ng-bind="proveedore.nombre"></td>
                             <td data-title="Raz&oacute;n Social" data-ng-bind="proveedore.razonSocial"></td>
                             <td data-title="RUT" data-ng-bind="proveedore.rut"></td>
                             <td data-title="Direcci&oacute;n" data-ng-bind="proveedore.direccion"></td>
                             <td data-title="Tel&eacute;fono" data-ng-bind="proveedore.telefono"></td>
-                            <td data-title="Opciones"> 
+                            <td data-title="Opciones" class="center-text col-lg-2"> 
                                 <a class="btn btn-success" href="/#!/proveedores/{{proveedore._id}}">
                                     <i class="glyphicon glyphicon-zoom-in"></i>
                                 </a>
                                 <a class="btn btn-warning" href="/#!/proveedores/{{proveedore._id}}/edit">
                                     <i class="glyphicon glyphicon-edit"></i>
-                                </a>
-                                <a class="btn btn-danger" data-ng-click="remove(proveedore);">
-                                    <i class="glyphicon glyphicon-trash"></i>
                                 </a>
                             </td>
                         </tr>

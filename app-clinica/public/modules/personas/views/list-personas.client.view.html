@@ -25,21 +25,18 @@
                         </thead>
                         <tbody>
                         <tr data-ng-repeat="persona in personas | filter: searchWord">
-                            <td data-title="#">{{$index+1}}</td>
+                            <td data-title="#" class="col-xs-12 col-sm-1 col-md-1 col-lg-1">{{$index+1}}</td>
                             <td data-title="Nombre" data-ng-bind="persona.nombre"></td>
                             <td data-title="Direcci&oacute;n" data-ng-bind="persona.direccion"></td>
                             <td data-title="E-Mail" data-ng-bind="persona.email"></td>
                             <td data-title="Tel&eacute;fono" data-ng-bind="persona.telefono"></td>
                             <td data-title="Documento" data-ng-bind="persona.documento"></td>
-                            <td data-title="Opciones" class="col-xs-12 col-sm-2 col-md-2 col-lg-2">
+                            <td data-title="Opciones" class="col-xs-12 col-sm-2 col-md-2 col-lg-2 center-text">
                                 <a class="btn btn-success" href="/#!/personas/{{persona._id}}">
                                     <i class="glyphicon glyphicon-zoom-in"></i>
                                 </a>
                                 <a class="btn btn-warning" href="/#!/personas/{{persona._id}}/edit">
                                     <i class="glyphicon glyphicon-edit"></i>
-                                </a>
-                                <a class="btn btn-danger" data-ng-click="remove(persona);">
-                                    <i class="glyphicon glyphicon-trash"></i>
                                 </a>
                             </td>
                         </tr>
