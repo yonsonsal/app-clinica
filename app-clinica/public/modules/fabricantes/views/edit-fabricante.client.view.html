@@ -1,6 +1,6 @@
 <section class="wrapper site-min-height" data-ng-controller="FabricantesController" data-ng-init="findOne()">
     <h3><i class="fa fa-angle-right"></i>Editar Fabricante</h3>
-    <div class="row">
+    <div class="row" ng-show="!showDeleteMessage">
         <div class="col-md-12">
             <form class="form-horizontal" data-ng-submit="update()" novalidate>
                 <fieldset>
@@ -16,4 +16,6 @@
             </form>
         </div>
     </div>
+
+     <ng-include src="'modules/fabricantes/views/delete-fabricante.client.view.html'"></ng-include>
 </section>

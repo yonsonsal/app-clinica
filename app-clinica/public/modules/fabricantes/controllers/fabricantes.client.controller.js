@@ -5,6 +5,9 @@ angular.module('fabricantes').controller('FabricantesController', ['$scope', '$s
 	function($scope, $stateParams, $location, Authentication, Fabricantes) {
 		$scope.authentication = Authentication;
 
+
+		$scope.showDeleteMessage = false;
+
 		// Create new Fabricante
         $scope.fabricante = {};
 		$scope.create = function() {

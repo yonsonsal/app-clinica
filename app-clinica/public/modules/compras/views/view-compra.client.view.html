@@ -1,11 +1,11 @@
 <section class="wrapper site-min-height" data-ng-controller="ComprasController" data-ng-init="findOne()">
     <h3><i class="fa fa-angle-right"></i>Compra: <strong>{{compra.proveedor.nombre}}</strong></h3>
-    <div class="row">
+    <div class="row" ng-show="!showDeleteMessage">
         <div class="col-md-12">
             <div class="content-panel">
                 <div class="pull-right" style="margin-right: 10px">
                     <!--data-ng-show="((authentication.user) && (authentication.user._id == tipoproducto.user._id))"-->
-                    <a class="btn btn-primary" data-ng-click="remove();">
+                    <a class="btn btn-danger" data-ng-click="showDeleteMessage=true">
                         <i class="glyphicon glyphicon-trash"></i>
                     </a>
                 </div>
@@ -34,11 +34,11 @@
                     </tr>
                     </tbody>
                 </table>
-            </div><! --/content-panel -->
+            </div><!--/content-panel -->
         </div><!-- /col-md-12 -->
     </div>
 
-    <div class="row">
+    <div class="row" ng-show="!showDeleteMessage">
         <div class="col-md-12">
             <div class="content-panel">
                 <table class="table table-hover">
@@ -59,7 +59,18 @@
                     </tr>
                     </tbody>
                 </table>
-            </div><! --/content-panel -->
+            </div><!--/content-panel -->
         </div><!-- /col-md-12 -->
+    </div>
+
+    <div class="wrapper site-min-height" ng-show="showDeleteMessage">
+
+        <div class="form-group">
+            <h4>Esta serguro que desea eliminar la compra?</h4>
+            <input type="submit" class="btn btn-danger" ng-click="remove()" value="Eliminar">
+            <input type="button" class="btn btn-default" value="Cancelar"
+                   ng-click="showDeleteMessage=false">
+        </div>
+
     </div>
 </section>

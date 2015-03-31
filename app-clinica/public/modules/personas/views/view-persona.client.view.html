@@ -1,6 +1,6 @@
 <section class="wrapper site-min-height" data-ng-controller="PersonasController" data-ng-init="findOne()">
     <h3><i class="fa fa-angle-right"></i>Persona: <strong>{{persona.nombre}}</strong></h3>
-    <div class="row">
+    <div class="row" ng-show="!showDeleteMessage">
         <div class="col-md-12">
             <div class="content-panel">
                 <div class="pull-right" style="margin-right: 10px">
@@ -8,7 +8,7 @@
                     <a class="btn btn-warning" href="/#!/personas/{{persona._id}}/edit" tooltip="Editar">
                         <i class="glyphicon glyphicon-edit"></i>
                     </a>
-                    <a class="btn btn-danger" data-ng-click="remove();" tooltip="Eliminar">
+                    <a class="btn btn-danger" data-ng-click="showDeleteMessage=true;">
                         <i class="glyphicon glyphicon-trash"></i>
                     </a>
                 </div>
@@ -37,4 +37,6 @@
             </div><!--/content-panel -->
         </div><!-- /col-md-12 -->
     </div>
+
+    <ng-include src="'modules/personas/views/delete-persona.client.view.html'"></ng-include>
 </section>

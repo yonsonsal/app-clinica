@@ -19,7 +19,7 @@
                             <th ng-click="predicate = 'factura'; reverse=!reverse" style='cursor: pointer; text-decoration: underline'>Factura</th>
                             <th ng-click="predicate = 'pago'; reverse=!reverse" style='cursor: pointer; text-decoration: underline'>Pago</th>
                             <th ng-click="predicate = 'monto'; reverse=!reverse" style='cursor: pointer; text-decoration: underline'>Monto</th>
-                            <th>Detalles</th>
+                            <th>Opciones</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -44,7 +44,7 @@
                             <td data-title="Monto" class="col-xs-12 col-sm-1 col-md-1 col-lg-1">
                                 {{compra.monto}}
                             </td>
-                            <td data-title="Opciones" class="col-xs-12 col-sm-1 col-md-1 col-lg-1">
+                            <td data-title="Opciones" class="col-xs-12 col-sm-1 col-md-1 col-lg-1 center-text">
                                 <a class="btn btn-primary" href="/#!/compras/{{compra._id}}">
                                     <i class="glyphicon glyphicon-zoom-in"></i>
                                 </a>

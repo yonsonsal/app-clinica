@@ -34,7 +34,7 @@
                         </thead>
                         <tbody>
                         <tr data-ng-repeat="producto in productos | filter: searchWord">
-                            <td data-title="#">{{$index+1}}</td>
+                            <td data-title="#" class="col-xs-12 col-sm-1 col-md-1 col-lg-1">{{$index+1}}</td>
                             <td data-title="Nombre">{{producto.nombre}}
                                 <span class="badge fraccionable" ng-show="producto.fraccionable" tooltip="Producto Fraccionable">F</span>
                                 <span class="badge consumible" ng-show="producto.consumible" tooltip="Producto Consumible">C</span></td>
@@ -43,15 +43,12 @@
                             <td data-title="Stock Actual">{{producto.stockActual | number:2}}</td>
                             <td data-title="Stock M&iacute;nimo">{{producto.stockMinimo}}</td>
                             <td data-title="Precio">{{producto.moneda}} {{producto.precio}}</td>
-                            <td data-title="Opciones" class="opciones">
+                            <td data-title="Opciones" class="center-text col-lg-2">
                                 <a class="btn btn-success" href="/#!/productos/{{producto._id}}">
                                     <i class="glyphicon glyphicon-zoom-in"></i>
                                 </a>
                                 <a class="btn btn-warning" href="/#!/productos/{{producto._id}}/edit">
                                     <i class="glyphicon glyphicon-edit"></i>
-                                </a>
-                                <a class="btn btn-danger" data-ng-click="remove(producto);">
-                                    <i class="glyphicon glyphicon-trash"></i>
                                 </a>
                             </td>
 

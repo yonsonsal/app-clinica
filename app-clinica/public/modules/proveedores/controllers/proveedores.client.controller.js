@@ -5,6 +5,7 @@ angular.module('proveedores').controller('ProveedoresController', ['$scope', '$s
 	function($scope, $stateParams, $location, Authentication, Proveedores, Proveedor) {
 		$scope.authentication = Authentication;
 
+		$scope.showDeleteMessage = false;
 		// Create new Proveedore
         $scope.proveedor = {};
 

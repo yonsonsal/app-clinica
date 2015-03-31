@@ -6,6 +6,7 @@ angular.module('servicios').controller('ServiciosController', ['$scope', '$state
 		$scope.authentication = Authentication;
 
         $scope.servicio = {moneda:'UYU'};
+        $scope.showDeleteMessage = false;
 		// Create new Servicio
 		$scope.createServicio = function() {
 			// Create new Servicio object

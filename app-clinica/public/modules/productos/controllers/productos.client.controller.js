@@ -8,8 +8,6 @@ angular.module('productos').controller('ProductosController', ['$scope', '$state
 
         $scope.formTitle =  'Nuevo Producto';
 
-
-
         $scope.newTypeProductState = function(){
             $scope.formTitle =  'Nuevo Tipo de Producto';
             $scope.newProductTypeStateBoolean = true;
@@ -215,5 +213,16 @@ angular.module('productos').controller('ProductosController', ['$scope', '$state
             }
 
         }, true);
+
+
+        $scope.setProductoInactivo = function (){
+            $scope.producto = Productos.get({ 
+                productoId: $stateParams.productoId
+            }, function(){
+                $scope.producto.activo = false;
+                $location.path('productos');
+            });
+        }
 	}
+
 ]);

@@ -1,46 +1,20 @@
-<!--section data-ng-controller="ServiciosController" data-ng-init="findOne()">
-	<div class="page-header">
-		<h1 data-ng-bind="servicio.name"></h1>
-	</div>
-	<div class="pull-right">
-		<a class="btn btn-warning" href="/#!/servicios/{{servicio._id}}/edit">
-			<i class="glyphicon glyphicon-edit"></i>
-		</a>
-		<a class="btn btn-danger" data-ng-click="remove();">
-			<i class="glyphicon glyphicon-trash"></i>
-		</a>
-	</div>
-	<small>
-		<em class="text-muted">
-			Posted on
-			<span data-ng-bind="servicio.created | date:'mediumDate'"></span>
-			by
-			<span data-ng-bind="servicio.user.displayName"></span>
-		</em>
-	</small>
-</section-->
-
 <section class="wrapper site-min-height" data-ng-controller="ServiciosController" data-ng-init="findOne()">
-    <h3><i class="fa fa-angle-right"></i> Servicios: <strong>{{servicio.nombre}}</strong></h3>
-    <div class="row">
+    <h3><i class="fa fa-angle-right"></i> Servicio: <strong>{{servicio.descripcion}}</strong></h3>
+    <div class="row" ng-show="!showDeleteMessage">
         <div class="col-md-12">
             <div class="content-panel">
                 <div class="pull-right" style="margin-right: 10px">
                     <a class="btn btn-warning" href="/#!/servicios/{{servicio._id}}/edit">
                         <i class="glyphicon glyphicon-edit"></i>
                     </a>
-                    <a class="btn btn-danger" data-ng-click="remove();">
+                    <a class="btn btn-danger" data-ng-click="showDeleteMessage=true;">
                         <i class="glyphicon glyphicon-trash"></i>
                     </a>
                 </div>
                 <table class="table table-hover">
-                    <h4><i class="fa fa-angle-right"></i>{{servicio.nombre}}</h4>
+                    <h4><i class="fa fa-angle-right"></i>{{servicio.descripcion}}</h4>
                     <hr>
                     <tbody>
-                    <tr>
-                        <td>Descripcion</td>
-                        <td><strong>{{servicio.descripcion}}</strong></td>
-                    </tr>
                     <tr>
                         <td>Moneda</td>
                         <td><strong>{{servicio.moneda}}</strong></td>
@@ -53,5 +27,14 @@
                 </table>
             </div><!--/content-panel -->
         </div><!--/col-md-12 -->
+    </div>
+
+     <div class="wrapper site-min-height" ng-show="showDeleteMessage">
+        <div class="form-group">
+            <h4>Esta serguro que desea eliminar el servicio?</h4>
+            <input type="submit" class="btn btn-danger" ng-click="setProductoInactivo()" value="Eliminar">
+            <input type="button" class="btn btn-default" value="Cancelar"
+                   ng-click="showDeleteMessage=false">
+        </div>
     </div>
 </section>
