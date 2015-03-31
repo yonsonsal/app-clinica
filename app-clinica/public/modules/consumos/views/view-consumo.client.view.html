@@ -1,6 +1,6 @@
 <section class="wrapper site-min-height example-print" data-ng-controller="ConsumosController" data-ng-init="findOne()">
     <div ng-show="!viewPagoInterface && !viewDeleteInterface">
-        <h3><i class="fa fa-angle-right"></i> Consumo</h3>
+        <h3><a href="#!/consumos"><i class="fa fa-angle-left"></i> Consumos</a></h3>
 
         <div class="row">
             <div class="col-md-12">
@@ -81,18 +81,17 @@
                             <td class="numeric" data-ng-bind="articulo.cantidad"></td>
                             <td class="numeric">{{articulo.factor}}</td>
 
-                            <td class="numeric" ng-show="articulo.producto.moneda == 'UYU'">
-
-                            <span ng-show="articulo.cantidad > 0">
+                            <td class="numeric">
+                            <span ng-show="articulo.cantidad > 0 && articulo.producto.moneda == 'UYU'">
                                 <span ng-show="articulo.factor > 0"> {{articulo.producto.precio * articulo.cantidad * articulo.factor | number : 2}}</span>
                                 <span ng-show="!articulo.factor > 0">{{articulo.producto.precio * articulo.cantidad | number : 2}}</span>
                             </span>
 
                             </td>
 
-                            <td class="numeric" ng-show="articulo.producto.moneda == 'USD'">
+                            <td class="numeric" >
 
-                            <span ng-show="articulo.cantidad > 0">
+                            <span ng-show="articulo.cantidad > 0 && articulo.producto.moneda == 'USD'">
                                 <span ng-show="articulo.factor > 0">{{articulo.producto.precio * articulo.cantidad * articulo.factor | number : 2}}</span>
                                 <span ng-show="!articulo.factor > 0">{{articulo.producto.precio * articulo.cantidad | number : 2}}</span>
                             </span>

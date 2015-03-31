@@ -1,5 +1,6 @@
-<section class="wrapper site-min-height" data-ng-controller="ConsumosController" ng-init="initNewConsumo()">
+<section class="wrapper site-min-height " data-ng-controller="ConsumosController" ng-init="initNewConsumo()">
     <h3><i class="fa fa-angle-right"></i>Nuevo Consumo</h3>
+<section class="">
         <div class="row mt">
             <section id="table-responsive-one">
                 <table class="table table-bordered table-striped table-condensed cf">
@@ -35,7 +36,40 @@
                     </tbody>
                 </table>
 
+                <!-- table class="table table-bordered table-striped table-condensed cf">
+                    <thead class="cf">
+                    <tr>
+                        <th>Fecha Pago</th>
+                        <th>Moneda</th>
+                        <th>Cotización</th>
+                        <th>Cortización</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td data-title="Fecha" class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                            <input class="form-control" id="fecha" type="date" ng-model="consumo.fecha" value={{consumo.fecha}} tabindex="1">
+                        </td>
+                        <td data-title="Persona" class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                            <div class="input-group">
+                                <ui-select ng-model="consumo.persona " theme="bootstrap" tabindex="1">
+                                    <ui-select-match placeholder="Persona">{{$select.selected.nombre}}</ui-select-match>
+                                    <ui-select-choices repeat="item in personas | filter: $select.search">
+                                        <span ng-bind-html="item.nombre | highlight: $select.search"></span>
+                                        <small ng-bind-html="item.email | highlight: $select.search"></small>
+                                    </ui-select-choices>
+                                </ui-select>
+                                <span class="input-group-btn">
+                                    <div ng-click="newPersona()" ng-space="newPersona()" class="btn btn-default" tooltip="Nueva Persona" tabindex="1">
+                                        <span class="glyphicon glyphicon-plus"></span>
+                                    </div>
+                                </span>
+                            </div>
+                        </td>
 
+                    </tr>
+                    </tbody>
+                </table -->
 
             </section>
         </div><!-- /row -->
@@ -168,4 +202,5 @@
             <input type="button" class="btn btn-success" ng-click="createConsumo()" value="Guardar" ng-disabled="!enableSaveConsumo">
         <input type="button" class="btn btn-default" value="Cancelar" ng-click="getToList()">
     </div>
+</section>
 </section>

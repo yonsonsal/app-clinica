@@ -16,10 +16,11 @@ angular.module('consumos').controller('ConsumosController', ['$scope', '$statePa
 
         $scope.consumo.pago = false;
         $scope.mustEnterCotizacion = false;
+        $scope.consumo.cotizacion = Consumo.getLastCotizacion();
         $scope.changePagoConsumo = function () {
             $scope.consumo.fechaPago = $filter("date")(Date.now(), 'yyyy-MM-dd');
             $scope.viewPagoInterface = true;
-            $scope.consumo.cotizacion = Consumo.getLastCotizacion();
+            //$scope.consumo.cotizacion = Consumo.getLastCotizacion();
         };
         $scope.cancelPago = function() {
             $scope.viewPagoInterface = false;
@@ -176,12 +177,21 @@ angular.module('consumos').controller('ConsumosController', ['$scope', '$statePa
             consumo.montoPesos = 0;
             consumo.montoDollar = 0;
             angular.forEach(consumo.productos, function(producto){
+                console.log(producto);
                 if (angular.isDefined(producto.producto)) {
                     if (producto.producto.moneda == 'UYU') {
-                        if (producto.factor > 0)
-                        consumo.montoPesos +=  producto.factor * producto.producto.precio * producto.cantidad;
+                        if (producto.factor > 0) {
+                            consumo.montoPesos +=  producto.factor * producto.producto.precio * producto.cantidad;
+                        } else {
+                            consumo.montoPesos += producto.producto.precio * producto.cantidad;
+                        }
                     } else {
-                        consumo.montoDollar += producto.factor * producto.producto.precio * producto.cantidad;
+                        console.log(producto);
+                        if (producto.factor > 0) {
+                            consumo.montoDollar += producto.factor * producto.producto.precio * producto.cantidad;
+                        } else {
+                            consumo.montoDollar += producto.producto.precio * producto.cantidad;
+                        }
                     }
 
                 }
@@ -262,7 +272,7 @@ angular.module('consumos').controller('ConsumosController', ['$scope', '$statePa
 		};
 
         $scope.predicate = 'fecha';
-        $scope.searchWord = '';
+        $scope.searchConsumo = {persona:{'nombre':''}} ;
 
         $scope.print = function (){
             $window.print();

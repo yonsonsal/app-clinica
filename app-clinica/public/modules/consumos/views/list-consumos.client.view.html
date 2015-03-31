@@ -14,7 +14,20 @@
                 <form class="form-inline" style="padding: 10px;">
                     <div class="form-group">
                         <label for="findInput">Persona: </label>
-                        <input type="text" class="form-control" id="findInput" placeholder="Buscar" ng-model="searchWord">
+                        <input type="text" class="form-control" id="findInput" placeholder="Buscar" ng-model="searchConsumo.persona.nombre">
+
+                        <label for="findInput">Pagos </label>
+                        <div class="btn-group" data-toggle="buttons">
+                            <label class="btn btn-primary active">
+                                <input type="radio" name="options" id="option1" autocomplete="off" checked> Todos
+                            </label>
+                            <label class="btn btn-primary">
+                                <input type="radio" name="options" id="option2" autocomplete="off"> Pago
+                            </label>
+                            <label class="btn btn-primary">
+                                <input type="radio" name="options" id="option3" autocomplete="off"> No Pago
+                            </label>
+                        </div>
                     </div>
                 </form>
                 <section id="table-responsive-one">
@@ -32,7 +45,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr data-ng-repeat="consumo in consumos | orderBy:'-fecha' | filter: searchWord">
+                        <tr data-ng-repeat="consumo in consumos | orderBy:'-fecha' | filter:searchConsumo:strict">
 
                             <td>{{consumo.fecha | date:'dd/MM/yyyy'}}</td>
                             <td>{{consumo.persona.nombre}}</td>
