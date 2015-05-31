@@ -7,7 +7,8 @@ var mongoose = require('mongoose'),
 	errorHandler = require('./errors.server.controller'),
 	Consumo = mongoose.model('Consumo'),
     Producto = mongoose.model('Producto'),
-	_ = require('lodash');
+	_ = require('lodash'),
+    http = require('http');
 
 /**
  * Create a Consumo
@@ -160,6 +161,20 @@ exports.consumoByID = function(req, res, next, id) {
          });
 };
 
+exports.getCotizacion = function(req, res, next){
+  console.log("Tamo aca");
+  http.get("http://www.bcu.gub.uy/Cotizaciones/oicot110515.txt", function(response) {
+    var str = '';
+    response.on('data', function (chunk) {
+      str += chunk;
+      var aux = str.split("\r\n");
+      console.log(aux);
+    });
+  }).on('error', function(e) {
+    console.log("Got error: " + e.message);
+  });
+  next();
+}
 /**
  * Consumo authorization middleware
  */

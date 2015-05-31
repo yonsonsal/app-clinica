@@ -45,11 +45,12 @@
                         </tr>
                         <tr ng-show="consumo.pago">
                             <td>Cotización Dólar</td>
-                            <td>UYU {{consumo.cotizacion}}</td>
+                            <td>UYU <edit-in-place value="consumo.cotizacion"></edit-in-place>
+                              </td>
                         </tr>
                         <tr ng-show="!consumo.pago">
                             <td>Ultima Cotización Dólar</td>
-                            <td>UYU {{consumo.cotizacion}}</td>
+                            <td>UYU <edit-in-place value="consumo.cotizacion"></edit-in-place></td>
                         </tr>
 
 

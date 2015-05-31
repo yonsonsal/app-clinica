@@ -172,39 +172,39 @@ angular.module('consumos').controller('ConsumosController', ['$scope', '$statePa
 		// Create new Consumo
 		$scope.createConsumo = function() {
 			// Create new Consumo object
-            var consumo = $scope.consumo;
-            consumo.persona = $scope.consumo.persona._id;
-            consumo.montoPesos = 0;
-            consumo.montoDollar = 0;
-            angular.forEach(consumo.productos, function(producto){
-                console.log(producto);
-                if (angular.isDefined(producto.producto)) {
-                    if (producto.producto.moneda == 'UYU') {
-                        if (producto.factor > 0) {
-                            consumo.montoPesos +=  producto.factor * producto.producto.precio * producto.cantidad;
-                        } else {
-                            consumo.montoPesos += producto.producto.precio * producto.cantidad;
-                        }
-                    } else {
-                        console.log(producto);
-                        if (producto.factor > 0) {
-                            consumo.montoDollar += producto.factor * producto.producto.precio * producto.cantidad;
-                        } else {
-                            consumo.montoDollar += producto.producto.precio * producto.cantidad;
-                        }
-                    }
+      var consumo = $scope.consumo;
+      consumo.persona = $scope.consumo.persona._id;
+      consumo.montoPesos = 0;
+      consumo.montoDollar = 0;
+      angular.forEach(consumo.productos, function(producto){
+          console.log(producto);
+          if (angular.isDefined(producto.producto)) {
+              if (producto.producto.moneda == 'UYU') {
+                  if (producto.factor > 0) {
+                      consumo.montoPesos +=  producto.factor * producto.producto.precio * producto.cantidad;
+                  } else {
+                      consumo.montoPesos += producto.producto.precio * producto.cantidad;
+                  }
+              } else {
+                  console.log(producto);
+                  if (producto.factor > 0) {
+                      consumo.montoDollar += producto.factor * producto.producto.precio * producto.cantidad;
+                  } else {
+                      consumo.montoDollar += producto.producto.precio * producto.cantidad;
+                  }
+              }
 
-                }
-            });
+          }
+      });
 			var consumo = new Consumos (consumo);
            	// Redirect after save
 			consumo.$save(function(response) {
-                Consumo.setNewConsumo(null);
-				$location.path('consumos/' + response._id);
+            Consumo.setNewConsumo(null);
+            $location.path('consumos/' + response._id);
 
-				// Clear form fields
-                $scope.consumo = {};
-                $scope.consumo.productos = [];
+        // Clear form fields
+            $scope.consumo = {};
+            $scope.consumo.productos = [];
 			}, function(errorResponse) {
 				$scope.error = errorResponse.data.message;
 			});
@@ -227,6 +227,14 @@ angular.module('consumos').controller('ConsumosController', ['$scope', '$statePa
 			}
 		};
 
+    $scope.updateCotizacion = function() {
+      var consumo = $scope.consumo;
+      consumo.$update(function() {
+        $location.path('consumos/' + consumo._id);
+      }, function(errorResponse) {
+        $scope.error = errorResponse.data.message;
+      });
+    };
 		// Update existing Consumo
 		$scope.update = function() {
 			var consumo = $scope.consumo;
