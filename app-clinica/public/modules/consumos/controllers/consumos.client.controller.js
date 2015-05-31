@@ -272,8 +272,10 @@ angular.module('consumos').controller('ConsumosController', ['$scope', '$statePa
 			Consumos.get({
 				consumoId: $stateParams.consumoId
 			}, function(consumo) {
-                if (!consumo.pago) {
+                if (!consumo.pago  && !consumo.cotizacion) {
                     consumo.cotizacion = Consumo.getLastCotizacion();
+                } else if(!consumo.cotizacion) {
+                  consumo.cotizacion = 1;
                 }
                 $scope.consumo = consumo;
             });
