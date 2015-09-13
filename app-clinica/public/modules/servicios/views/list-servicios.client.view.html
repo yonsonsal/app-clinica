@@ -24,6 +24,7 @@
                             <tr>
                                 <th>#</th>
                                 <th>Descripción</th>
+                                <th>IVA</th>
                                 <th>Precio Actual</th>
                                 <th>Opciones</th>
                             </tr>
@@ -32,6 +33,7 @@
                             <tr data-ng-repeat="servicio in servicios | filter: searchWord">
                                 <td data-title="#" class="col-xs-12 col-sm-1 col-md-1 col-lg-1">{{$index+1}}</td>
                                 <td data-title="Descripcion" data-ng-bind="servicio.descripcion" class="col-xs-12 col-sm-7 col-md-7 col-lg-7"></td>
+                                <td data-title="Precio" class="col-xs-12 col-sm-1 col-md-1 col-lg-1">{{servicio.iva}}</td>
                                 <td data-title="Precio" class="col-xs-12 col-sm-2 col-md-2 col-lg-2">{{servicio.moneda}} {{servicio.precio}}</td>
                                 <td data-title="Opciones" class="col-xs-12 col-sm-2 col-md-2 col-lg-2 center-text">
                                     <a class="btn btn-success" href="/#!/servicios/{{servicio._id}}">

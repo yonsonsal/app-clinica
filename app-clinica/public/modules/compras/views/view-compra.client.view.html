@@ -46,6 +46,7 @@
                         <th>Articulo</th>
                         <th>Cantidad</th>
                         <th>Precio Unitario</th>
+                        <th>IVA</th>
                     </thead>
                     <tbody>
                     <tr ng-repeat="articulo in compra.articulos">
@@ -56,6 +57,9 @@
                             {{articulo.producto.nombre}}</td>
                         <td>{{articulo.cantidad}}</td>
                         <td>{{articulo.moneda}} {{articulo.precio}}</td>
+                        <td><span ng-show="articulo.iva">{{articulo.iva}}</span>
+                            <span ng-show="!articulo.iva">22</span>
+                            %</td></td>
                     </tr>
                     </tbody>
                 </table>

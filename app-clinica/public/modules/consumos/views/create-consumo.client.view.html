@@ -35,44 +35,9 @@
                     </tr>
                     </tbody>
                 </table>
-
-                <!-- table class="table table-bordered table-striped table-condensed cf">
-                    <thead class="cf">
-                    <tr>
-                        <th>Fecha Pago</th>
-                        <th>Moneda</th>
-                        <th>Cotización</th>
-                        <th>Cortización</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td data-title="Fecha" class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-                            <input class="form-control" id="fecha" type="date" ng-model="consumo.fecha" value={{consumo.fecha}} tabindex="1">
-                        </td>
-                        <td data-title="Persona" class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-                            <div class="input-group">
-                                <ui-select ng-model="consumo.persona " theme="bootstrap" tabindex="1">
-                                    <ui-select-match placeholder="Persona">{{$select.selected.nombre}}</ui-select-match>
-                                    <ui-select-choices repeat="item in personas | filter: $select.search">
-                                        <span ng-bind-html="item.nombre | highlight: $select.search"></span>
-                                        <small ng-bind-html="item.email | highlight: $select.search"></small>
-                                    </ui-select-choices>
-                                </ui-select>
-                                <span class="input-group-btn">
-                                    <div ng-click="newPersona()" ng-space="newPersona()" class="btn btn-default" tooltip="Nueva Persona" tabindex="1">
-                                        <span class="glyphicon glyphicon-plus"></span>
-                                    </div>
-                                </span>
-                            </div>
-                        </td>
-
-                    </tr>
-                    </tbody>
-                </table -->
-
             </section>
         </div><!-- /row -->
+
     <div class="row mt">
         <section id="table-responsive-two">
             <table class="table table-bordered table-striped table-condensed cf">
@@ -84,6 +49,7 @@
                     <th>Articulo/Servicio</th>
                     <th>Cantidad</th>
                     <th>Factor</th>
+                    <th>IVA</th>
                     <th>Precio</th>
                     <th>Opciones</th>
                 </tr>
@@ -105,7 +71,7 @@
                             </div>
                         </div>
                     </td>
-                    <td class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                    <td class="col-xs-12 col-sm-5 col-md-5 col-lg-5">
                         <ui-select ng-model="newArticulo.producto" theme="bootstrap" ng-show="!tipoConsumo" ng-show="tipoConsumo" tabindex="2">
                             <ui-select-match placeholder="Articulo">
                                 <span class="badge fraccionable" ng-show="$select.selected.fraccionable" tooltip="Producto Fraccionable">F</span>
@@ -126,7 +92,7 @@
                             </ui-select-choices>
                         </ui-select>
                     </td>
-                    <td class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+                    <td class="col-xs-12 col-sm-2 col-md-2 col-lg-2">
                         <div class="input-group" ng-show="newArticulo.producto.fraccionable">
                             <input class="form-control"
                                    type="number"
@@ -156,11 +122,16 @@
                         </div>
                     </td>
                     <td class="col-xs-12 col-sm-1 col-md-1 col-lg-1">
-                        <input class="form-control" ng-disabled="!newArticulo.producto.tipoProducto" type="number" name="factor" ng-model="newArticulo.producto.factorSobreCosto" tabindex="2">
+                        <input class="form-control" ng-disabled="!newArticulo.producto.tipoProducto" type="number" name="factor" ng-model="newArticulo.producto.factorSobreCosto" tabindex="2"/>
                     </td>
-                    <td class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+                    <td class="col-xs-12 col-sm-1 col-md-1 col-lg-1">
                         <div class="input-group hidden-addon">
-                            <input class="form-control" type="number" name="precio" ng-model="newArticulo.precio" tabindex="2">
+                            <input class="form-control" type="number" name="iva" ng-model="newArticulo.producto.iva" tabindex="2"/>
+                        </div>
+                    </td>
+                    <td class="col-xs-12 col-sm-2 col-md-2 col-lg-2">
+                        <div class="input-group hidden-addon">
+                            <input class="form-control" type="number" name="precio" ng-model="newArticulo.precio" tabindex="2"/>
                             <div class="input-group-addon">{{newArticulo.producto.moneda}}</div>
                         </div>
                     </td>
@@ -181,6 +152,7 @@
                     <td ng-if="!producto.producto.tipoProducto">{{producto.producto.descripcion}}</td>
                     <td class="numeric" data-ng-bind="producto.cantidad"></td>
                     <td class="numeric">{{producto.factor}}</td>
+                    <td class="numeric">{{producto.iva}}</td>
                     <td class="numeric">
                         <span ng-show="producto.cantidad > 0">
                             <span>{{producto.producto.moneda}} </span>

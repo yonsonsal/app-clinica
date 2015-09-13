@@ -28,6 +28,7 @@
                             <th>Tipo de Producto</th>
                             <th>Stock Actual</th>
                             <th>Stock M&iacute;nimo</th>
+                            <th>IVA</th>
                             <th>Precio Actual</th>
                             <th>Opciones</th>
                         </tr>
@@ -42,6 +43,7 @@
                             <td data-title="Tipo de Producto" data-ng-bind="producto.tipoProducto.nombre"></td>
                             <td data-title="Stock Actual">{{producto.stockActual | number:2}}</td>
                             <td data-title="Stock M&iacute;nimo">{{producto.stockMinimo}}</td>
+                            <td data-title="Stock M&iacute;nimo">{{producto.iva}} %</td>
                             <td data-title="Precio">{{producto.moneda}} {{producto.precio}}</td>
                             <td data-title="Opciones" class="center-text col-lg-2">
                                 <a class="btn btn-success" href="/#!/productos/{{producto._id}}">

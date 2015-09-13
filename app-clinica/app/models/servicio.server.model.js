@@ -25,7 +25,10 @@ var ServicioSchema = new Schema({
         type: Number,
         required: 'El Precio del servicio es obligatorio'
     },
-
+		iva:{
+			type: Number,
+			default:22
+		},
     created: {
 		type: Date,
 		default: Date.now
