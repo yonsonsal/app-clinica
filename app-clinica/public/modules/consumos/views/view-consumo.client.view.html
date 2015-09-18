@@ -70,7 +70,7 @@
                         <th>Articulo/Servicio</th>
                         <th>Cantidad</th>
                         <th class="example-screen">Factor</th>
-                        <th class="example-screen">IVA</th>
+                        <th>IVA</th>
                         <th>UYU</th>
                         <th>USD</th>
                         </thead>
@@ -83,8 +83,8 @@
                             <td class="numeric" data-ng-bind="articulo.cantidad"></td>
                             <td class="numeric example-screen " >{{articulo.factor}}</td>
                             <td class="numeric" >
-                                <span ng-show="articulo.iva">{{articulo.iva}}</span>
-                                <span ng-show="!articulo.iva">22</span>
+                                <span ng-show="articulo.producto.iva">{{articulo.producto.iva}}</span>
+                                <span ng-show="!articulo.producto.iva">22</span>
                                 %</td>
 
                             <td class="numeric">
