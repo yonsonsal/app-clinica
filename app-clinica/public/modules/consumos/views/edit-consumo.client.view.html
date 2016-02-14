@@ -1,19 +1,173 @@
-<<section class="wrapper site-min-height" data-ng-controller="ConsumosController">
-    <h3><i class="fa fa-angle-right"></i>Editar Consumo</h3>
-    <div class="row">
-        <div class="col-md-12">
-            <form class="form-horizontal" data-ng-submit="update()" novalidate>
-            <fieldset>
-                <div class="form-group">
-                    <label class="control-label" for="name">Name</label>
-                    <div class="controls">
-                        <input type="text" data-ng-model="consumo.name" id="name" class="form-control" placeholder="Name" required>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <input type="submit" value="Guardar" class="btn btn-success">
-                </div>
-	        </fieldset>
-        </form>
-    </div>
+<section class="wrapper site-min-height " data-ng-controller="ConsumosController" data-ng-init="initEditConsumo()">
+    <h3><i class="fa fa-angle-right"></i>Editar Consumo {{consumo.fecha}}</h3>
+    <section class="">
+        <div class="row mt">
+            <section id="table-responsive-one">
+                <table class="table table-bordered table-striped table-condensed cf">
+                    <thead class="cf">
+                    <tr>
+                        <th>Fecha</th>
+                        <th>Persona</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td data-title="Fecha" class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                            <input class="form-control" id="fecha" type="date" ng-model="consumo.fecha" value={{consumo.fecha}} tabindex="1">
+                        </td>
+                        <td data-title="Persona" class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+
+                                <ui-select ng-model="consumo.persona " theme="bootstrap" tabindex="1">
+                                    <ui-select-match placeholder="Persona">{{$select.selected.nombre}}</ui-select-match>
+                                    <ui-select-choices repeat="item in personas | filter: $select.search">
+                                        <span ng-bind-html="item.nombre | highlight: $select.search"></span>
+                                        <small ng-bind-html="item.email | highlight: $select.search"></small>
+                                    </ui-select-choices>
+                                </ui-select>
+
+                        </td>
+
+                    </tr>
+                    </tbody>
+                </table>
+            </section>
+        </div><!-- /row -->
+
+        <div class="row mt">
+            <section id="table-responsive-two">
+                <table class="table table-bordered table-striped table-condensed cf">
+
+                    <thead class="cf">
+                    <tr>
+                        <th>#</th>
+                        <th>Tipo</th>
+                        <th>Articulo/Servicio</th>
+                        <th>Cantidad</th>
+                        <th>Factor</th>
+                        <th>IVA</th>
+                        <th>Precio</th>
+                        <th>Opciones</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td tabindex="2" id="switch-articulo">#</td>
+                        <td class="col-xs-12 col-sm-1 col-md-1 col-lg-1" id="changeTipoTd">
+                            <div class="animate-switch-container" ng-switch="tipoConsumo">
+                                <div class="animate-switch" ng-switch-when="false">
+                                    <div ng-click="changeTipo()" class="btn btn-switch btn-switch-si" tabindex="2" ng-space="changeTipo()">
+                                        <label> Articulo </label>
+                                    </div>
+                                </div>
+                                <div class="animate-switch" ng-switch-when="true">
+                                    <div ng-click="changeTipo()" class="btn btn-switch btn-switch-no" tabindex="2" ng-space="changeTipo()">
+                                        <label> Servicio </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="col-xs-12 col-sm-5 col-md-5 col-lg-5">
+                            <ui-select ng-model="newArticulo.producto" theme="bootstrap" ng-show="!tipoConsumo" ng-show="tipoConsumo" tabindex="2">
+                                <ui-select-match placeholder="Articulo">
+                                    <span class="badge fraccionable" ng-show="$select.selected.fraccionable" tooltip="Producto Fraccionable">F</span>
+                                    <span class="badge consumible" ng-show="$select.selected.consumible" tooltip="Producto Consumible">C</span>
+                                    {{$select.selected.nombre}} {{$select.selected.tipoProducto.nombre}}-{{$select.selected.fabricante.nombre}}-{{$select.selected.descripcion}}({{$select.selected.tamanio}})</ui-select-match>
+                                <ui-select-choices repeat="item in productos | filter: $select.search">
+                                    <span class="badge fraccionable" ng-show="item.fraccionable" tooltip="Producto Fraccionable">F</span>
+                                    <span class="badge consumible" ng-show="item.consumible" tooltip="Producto Consumible">C</span>
+                                    <span ng-bind-html="item.nombre | highlight: $select.search"></span>
+                                    <span>{{item.tipoProducto.nombre}}-{{item.fabricante.nombre}}-{{item.descripcion}}({{item.tamanio}})</span>
+                                    <small ng-bind-html="item.descripcion | highlight: $select.search"></small>
+                                </ui-select-choices>
+                            </ui-select>
+                            <ui-select ng-model="newArticulo.producto" theme="bootstrap" ng-show="tipoConsumo" tabindex="2">
+                                <ui-select-match placeholder="Servicio">{{$select.selected.descripcion}}Algo</ui-select-match>
+                                <ui-select-choices repeat="item in servicios | filter: $select.search">
+                                    <span ng-bind-html="item.descripcion | highlight: $select.search"></span>
+                                </ui-select-choices>
+                            </ui-select>
+                        </td>
+                        <td class="col-xs-12 col-sm-2 col-md-2 col-lg-2">
+                            <div class="input-group" ng-show="newArticulo.producto.fraccionable">
+                                <input class="form-control"
+                                       type="number"
+                                       name="cantidad"
+                                       step="2"
+                                       tooltip="El Producto es fraccionable, la cantidad esta expresada como porcentaje. El stock actual es {{ newArticulo.producto.stockActual}}; expresado en porcetaje es {{newArticulo.producto.stockActual * 100}}."
+                                       min="0"
+                                       max="{{newArticulo.producto.stockActual * 100}}"
+                                       ng-model="newArticulo.cantidad"
+                                       ng-disabled="!(newArticulo.producto)"
+                                       percent
+                                       tabindex="2">
+                                <div class="input-group-addon">%</div>
+                            </div>
+                            <div class="input-group hidden-addon" ng-show="!newArticulo.producto.fraccionable">
+                                <input class="form-control"
+                                       type="number"
+                                       name="cantidad"
+                                       step="2"
+                                       tooltip="El stock actual es {{ newArticulo.producto.stockActual}}"
+                                       min="0"
+                                       max="{{newArticulo.producto.stockActual}}"
+                                       ng-model="newArticulo.cantidad"
+                                       ng-disabled="!(newArticulo.producto)"
+                                       tabindex="2">
+                                <div class="input-group-addon">#</div>
+                            </div>
+                        </td>
+                        <td class="col-xs-12 col-sm-1 col-md-1 col-lg-1">
+                            <input class="form-control" ng-disabled="!newArticulo.producto.tipoProducto" type="number" name="factor" ng-model="newArticulo.producto.factorSobreCosto" tabindex="2"/>
+                        </td>
+                        <td class="col-xs-12 col-sm-1 col-md-1 col-lg-1">
+                            <div class="input-group hidden-addon">
+                                <input class="form-control" type="number" name="iva" ng-model="newArticulo.producto.iva" tabindex="2"/>
+                            </div>
+                        </td>
+                        <td class="col-xs-12 col-sm-2 col-md-2 col-lg-2">
+                            <div class="input-group hidden-addon">
+                                <input class="form-control" type="number" name="precio" ng-model="newArticulo.precio" tabindex="2"/>
+                                <div class="input-group-addon">{{newArticulo.producto.moneda}}</div>
+                            </div>
+                        </td>
+                        <td class="col-xs-12 col-sm-1 col-md-1 col-lg-1">
+                            <div ng-click="saveNewArticulo()" ng-enter="saveNewArticulo();" tooltip="Guardar artículo" ng-class="{'disabled-save-articulo': !isValidNewArticulo}" ng-disabled="!isValidNewArticulo" class="fa-icon save-articulo">
+                                <i class="fa fa-check-circle" tabindex="2"></i>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr data-ng-repeat="producto in consumo.productos">
+
+                        <td>{{$index+1}}</td>
+                        <td></td>
+                        <td ng-if="producto.producto.tipoProducto">
+                            <span class="badge fraccionable" ng-show="producto.producto.fraccionable" tooltip="Producto Fraccionable">F</span>
+                            <span class="badge consumible" ng-show="producto.producto.consumible" tooltip="Producto Consumible">C</span>
+                            {{producto.producto.nombre}} ({{producto.producto.tipoProducto.nombre}} - {{producto.producto.tamanio}})</td>
+                        <td ng-if="!producto.producto.tipoProducto">{{producto.producto.descripcion}}</td>
+                        <td class="numeric" data-ng-bind="producto.cantidad"></td>
+                        <td class="numeric">{{producto.factor}}</td>
+                        <td class="numeric">{{producto.producto.iva}}</td>
+                        <td class="numeric">
+                        <span ng-show="producto.cantidad > 0">
+                            <span>{{producto.producto.moneda}} </span>
+                            <span ng-show="producto.factor != '0'">{{producto.producto.precio * producto.cantidad * producto.factor | number : 2}}</span>
+                            <span ng-show="!producto.factor || producto.factor == '0'">{{producto.producto.precio * producto.cantidad | number : 2}}</span>
+                        </span>
+                        </td>
+                        <td>
+                            <div ng-click="deleteProducto($index)" class="fa-icon delete-articulo" tooltip="Borrar producto">
+                                <i class="fa fa-times-circle"></i>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </section>
+        </div><!-- /row -->
+        <div class="form-group">
+            <input type="button" class="btn btn-success" ng-click="updateConsumo2()" value="Update" ng-disabled="!enableSaveConsumo">
+            <input type="button" class="btn btn-default" value="Cancelar" ng-click="getToList()">
+        </div>
+    </section>
 </section>

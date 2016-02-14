@@ -8,7 +8,9 @@ var mongoose = require('mongoose'),
 	Consumo = mongoose.model('Consumo'),
     Producto = mongoose.model('Producto'),
 	_ = require('lodash'),
+    async = require('async'),
     http = require('http');
+
 
 /**
  * Create a Consumo
@@ -59,21 +61,61 @@ exports.read = function(req, res) {
  * Update a Consumo
  */
 exports.update = function(req, res) {
-	var consumo = req.consumo ;
+	var oldConsumo = req.consumo ;
+  var newConsumo = req.body;
 
-	consumo = _.extend(consumo , req.body);
+  var productos = {};
+  _(oldConsumo.productos ).forEach(function(oldArticulo){
+      if (oldArticulo.producto.tipoProducto && oldArticulo.producto.consumible) {
+        if (productos.hasOwnProperty(oldArticulo.producto._id)) {
+          productos[oldArticulo.producto._id] += oldArticulo.cantidad;
+        } else {
+          productos[oldArticulo.producto._id] = oldArticulo.cantidad;
+        }
+      }
+  });
+  _(newConsumo.productos ).forEach(function(articulo){
+    if (articulo.producto.tipoProducto && articulo.producto.consumible) {
+      if (productos.hasOwnProperty(articulo.producto._id)) {
+        productos[articulo.producto._id] -= articulo.cantidad;
+      } else {
+        productos[articulo.producto._id] = articulo.cantidad * -1;
+      }
+    }
+  });
 
-	consumo.save(function(err) {
-		if (err) {
-			return res.status(400).send({
-				message: errorHandler.getErrorMessage(err)
-			});
-		} else {
-			res.jsonp(consumo);
-		}
-	});
+  _(productos ).forEach(function(cant, productId){
+     updateProducto(productId, cant, function(){});
+  });
+  var consumo = _.extend ( oldConsumo, newConsumo );
+  consumo.save ( function ( err ) {
+    if ( err ) {
+      return res.status ( 400 ).send ( {
+        message : errorHandler.getErrorMessage ( err )
+      } );
+    } else {
+      res.jsonp ( consumo );
+    }
+  });
 };
 
+function updateProducto(productId, cant, callback) {
+
+  Producto.findById(productId).exec(
+      function (err, producto) {
+
+        //console.log('Update producto ', productId);
+        if (!err && producto && producto.consumible) {
+         producto.stockActual = producto.stockActual + cant;
+          producto.save(function (err) {
+            return callback(err);
+          });
+        } else {
+          return callback(err);
+        }
+      }
+  );
+}
 /**
  * Delete an Consumo
  */
@@ -81,14 +123,13 @@ exports.delete = function(req, res) {
 	var consumo = req.consumo ;
 
     consumo.productos.forEach(function(articulo){
-        console.log(articulo);
 
         if(articulo.producto.tipoProducto && articulo.producto.consumible) {
 
             if (articulo.producto.tipoProducto) {
                 Producto.findById(articulo.producto._id).exec(
                     function (err, producto) {
-                        console.log(producto);
+
                         if (!err && producto && producto.consumible) {
                             producto.stockActual = producto.stockActual + articulo.cantidad;
                             producto.save(function (err) {
@@ -96,12 +137,11 @@ exports.delete = function(req, res) {
                                     return res.status(400).send({
                                         message: errorHandler.getErrorMessage(err)
                                     });
-                                } else {
-
                                 }
                             });
                         }
-                    });
+                    }
+                );
             }
         }
     });

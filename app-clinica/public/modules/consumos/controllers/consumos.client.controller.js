@@ -74,7 +74,7 @@ angular.module('consumos').controller('ConsumosController', ['$scope', '$statePa
             $scope.newArticulo = {};
             $scope.newArticulo.producto = null;
 
-            $scope.personas = Personas.query(function(personas){
+            Personas.query(function(personas){
                 $scope.personas = personas;
                 var newPersona = Persona.getNewPersona();
                 if(newPersona !== null) {
@@ -236,7 +236,7 @@ angular.module('consumos').controller('ConsumosController', ['$scope', '$statePa
       });
     };
 		// Update existing Consumo
-		$scope.update = function() {
+		$scope.updateConsumo = function() {
 			var consumo = $scope.consumo;
             $scope.consumo.pago = true;
             $scope.viewPagoInterface = false;
@@ -246,6 +246,17 @@ angular.module('consumos').controller('ConsumosController', ['$scope', '$statePa
 				$scope.error = errorResponse.data.message;
 			});
 		};
+
+    $scope.updateConsumo2 = function() {
+      var consumo = $scope.consumo;
+      //$scope.consumo.pago = true;
+      //$scope.viewPagoInterface = false;
+      consumo.$update(function() {
+        $location.path('consumos/' + consumo._id);
+      }, function(errorResponse) {
+        $scope.error = errorResponse.data.message;
+      });
+    };
 
 		// Find a list of Consumos
 		$scope.find = function() {
@@ -278,6 +289,7 @@ angular.module('consumos').controller('ConsumosController', ['$scope', '$statePa
                   consumo.cotizacion = 1;
                 }
                 $scope.consumo = consumo;
+                $scope.consumo.fecha = $filter("date")(consumo.fecha, 'yyyy-MM-dd');
             });
 		};
 
@@ -287,5 +299,83 @@ angular.module('consumos').controller('ConsumosController', ['$scope', '$statePa
         $scope.print = function (){
             $window.print();
         }
+
+
+    $scope.initEditConsumo = function() {
+
+      $scope.consumo.persona = null;
+
+      $scope.findOne();
+      $scope.newPersonaState = false;
+      $scope.newArticulo = {};
+      $scope.newArticulo.producto = null;
+
+      Personas.query(function(personas){
+        $scope.personas = personas;
+        var newPersona = Persona.getNewPersona();
+        if(newPersona !== null) {
+          //  $scope.persona.selected = newPersona;
+          $scope.consumo.persona = newPersona;
+        }
+      });
+
+      Productos.query(function(productos){
+
+        var filteredProductos = [];
+        angular.forEach(productos, function(producto){
+
+          if (producto.stockActual > 0) {
+            filteredProductos.push(producto);
+          }
+        });
+        $scope.productos = filteredProductos;
+
+      });
+
+      Servicios.query(function(servicios){
+        $scope.servicios = servicios;
+      });
+
+      function calcularValorLinea () {
+        if ($scope.newArticulo != null && $scope.newArticulo.producto != null) {
+          $scope.newArticulo.precio = $scope.newArticulo.producto.precio * $scope.newArticulo.cantidad;
+
+          if ($scope.newArticulo.producto.factorSobreCosto > 0){
+            $scope.newArticulo.precio =  $scope.newArticulo.precio * $scope.newArticulo.producto.factorSobreCosto;
+          }
+
+          $scope.newArticulo.factor = $scope.newArticulo.producto.factorSobreCosto;
+          $scope.newArticulo.precio = roundNumber($scope.newArticulo.precio, 2);
+        }
+      }
+
+      $scope.$watch('newArticulo.producto', function(value){
+        calcularValorLinea();
+      });
+
+      $scope.$watch('newArticulo.producto.factorSobreCosto', function(value){
+        calcularValorLinea();
+      });
+
+      $scope.$watch('newArticulo.cantidad', function(value){
+        calcularValorLinea();
+      });
+
+      $scope.$watch('newArticulo', function(value){
+
+        $scope.isValidNewArticulo = false;
+        if (!angular.isDefined(value.producto)) {
+          $scope.error = 'Seleccioná un producto en el Nuevo artículo.';
+        }else if (!angular.isDefined(value.cantidad) || !value.cantidad > 0) {
+          $scope.error = 'Ingrese la cantidad de articulos.';
+        }else if(value.cantidad > value.producto.stockActual) {
+          $scope.error = 'La cantidad no puede ser mayor al stock actual del producto';
+        }else{
+          $scope.isValidNewArticulo = true;
+        }
+
+      }, true);
+
+    }
 	}
 ]);
