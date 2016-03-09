@@ -1,5 +1,5 @@
 <section class="wrapper site-min-height " data-ng-controller="ConsumosController" data-ng-init="initEditConsumo()">
-    <h3><i class="fa fa-angle-right"></i>Editar Consumo {{consumo.fecha}}</h3>
+    <h3><i class="fa fa-angle-right"></i>Editar Consumo</h3>
     <section class="">
         <div class="row mt">
             <section id="table-responsive-one">
@@ -13,7 +13,8 @@
                     <tbody>
                     <tr>
                         <td data-title="Fecha" class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-                            <input class="form-control" id="fecha" type="date" ng-model="consumo.fecha" value={{consumo.fecha}} tabindex="1">
+                            <!-- input class="form-control" id="fecha" type="date" ng-model="consumo.fecha" value={{consumo.fecha}} tabindex="1" -->
+                            {{consumo.fecha | date:'dd/MM/yyyy'}}
                         </td>
                         <td data-title="Persona" class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
 

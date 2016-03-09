@@ -289,7 +289,7 @@ angular.module('consumos').controller('ConsumosController', ['$scope', '$statePa
                   consumo.cotizacion = 1;
                 }
                 $scope.consumo = consumo;
-                $scope.consumo.fecha = $filter("date")(consumo.fecha, 'yyyy-MM-dd');
+                //$scope.consumo.fecha = $filter("date")(consumo.fecha, 'yyyy-MM-dd');
             });
 		};
 
