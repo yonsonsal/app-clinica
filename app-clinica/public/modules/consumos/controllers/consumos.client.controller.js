@@ -1,10 +1,11 @@
 'use strict';
 
 // Consumos controller
-angular.module('consumos').controller('ConsumosController', ['$scope', '$stateParams', '$location', 'Authentication', 'Consumos', 'Servicios', 'Personas', 'Productos', 'Persona', 'Consumo','$filter', '$window',
+angular.module('consumos').controller('ConsumosController',
+    ['$scope', '$stateParams', '$location', 'Authentication', 'Consumos', 'Servicios', 'Personas', 'Productos', 'Persona', 'Consumo','$filter', '$window',
 	function($scope, $stateParams, $location, Authentication, Consumos, Servicios, Personas, Productos, Persona, Consumo, $filter, $window) {
-		$scope.authentication = Authentication;
 
+        $scope.authentication = Authentication;
         $scope.consumo = {};
         $scope.consumo.productos = [];
 
@@ -18,6 +19,7 @@ angular.module('consumos').controller('ConsumosController', ['$scope', '$statePa
         $scope.mustEnterCotizacion = false;
         $scope.consumo.cotizacion = Consumo.getLastCotizacion();
         $scope.changePagoConsumo = function () {
+
             $scope.consumo.fechaPago = $filter("date")(Date.now(), 'yyyy-MM-dd');
             $scope.viewPagoInterface = true;
             //$scope.consumo.cotizacion = Consumo.getLastCotizacion();
@@ -289,7 +291,7 @@ angular.module('consumos').controller('ConsumosController', ['$scope', '$statePa
                   consumo.cotizacion = 1;
                 }
                 $scope.consumo = consumo;
-                //$scope.consumo.fecha = $filter("date")(consumo.fecha, 'yyyy-MM-dd');
+                $scope.consumo.fecha = $filter("date")(consumo.fecha, 'yyyy-MM-dd');
             });
 		};
 

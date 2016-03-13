@@ -31,17 +31,17 @@ angular.module('core').controller('HeaderController', ['$scope', 'Authentication
         });
     };
 }).directive('ngEnter', function() {
-        return function(scope, element, attrs) {
-            element.bind("keydown keypress", function(event) {
-                console.log(event);
-                if(event.which === 13) {
+    return function(scope, element, attrs) {
+        element.bind("keydown keypress", function(event) {
+            console.log(event);
+            if(event.which === 13) {
 
-                    scope.$apply(function(){
-                        scope.$eval(attrs.ngEnter, {'event': event});
-                    });
+                scope.$apply(function(){
+                    scope.$eval(attrs.ngEnter, {'event': event});
+                });
 
-                    event.preventDefault();
-                }
-            });
-        };
-    });
+                event.preventDefault();
+            }
+        });
+    };
+});

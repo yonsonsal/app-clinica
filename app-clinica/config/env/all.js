@@ -32,16 +32,17 @@ module.exports = {
 				'public/lib/angular-ui-router/release/angular-ui-router.js',
 				'public/lib/angular-ui-utils/ui-utils.js',
 				'public/lib/angular-bootstrap/ui-bootstrap-tpls.js',
-                'public/lib/angular-ui-select/dist/select.js',
-                'public/lib/jquery/dist/jquery.js',
-                'public/lib/bootstrap/dist/js/bootstrap.js',
-                'public/assets/theme/js/jquery-ui-1.9.2.custom.min.js',
-                'public/assets/theme/js/jquery.ui.touch-punch.min.js',
-                'public/assets/theme/js/jquery.dcjqaccordion.2.7.js',
-                'public/assets/theme/js/jquery.scrollTo.min.js',
-                'public/assets/theme/js/common-scripts.js',
-                'public/assets/theme/js/bootstrap-switch.js',
-                'public/assets/theme/js/form-component.js'
+				'public/lib/angular-i18n/angular-locale_es-uy.js',
+				'public/lib/angular-ui-select/dist/select.js',
+				'public/lib/jquery/dist/jquery.js',
+				'public/lib/bootstrap/dist/js/bootstrap.js',
+				'public/assets/theme/js/jquery-ui-1.9.2.custom.min.js',
+				'public/assets/theme/js/jquery.ui.touch-punch.min.js',
+				'public/assets/theme/js/jquery.dcjqaccordion.2.7.js',
+				'public/assets/theme/js/jquery.scrollTo.min.js',
+				'public/assets/theme/js/common-scripts.js',
+				'public/assets/theme/js/bootstrap-switch.js',
+				'public/assets/theme/js/form-component.js'
 			]
 		},
 		css: [

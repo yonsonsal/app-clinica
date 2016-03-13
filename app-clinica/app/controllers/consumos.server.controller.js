@@ -17,7 +17,16 @@ var mongoose = require('mongoose'),
  */
 exports.create = function(req, res) {
 	var consumo = new Consumo(req.body);
+  console.log(req.body);
 	consumo.user = req.user;
+  var aFecha =  req.body.fecha.split('T')[0].split('-');
+
+  console.log(aFecha);
+  var nuevaFecha = new Date();
+  nuevaFecha.setYear(aFecha[0]);
+  nuevaFecha.setMonth(aFecha[1] - 1);
+  nuevaFecha.setDate(aFecha[2]);
+  consumo.fecha = nuevaFecha;
 
     consumo.productos.forEach(function(producto){
         if (producto.producto.tipoProducto) {
@@ -63,7 +72,16 @@ exports.read = function(req, res) {
 exports.update = function(req, res) {
 	var oldConsumo = req.consumo ;
   var newConsumo = req.body;
+  console.log(oldConsumo.fecha);
+  console.log(newConsumo.fecha);
+  var aFecha =  newConsumo.fecha.split('T')[0].split('-');
 
+  console.log(aFecha);
+  var nuevaFecha = new Date();
+  nuevaFecha.setYear(aFecha[0]);
+  nuevaFecha.setMonth(aFecha[1] - 1);
+  nuevaFecha.setDate(aFecha[2]);
+  newConsumo.fecha = nuevaFecha;
   var productos = {};
   _(oldConsumo.productos ).forEach(function(oldArticulo){
       if (oldArticulo.producto.tipoProducto && oldArticulo.producto.consumible) {
