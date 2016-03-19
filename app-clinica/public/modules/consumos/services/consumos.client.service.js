@@ -25,6 +25,30 @@ angular.module('consumos').factory('Consumos', ['$resource',
         },
         getLastCotizacion: function() {
             return lastCotizacion;
+        },
+        calculateMontos: function (consumo) {
+          consumo.montoPesos = 0;
+          consumo.montoDollar = 0;
+          angular.forEach(consumo.productos, function(producto){
+            console.log(producto);
+            if (angular.isDefined(producto.producto)) {
+              if (producto.producto.moneda == 'UYU') {
+                if (producto.factor > 0) {
+                  consumo.montoPesos +=  producto.factor * producto.producto.precio * producto.cantidad;
+                } else {
+                  consumo.montoPesos += producto.producto.precio * producto.cantidad;
+                }
+              } else {
+                console.log(producto);
+                if (producto.factor > 0) {
+                  consumo.montoDollar += producto.factor * producto.producto.precio * producto.cantidad;
+                } else {
+                  consumo.montoDollar += producto.producto.precio * producto.cantidad;
+                }
+              }
+
+            }
+          });
         }
     }
 }]).directive('editInPlace', function() {

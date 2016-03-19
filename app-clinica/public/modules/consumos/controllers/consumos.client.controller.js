@@ -178,26 +178,7 @@ angular.module('consumos').controller('ConsumosController',
       consumo.persona = $scope.consumo.persona._id;
       consumo.montoPesos = 0;
       consumo.montoDollar = 0;
-      angular.forEach(consumo.productos, function(producto){
-          console.log(producto);
-          if (angular.isDefined(producto.producto)) {
-              if (producto.producto.moneda == 'UYU') {
-                  if (producto.factor > 0) {
-                      consumo.montoPesos +=  producto.factor * producto.producto.precio * producto.cantidad;
-                  } else {
-                      consumo.montoPesos += producto.producto.precio * producto.cantidad;
-                  }
-              } else {
-                  console.log(producto);
-                  if (producto.factor > 0) {
-                      consumo.montoDollar += producto.factor * producto.producto.precio * producto.cantidad;
-                  } else {
-                      consumo.montoDollar += producto.producto.precio * producto.cantidad;
-                  }
-              }
-
-          }
-      });
+      Consumo.calculateMontos(consumo);
 			var consumo = new Consumos (consumo);
            	// Redirect after save
 			consumo.$save(function(response) {
@@ -253,6 +234,7 @@ angular.module('consumos').controller('ConsumosController',
       var consumo = $scope.consumo;
       //$scope.consumo.pago = true;
       //$scope.viewPagoInterface = false;
+      Consumo.calculateMontos(consumo);
       consumo.$update(function() {
         $location.path('consumos/' + consumo._id);
       }, function(errorResponse) {
@@ -282,6 +264,7 @@ angular.module('consumos').controller('ConsumosController',
 
 		// Find existing Consumo
 		$scope.findOne = function() {
+      //console.log('algo');
 			Consumos.get({
 				consumoId: $stateParams.consumoId
 			}, function(consumo) {
